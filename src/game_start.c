@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-SDL_Surface		*load_texture(char *path, t_box *wolf)
+SDL_Surface			*load_texture(char *path, t_box *wolf)
 {
 	SDL_Surface		*tmp;
 	SDL_Surface		*image;
@@ -20,7 +20,7 @@ SDL_Surface		*load_texture(char *path, t_box *wolf)
 	tmp = SDL_LoadBMP(path);
 	if (tmp == NULL)
 	{
-		/*ft_putendl*/printf("Error while loading a %s texture file\n", path);
+		ft_putendl("Error while loading a texture file\n");
 		exit(1);
 	}
 	else
@@ -31,7 +31,7 @@ SDL_Surface		*load_texture(char *path, t_box *wolf)
 	return (image);
 }
 
-void	start_game(t_box *box, t_pic *pic, char *name)
+void				start_game(t_box *box, t_pic *pic, char *name)
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	box->wind = SDL_CreateWindow(name, 100, 100, WIND_W, WIND_H, 0);
@@ -45,22 +45,23 @@ void	start_game(t_box *box, t_pic *pic, char *name)
 	box->mapx = 0;
 	box->mapy = 0;
 	pic->this_pic = pic->this_picm0;
-	SDL_BlitSurface(pic->this_pic,  NULL, box->surf, NULL);
+	SDL_BlitSurface(pic->this_pic, NULL, box->surf, NULL);
 	SDL_UpdateWindowSurface(box->wind);
 	box->pic = pic;
 }
 
-void	lets_start_game(t_box *box)
+void				lets_start_game(t_box *box)
 {
 	add_textures(box);
 	while (box->event.type != SDL_QUIT)
 	{
 		SDL_WaitEvent(&box->event);
 		SDL_UpdateWindowSurface(box->wind);
-		if (box->event.type == SDL_QUIT || (box->event.type == SDL_KEYDOWN && box->event.key.keysym.sym == SDLK_ESCAPE))
+		if (box->event.type == SDL_QUIT || (box->event.type == SDL_KEYDOWN
+			&& box->event.key.keysym.sym == SDLK_ESCAPE))
 		{
 			exit(0);
-			break;
+			break ;
 		}
 		if (box->event.type == SDL_KEYDOWN)
 			key_push(box->event.key.keysym.sym, box);
@@ -70,7 +71,7 @@ void	lets_start_game(t_box *box)
 	}
 }
 
-void	add_textures(t_box *box)
+void				add_textures(t_box *box)
 {
 	box->txtrs[0] = load_texture("txtrs/bricks.bmp", box);
 	box->txtrs[1] = load_texture("txtrs/stone.bmp", box);

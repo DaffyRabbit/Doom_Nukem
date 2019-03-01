@@ -48,11 +48,11 @@ typedef struct		s_pic
 	int				ext;
 	int				b;
 	int				scale;
-	SDL_Surface			*this_pic;
-	SDL_Surface			*this_picm0;
-	SDL_Surface			*this_picm1;
-	SDL_Surface			*this_picm2;
-	SDL_Surface			*this_picbm;
+	SDL_Surface		*this_pic;
+	SDL_Surface		*this_picm0;
+	SDL_Surface		*this_picm1;
+	SDL_Surface		*this_picm2;
+	SDL_Surface		*this_picbm;
 }					t_pic;
 
 typedef struct		s_goparam
@@ -91,8 +91,8 @@ typedef struct		s_box
 	int				sitd;
 	int				tpos;
 	int				atpos;
-	SDL_Surface			*new_pic;
-	SDL_Surface			*npd;
+	SDL_Surface		*new_pic;
+	SDL_Surface		*npd;
 	int				npbpp;
 	int				npsl;
 	int				npend;
@@ -101,9 +101,9 @@ typedef struct		s_box
 	int				mapy;
 	int				uselessy;
 	int				**all_map;
-	SDL_Event			event;
-	SDL_Window			*wind;
-	SDL_Surface			*surf;
+	SDL_Event		event;
+	SDL_Window		*wind;
+	SDL_Surface		*surf;
 	int				start;
 	int				error;
 	double			scene;

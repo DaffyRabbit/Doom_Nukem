@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-void	some_pthreads(t_box *box)
+void			some_pthreads(t_box *box)
 {
 	t_box		this_is_sheet[8];
 	pthread_t	t[8];
@@ -35,9 +35,9 @@ void	some_pthreads(t_box *box)
 	}
 }
 
-void	*thi_is_raycast(void *his_is_sheet)
+void			*thi_is_raycast(void *his_is_sheet)
 {
-	t_box	box;
+	t_box		box;
 
 	box = *(t_box *)his_is_sheet;
 	while (box.atpos < box.tpos && box.atpos < WIND_W)
@@ -52,8 +52,11 @@ void	*thi_is_raycast(void *his_is_sheet)
 	return (0);
 }
 
-void	colorize_this(t_box *box)
+void			colorize_this(t_box *box)
 {
+	int			a;
+
+	a = box->coloriz;
 	if (box->atpos < WIND_W && box->btpos < WIND_H)
-		((int *)box->surf->pixels)[box->btpos * WIND_W + box->atpos] = box->coloriz;
+		((int *)box->surf->pixels)[box->btpos * WIND_W + box->atpos] = a;
 }

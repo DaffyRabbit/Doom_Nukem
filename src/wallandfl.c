@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-void	some_blocks(t_box *box)
+void		some_blocks(t_box *box)
 {
 	box->tir.pl.x += box->tir.fold.x < 0 ? 1 : 0;
 	box->tir.pl.y += box->tir.fold.y < 0 ? 1 : 0;
@@ -32,15 +32,19 @@ void	some_blocks(t_box *box)
 	box->block.bb = box->block.bb > WIND_H ? WIND_H : box->block.bb;
 }
 
-void	add_txtrs(t_box *box, int x, int y)
+void		add_txtrs(t_box *box, int x, int y)
 {
+	int		a;
+
+	a = 0;
 	if (box->atpos < WIND_W && box->btpos < WIND_H)
 	{
-		((int *)box->surf->pixels)[box->btpos * WIND_W + box->atpos] = ((int *)box->txtrs[box->a]->pixels)[y * 64 + x];
+		a = ((int *)box->txtrs[box->a]->pixels)[y * 64 + x];
+		((int *)box->surf->pixels)[box->btpos * WIND_W + box->atpos] = a;
 	}
 }
 
-void	print_walls(t_box *box)
+void		print_walls(t_box *box)
 {
 	if (box->block.bs == 0 && box->tir.fold.x > 0)
 		box->a = 0;
@@ -58,7 +62,8 @@ void	print_walls(t_box *box)
 	box->btpos = box->block.bt;
 	while (box->btpos < box->block.bb)
 	{
-		box->paramtext.y = (box->btpos * 256 - WIND_H * 128 + 128 * (box->block.bh) * ((-box->go.lop + 1))) - box->ogo.lop * 256;
+		box->paramtext.y = (box->btpos * 256 - WIND_H * 128 + 128 *
+			(box->block.bh) * ((-box->go.lop + 1))) - box->ogo.lop * 256;
 		box->paramtext.y = ((box->paramtext.y * 64) / box->block.bh) / 256;
 		box->paramtext.y = abs(box->paramtext.y) % 64;
 		add_txtrs(box, box->paramtext.x, box->paramtext.y);
@@ -66,7 +71,7 @@ void	print_walls(t_box *box)
 	}
 }
 
-void	up_and_down(t_box *box)
+void		up_and_down(t_box *box)
 {
 	box->coloriz = 0x2F4F4F;
 	box->btpos = box->block.bb;

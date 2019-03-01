@@ -12,26 +12,28 @@
 
 #include "wolf3d.h"
 
-int		main(void)
+int				main(void)
 {
-	t_box	box;
-	t_pic	pic;
+	t_box		box;
+	t_pic		pic;
+	SDL_Event	evnt;
 
 	box.go.south = 0;
 	start_game(&box, &pic, "Doom-Nukem");
-	while (box.event.type != SDL_QUIT)
+	evnt = box.event;
+	while (evnt.type != SDL_QUIT)
 	{
-		SDL_WaitEvent(&box.event);
+		SDL_WaitEvent(&evnt);
 		SDL_UpdateWindowSurface(box.wind);
-		if (box.event.type == SDL_QUIT || (box.event.type == SDL_KEYDOWN && box.event.key.keysym.sym == SDLK_ESCAPE))
+		if (evnt.type == SDL_QUIT || (evnt.type == SDL_KEYDOWN &&
+			evnt.key.keysym.sym == SDLK_ESCAPE))
 		{
 			exit(0);
-			break;
+			break ;
 		}
-		menu_keys(box.event.key.keysym.sym, &box);
-		if (box.event.type == SDL_MOUSEBUTTONDOWN || box.event.type == SDL_MOUSEMOTION)
-			menu_mouse(box.event.button.button, box.event.motion.x, box.event.motion.y, &box);
+		menu_keys(evnt.key.keysym.sym, &box);
+		if (evnt.type == SDL_MOUSEBUTTONDOWN || evnt.type == SDL_MOUSEMOTION)
+			menu_mouse(evnt.button.button, evnt.motion.x, evnt.motion.y, &box);
 	}
 	return (0);
 }
-

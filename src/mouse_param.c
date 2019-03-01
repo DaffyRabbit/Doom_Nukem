@@ -17,22 +17,22 @@ void	change_map(t_box *box)
 	if (box->start == 1)
 	{
 		box->pic->this_pic = box->pic->this_picm0;
-		SDL_BlitSurface(box->pic->this_pic,  NULL, box->surf, NULL);
+		SDL_BlitSurface(box->pic->this_pic, NULL, box->surf, NULL);
 	}
 	if (box->start == 2)
 	{
 		box->pic->this_pic = box->pic->this_picm1;
-		SDL_BlitSurface(box->pic->this_pic,  NULL, box->surf, NULL);
+		SDL_BlitSurface(box->pic->this_pic, NULL, box->surf, NULL);
 	}
 	if (box->start == 3)
 	{
 		box->pic->this_pic = box->pic->this_picm2;
-		SDL_BlitSurface(box->pic->this_pic,  NULL, box->surf, NULL);
+		SDL_BlitSurface(box->pic->this_pic, NULL, box->surf, NULL);
 	}
 	if (box->start == 0)
 	{
 		box->pic->this_pic = box->pic->this_picbm;
-		SDL_BlitSurface(box->pic->this_pic,  NULL, box->surf, NULL);
+		SDL_BlitSurface(box->pic->this_pic, NULL, box->surf, NULL);
 	}
 }
 
