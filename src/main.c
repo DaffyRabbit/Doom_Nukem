@@ -18,7 +18,7 @@ int		main(void)
 	t_pic	pic;
 
 	box.go.south = 0;
-	start_game(&box, &pic, "Wolf3d");
+	start_game(&box, &pic, "Doom-Nukem");
 	while (box.event.type != SDL_QUIT)
 	{
 		SDL_WaitEvent(&box.event);
