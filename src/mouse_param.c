@@ -19,17 +19,17 @@ void	change_map(t_box *box)
 		box->pic->this_pic = box->pic->this_picm0;
 		SDL_BlitSurface(box->pic->this_pic, NULL, box->surf, NULL);
 	}
-	if (box->start == 2)
+	else if (box->start == 2)
 	{
 		box->pic->this_pic = box->pic->this_picm1;
 		SDL_BlitSurface(box->pic->this_pic, NULL, box->surf, NULL);
 	}
-	if (box->start == 3)
+	else if (box->start == 3)
 	{
 		box->pic->this_pic = box->pic->this_picm2;
 		SDL_BlitSurface(box->pic->this_pic, NULL, box->surf, NULL);
 	}
-	if (box->start == 0)
+	else if (box->start == 0)
 	{
 		box->pic->this_pic = box->pic->this_picbm;
 		SDL_BlitSurface(box->pic->this_pic, NULL, box->surf, NULL);
@@ -45,17 +45,17 @@ int		menu_mouse(int code, int x, int y, t_box *box)
 			box->start = 1;
 			change_map(box);
 		}
-		if ((x > 1030 && x < 1140) && (y > 120 && y < 160))
+		else if ((x > 1030 && x < 1140) && (y > 120 && y < 160))
 		{
 			box->start = 2;
 			change_map(box);
 		}
-		if ((x > 1030 && x < 1140) && (y > 174 && y < 215))
+		else if ((x > 1030 && x < 1140) && (y > 174 && y < 215))
 		{
 			box->start = 3;
 			change_map(box);
 		}
-		if ((x > 565 && x < 710) && (y > 470 && y < 520))
+		else if ((x > 565 && x < 710) && (y > 470 && y < 520))
 			exit_this();
 		menu_mouse_click(x, y, box);
 	}
@@ -81,7 +81,7 @@ int		menu_mouse_click(int x, int y, t_box *box)
 			box->cam.d.y = 0;
 			box->cam.p.x = 0;
 			box->cam.p.y = 0.6;
-			box->go.spd = 0.05;
+			box->go.spd = 0.02;
 			lets_start_game(box);
 		}
 	}

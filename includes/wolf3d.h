@@ -23,6 +23,7 @@
 
 # define WIND_W		1280
 # define WIND_H		720
+# define KEY_CODE	265
 
 typedef struct		s_listparam
 {
@@ -57,6 +58,7 @@ typedef struct		s_pic
 
 typedef struct		s_goparam
 {
+	double			rot_spd;
 	float			spd;
 	int				insky;
 	int				tohell;
@@ -101,7 +103,6 @@ typedef struct		s_box
 	int				mapy;
 	int				uselessy;
 	int				**all_map;
-	SDL_Event		event;
 	SDL_Window		*wind;
 	SDL_Surface		*surf;
 	int				start;
@@ -112,6 +113,7 @@ typedef struct		s_box
 	int				coloriz;
 	t_pic			*pic;
 	SDL_Surface		*txtrs[8];
+	int				keys[KEY_CODE];
 	t_cam			cam;
 	t_goparam		go;
 	t_tir			tir;
@@ -144,10 +146,11 @@ void				add_textures(t_box *box);
 void				for_cam(int code, t_box *box, int i);
 void				for_go(int code, t_box *box, int i);
 int					key_rele(int code, t_box *box);
-int					key_push(int code, t_box *box);
+int					key_push(t_box *box);
 int					paint_this(t_box *box);
-void				just_travel(t_box *box);
-void				go_and_west(t_box *box);
+void				just_travel_s(t_box *box, double x, double y, double d_x, double d_y);
+void				just_travel_w(t_box *box, double x, double y, double d_x, double d_y);
+void				go_and_west(t_box *box, double x, double y, double p_x, double p_y);
 void				some_rotation(t_box *box);
 void				ttsky_and_sit(t_box *box);
 void				this_is_castingray(t_box *box);

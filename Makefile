@@ -55,23 +55,27 @@ obj:
 	mkdir -p $(OBJ_P)
 
 $(OBJ_P)%.o:$(SRC_P)%.c $(HEADER)
-	$(CC)  $(INC_MLX) $(INC_LIB) -I $(INC_P) -o $@ -c $<
+	@$(CC)  $(INC_MLX) $(INC_LIB) -I $(INC_P) -o $@ -c $<
+	@printf "Compiling $@\n"
 
 $(ADD_LIB):
-	make -C $(LIB_P)
+	@make -C $(LIB_P)
 
 
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(INC_MLX) $(LNK_MLX) $(LNK_LIB) -lm -o $(NAME)
+	@$(CC) $(OBJ) $(INC_MLX) $(LNK_MLX) $(LNK_LIB) -lm -o $(NAME)
+	@printf '\033[32m[ Done ] %s\n\033[0m'
 
 clean:
-	rm -rf $(OBJ_P)
-	make -C $(LIB_P) clean
+	@rm -rf $(OBJ_P)
+	@make -C $(LIB_P) clean
+	@printf '\033[31m[ clean ] %s\n\033[0m'
 
 fclean: clean
-	rm -rf $(NAME)
-	make -C $(LIB_P) fclean
+	@rm -rf $(NAME)
+	@make -C $(LIB_P) fclean
+	@printf '\033[31m[ fclean ] %s\n\033[0m'
 
 re: fclean all
 

@@ -33,7 +33,9 @@ SDL_Surface			*load_texture(char *path, t_box *wolf)
 
 void				start_game(t_box *box, t_pic *pic, char *name)
 {
-	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_Event		evnt;
+
+	SDL_Init(SDL_INIT_VIDEO);
 	box->wind = SDL_CreateWindow(name, 100, 100, WIND_W, WIND_H, 0);
 	box->surf = SDL_GetWindowSurface(box->wind);
 	pic->this_picm0 = load_texture("txtrs/menu0.bmp", box);
@@ -48,26 +50,40 @@ void				start_game(t_box *box, t_pic *pic, char *name)
 	SDL_BlitSurface(pic->this_pic, NULL, box->surf, NULL);
 	SDL_UpdateWindowSurface(box->wind);
 	box->pic = pic;
+	while (1)
+	{
+		SDL_PollEvent(&evnt);
+		SDL_UpdateWindowSurface(box->wind);
+		menu_keys(evnt.key.keysym.sym, box);
+		if (evnt.type == SDL_MOUSEBUTTONDOWN || evnt.type == SDL_MOUSEMOTION)
+			menu_mouse(evnt.button.button, evnt.motion.x, evnt.motion.y, box);
+	}
 }
 
 void				lets_start_game(t_box *box)
 {
+	int				a;
+	SDL_Event		evnt;
+
 	add_textures(box);
-	while (box->event.type != SDL_QUIT)
+	while (1)
 	{
-		SDL_WaitEvent(&box->event);
-		SDL_UpdateWindowSurface(box->wind);
-		if (box->event.type == SDL_QUIT || (box->event.type == SDL_KEYDOWN
-			&& box->event.key.keysym.sym == SDLK_ESCAPE))
+		while (SDL_PollEvent(&evnt))
 		{
-			exit(0);
-			break ;
+			a = evnt.key.keysym.scancode;
+			if (evnt.type == SDL_QUIT || (evnt.type == SDL_KEYDOWN &&
+			evnt.key.keysym.sym == SDLK_ESCAPE))
+			{
+				exit(0);
+				break ;
+			}
+			if (evnt.type == SDL_KEYDOWN && a < KEY_CODE)
+				box->keys[a] = 1;
+			else if (evnt.type == SDL_KEYUP && a < KEY_CODE)
+				box->keys[a] = 0;
+			key_push(box);
 		}
-		if (box->event.type == SDL_KEYDOWN)
-			key_push(box->event.key.keysym.sym, box);
-		if (box->event.type == SDL_KEYUP)
-			key_rele(box->event.key.keysym.sym, box);
-		paint_this(box);
+			paint_this(box);
 	}
 }
 
