@@ -39,7 +39,8 @@ void		add_txtrs(t_box *box, int x, int y)
 	a = 0;
 	if (box->atpos < WIND_W && box->btpos < WIND_H)
 	{
-		a = ((int *)box->txtrs[box->a]->pixels)[y * 64 + x];
+		// >WARNINGS< тут реба щось змінити, але я вже засипаю((
+		a = ((int *)box->this_txtr.pixels)[y * 64 + x];
 		((int *)box->surf->pixels)[box->btpos * WIND_W + box->atpos] = a;
 	}
 }
@@ -47,13 +48,13 @@ void		add_txtrs(t_box *box, int x, int y)
 void		print_walls(t_box *box)
 {
 	if (box->block.bs == 0 && box->tir.fold.x > 0)
-		box->a = 0;
+		box->this_txtr = findeimg(1, box->txtr);
 	if (box->block.bs == 0 && box->tir.fold.x < 0)
-		box->a = 1;
+		box->this_txtr = findeimg(2, box->txtr);
 	if (box->block.bs == 1 && box->tir.fold.y > 0)
-		box->a = 2;
+		box->this_txtr = findeimg(3, box->txtr);
 	if (box->block.bs == 1 && box->tir.fold.y < 0)
-		box->a = 3;
+		box->this_txtr = findeimg(4, box->txtr);
 	box->block.btouch = box->block.bs == 0 ?
 		box->cam.position.y + box->block.bd * box->tir.fold.y :
 		box->cam.position.x + box->block.bd * box->tir.fold.x;

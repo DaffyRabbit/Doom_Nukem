@@ -15,11 +15,17 @@
 
 # include "libft.h"
 # include "SDL.h"
+# include "SDL_ttf.h"
+# include "SDL_mixer.h"
+# include "SDL_image.h"
 # include <pthread.h>
 # include <math.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+// WARNING
+# include <stdio.h>
+# include <dirent.h>
 
 # define WIND_W		1280
 # define WIND_H		720
@@ -42,18 +48,6 @@ typedef struct		s_cam
 	t_listparam		d;
 	t_listparam		p;
 }					t_cam;
-
-typedef struct		s_pic
-{
-	int				ext;
-	int				b;
-	int				scale;
-	SDL_Surface		*this_pic;
-	SDL_Surface		*this_picm0;
-	SDL_Surface		*this_picm1;
-	SDL_Surface		*this_picm2;
-	SDL_Surface		*this_picbm;
-}					t_pic;
 
 typedef struct		s_goparam
 {
@@ -84,14 +78,31 @@ typedef struct		s_block
 	double			btouch;
 }					t_block;
 
+typedef struct		s_texture
+{
+	int 				code;
+	void				*pixels;
+	int w;
+	int h;
+	int pitch;
+	SDL_Texture 		*img;
+	struct s_texture	*next;
+}					t_texture;
+
 typedef struct		s_box
 {
+	char			*ch_map;
+	char			**maplist;
+	char			**alltxtr;
+	t_texture		*txtr;
+	t_texture		this_txtr;
+	t_texture		*images;
+	SDL_Renderer 	*renderer;
 	int				ttsky2;
 	int				ttsky;
 	int				sitd;
 	int				tpos;
 	int				atpos;
-	SDL_Surface		*new_pic;
 	SDL_Surface		*npd;
 	int				npbpp;
 	int				npsl;
@@ -104,14 +115,11 @@ typedef struct		s_box
 	SDL_Event		event;
 	SDL_Window		*wind;
 	SDL_Surface		*surf;
-	int				start;
 	int				error;
 	double			scene;
 	int				a;
 	int				btpos;
 	int				coloriz;
-	t_pic			*pic;
-	SDL_Surface		*txtrs[8];
 	t_cam			cam;
 	t_goparam		go;
 	t_tir			tir;
@@ -121,14 +129,31 @@ typedef struct		s_box
 	int				exit;
 }					t_box;
 
-int					menu_mouse(int code, int x, int y, t_box *box);
+void ApplyTexture(int x, int y, t_box *box);
+void chose_map(int x, int y, int *z, int *c, int f);
+int  add_map_list(t_box **box, int l, int z, int c);
+void Loadtxtr(t_box ***box, char *file, int f);
+int finde_slote(t_box *t);
+int ft_syscode(char *file);
+char	*add_name(char *file, char f);
+t_texture findeimg(int c, t_texture *txtr);
+SDL_Texture* renderText(char *message, char *fontFile, SDL_Color color, int fontSize, SDL_Renderer *renderer);
+SDL_Texture* LoadImage(char *file, t_box *box, t_texture **new_txtr);
+void ApplySurface(int x, int y, int w, int h, SDL_Texture *tex, SDL_Renderer *rend);
+void	add_textures_and_mapl(t_box **box);
+char	**add_map_to_list(DIR *dfd, int x);
+int how_many_files(DIR *dfd, char *f);
+int	ft_chek_tfile(char *str);
+int ft_chek_sys(t_texture *t);
+int find_tx(char *name, char **list);
+void	add_resources(t_box *box);
+void	fatal_error(int er, t_box *box);
+void	add_menu(t_box *box);
 int					exit_this(void);
 void				all_destroy(t_box *box);
 int					menu_keys(int code, t_box *box);
-void				start_game(t_box *box, t_pic *pic, char *name);
 int					main(void);
-void				change_map(t_box *box);
-int					open_map(t_box *box);
+void					open_map(t_box *box);
 int					ft_check_all(t_box *box);
 int					check_wrong(t_box *box);
 int					check_c(char *str);
@@ -140,7 +165,6 @@ void				some_pthreads(t_box *box);
 void				*thi_is_raycast(void *box);
 void				colorize_this(t_box *box);
 void				lets_start_game(t_box *box);
-void				add_textures(t_box *box);
 void				for_cam(int code, t_box *box, int i);
 void				for_go(int code, t_box *box, int i);
 int					key_rele(int code, t_box *box);
@@ -157,6 +181,5 @@ void				add_txtrs(t_box *box, int x, int y);
 void				print_walls(t_box *box);
 void				up_and_down(t_box *box);
 int					small_map(t_box *box);
-int					menu_mouse_click(int x, int y, t_box *box);
 
 #endif

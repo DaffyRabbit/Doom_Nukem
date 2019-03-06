@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bonus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arykov <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: arykov <arykov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 13:38:05 by arykov            #+#    #+#             */
-/*   Updated: 2018/11/30 13:41:04 by arykov           ###   ########.fr       */
+/*   Updated: 2019/03/06 04:18:28 by arykov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ void			colorize_this(t_box *box)
 	int			a;
 
 	a = box->coloriz;
-	if (box->atpos < WIND_W && box->btpos < WIND_H)
-		((int *)box->surf->pixels)[box->btpos * WIND_W + box->atpos] = a;
+	// if (box->atpos < WIND_W && box->btpos < WIND_H)
+	// 	((int *)box->surf->pixels)[box->btpos * WIND_W + box->atpos] = a;
 }

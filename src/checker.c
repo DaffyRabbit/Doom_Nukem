@@ -12,15 +12,9 @@
 
 #include "wolf3d.h"
 
-int		open_map(t_box *box)
+void		open_map(t_box *box)
 {
-	if (box->start == 1)
-		box->map_fd = open("maps/map0", O_RDONLY);
-	else if (box->start == 2)
-		box->map_fd = open("maps/map1", O_RDONLY);
-	else if (box->start == 3)
-		box->map_fd = open("maps/map2", O_RDONLY);
-	return (box->map_fd);
+	box->map_fd = open(box->ch_map, O_RDONLY);
 }
 
 int		ft_check_all(t_box *box)
@@ -55,7 +49,8 @@ int		check_wrong(t_box *box)
 {
 	char	*line;
 
-	if (open_map(box) == -1)
+	open_map(box);
+	if (box->map_fd == -1)
 		return (box->error = -2);
 	if (get_next_line(box->map_fd, &line) == 0)
 		return (box->error = -3);

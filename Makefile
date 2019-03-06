@@ -17,14 +17,16 @@ NAME = wolf3d
 SRC_N			= main.c\
 				  exit.c\
 				  game_start.c\
-				  mouse_param.c\
 				  keys_param.c\
 				  checker.c\
 				  map_checker.c\
 				  bonus.c\
 				  painting.c\
 				  tiray.c\
-				  wallandfl.c
+				  wallandfl.c\
+				  add_all.c\
+				  error_list.c\
+				  sdl_helper.c
 
 SRC_P 			= ./src/
 OBJ 			= $(addprefix $(OBJ_P),$(SRC_N:.c=.o))
@@ -42,12 +44,12 @@ LNK_LIB			= -L ./libft -l ft
 
 # mlx
 
-INC_MLX			= -I ./frameworks/SDL2.framework/Headers/ -F ./frameworks/
-LNK_MLX			= -framework SDL2 -rpath frameworks
+INC_MLX			= -I ./frameworks/SDL2.framework/Headers/ -F ./frameworks/ -I ./frameworks/SDL2_ttf.framework/Headers -F frameworks/ -I ./frameworks/SDL2_mixer.framework/Headers  -F frameworks/ -I ./frameworks/SDL2_image.framework/Headers  -F frameworks/
+LNK_MLX			= -framework SDL2 -rpath frameworks -framework SDL2_ttf -framework SDL2_mixer -rpath frameworks -framework SDL2_image -rpath frameworks
 
 # compiler
 
-CC 				= gcc -g -Wall -Wextra -Werror
+CC 				= gcc -g #-Wall -Wextra -Werror
 
 all: obj $(ADD_LIB) $(NAME)
 
