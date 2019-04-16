@@ -24,7 +24,9 @@ SRC_N			= main.c\
 				  bonus.c\
 				  painting.c\
 				  tiray.c\
-				  wallandfl.c
+				  wallandfl.c\
+				  mouse_control.c\
+				  HUD.c
 
 SRC_P 			= ./src/
 OBJ 			= $(addprefix $(OBJ_P),$(SRC_N:.c=.o))
@@ -42,12 +44,11 @@ LNK_LIB			= -L ./libft -l ft
 
 # mlx
 
-INC_MLX			= -I ./frameworks/SDL2.framework/Headers/ -F ./frameworks/
-LNK_MLX			= -framework SDL2 -rpath frameworks
-
+INC_MLX			= -I ./frameworks/SDL2.framework/Headers/ -I ./frameworks/SDL2_image.framework/Headers/ -F ./frameworks/  
+LNK_MLX			=  -framework SDL2  -rpath frameworks  -L ./frameworks/SDL2_image.framework/Headers/  -framework SDL2_image
 # compiler
 
-CC 				= gcc -g -Wall -Wextra -Werror
+CC 				= gcc -g  -Wall -Wextra -Werror
 
 all: obj $(ADD_LIB) $(NAME)
 
@@ -55,23 +56,27 @@ obj:
 	mkdir -p $(OBJ_P)
 
 $(OBJ_P)%.o:$(SRC_P)%.c $(HEADER)
-	$(CC)  $(INC_MLX) $(INC_LIB) -I $(INC_P) -o $@ -c $<
+	@$(CC)  $(INC_MLX) $(INC_LIB) -I $(INC_P) -o $@ -c $<
+	@printf "Compiling $@\n"
 
 $(ADD_LIB):
-	make -C $(LIB_P)
+	@make -C $(LIB_P)
 
 
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(INC_MLX) $(LNK_MLX) $(LNK_LIB) -lm -o $(NAME)
+	@$(CC) $(OBJ) $(INC_MLX) $(LNK_MLX) $(LNK_LIB)  -lm -o $(NAME)  
+	@printf '\033[32m[ Done ] %s\n\033[0m'
 
 clean:
-	rm -rf $(OBJ_P)
-	make -C $(LIB_P) clean
+	@rm -rf $(OBJ_P)
+	@make -C $(LIB_P) clean
+	@printf '\033[31m[ clean ] %s\n\033[0m'
 
 fclean: clean
-	rm -rf $(NAME)
-	make -C $(LIB_P) fclean
+	@rm -rf $(NAME)
+	@make -C $(LIB_P) fclean
+	@printf '\033[31m[ fclean ] %s\n\033[0m'
 
 re: fclean all
 
