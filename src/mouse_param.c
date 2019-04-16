@@ -15,25 +15,13 @@
 void	change_map(t_box *box)
 {
 	if (box->start == 1)
-	{
 		box->pic->this_pic = box->pic->this_picm0;
-		SDL_BlitSurface(box->pic->this_pic, NULL, box->surf, NULL);
-	}
 	else if (box->start == 2)
-	{
 		box->pic->this_pic = box->pic->this_picm1;
-		SDL_BlitSurface(box->pic->this_pic, NULL, box->surf, NULL);
-	}
 	else if (box->start == 3)
-	{
 		box->pic->this_pic = box->pic->this_picm2;
-		SDL_BlitSurface(box->pic->this_pic, NULL, box->surf, NULL);
-	}
 	else if (box->start == 0)
-	{
 		box->pic->this_pic = box->pic->this_picbm;
-		SDL_BlitSurface(box->pic->this_pic, NULL, box->surf, NULL);
-	}
 }
 
 int		menu_mouse(int code, int x, int y, t_box *box)
@@ -58,6 +46,7 @@ int		menu_mouse(int code, int x, int y, t_box *box)
 		else if ((x > 565 && x < 710) && (y > 470 && y < 520))
 			exit_this();
 		menu_mouse_click(x, y, box);
+		box->texture = SDL_CreateTextureFromSurface(box->rend, box->pic->this_pic);
 	}
 	return (0);
 }
@@ -74,7 +63,6 @@ int		menu_mouse_click(int x, int y, t_box *box)
 		}
 		else
 		{
-			ft_memset(box->surf->pixels, 255, WIND_W * WIND_H * sizeof(int));
 			close(box->map_fd);
 			box->error = 1;
 			box->cam.d.x = 1;

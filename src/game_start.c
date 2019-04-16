@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-SDL_Surface			*load_texture(char *path, t_box *wolf)
+SDL_Surface		*load_texture(char *path, t_box *wolf)
 {
 	SDL_Surface		*tmp;
 	SDL_Surface		*image;
@@ -21,11 +21,12 @@ SDL_Surface			*load_texture(char *path, t_box *wolf)
 	if (tmp == NULL)
 	{
 		ft_putendl("Error while loading a texture file\n");
+		all_destroy(wolf);
 		exit(1);
 	}
 	else
 	{
-		image = SDL_ConvertSurfaceFormat(tmp, wolf->surf->format->format, 0);
+		image = SDL_ConvertSurfaceFormat(tmp, SDL_PIXELFORMAT_ARGB8888, 0);
 		SDL_FreeSurface(tmp);
 	}
 	return (image);
@@ -37,7 +38,7 @@ void				start_game(t_box *box, t_pic *pic, char *name)
 
 	SDL_Init(SDL_INIT_VIDEO);
 	box->wind = SDL_CreateWindow(name, 100, 100, WIND_W, WIND_H, 0);
-	box->surf = SDL_GetWindowSurface(box->wind);
+	box->rend = SDL_CreateRenderer(box->wind, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 	pic->this_picm0 = load_texture("txtrs/menu0.bmp", box);
 	pic->this_picm1 = load_texture("txtrs/menu1.bmp", box);
 	pic->this_picm2 = load_texture("txtrs/menu2.bmp", box);
@@ -46,17 +47,21 @@ void				start_game(t_box *box, t_pic *pic, char *name)
 	box->error = 0;
 	box->mapx = 0;
 	box->mapy = 0;
+	box->mirror_effect = 0;
+	box->light_power = 1.0;
+	box->no_shadow = 0;
 	pic->this_pic = pic->this_picm0;
-	SDL_BlitSurface(pic->this_pic, NULL, box->surf, NULL);
-	SDL_UpdateWindowSurface(box->wind);
+	box->texture = SDL_CreateTextureFromSurface(box->rend, pic->this_pic);
 	box->pic = pic;
 	while (1)
 	{
 		SDL_PollEvent(&evnt);
-		SDL_UpdateWindowSurface(box->wind);
+		SDL_RenderClear(box->rend);
 		menu_keys(evnt.key.keysym.sym, box);
 		if (evnt.type == SDL_MOUSEBUTTONDOWN || evnt.type == SDL_MOUSEMOTION)
 			menu_mouse(evnt.button.button, evnt.motion.x, evnt.motion.y, box);
+		SDL_RenderCopy(box->rend, box->texture, NULL, NULL );
+		SDL_RenderPresent(box->rend);
 	}
 }
 
@@ -66,6 +71,15 @@ void				lets_start_game(t_box *box)
 	SDL_Event		evnt;
 
 	add_textures(box);
+	box->main_t = SDL_CreateTexture(box->rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, WIND_W, WIND_H);
+	box->pixels = (Uint32 *)malloc(sizeof(Uint32) * WIND_H * WIND_W);
+	///////////
+	Uint32 start = 0;
+	Uint32 delta = 0;
+	Uint32 fps = 0;
+	int i = 0;
+		start = SDL_GetTicks();
+	//////////
 	while (1)
 	{
 		while (SDL_PollEvent(&evnt))
@@ -73,17 +87,26 @@ void				lets_start_game(t_box *box)
 			a = evnt.key.keysym.scancode;
 			if (evnt.type == SDL_QUIT || (evnt.type == SDL_KEYDOWN &&
 			evnt.key.keysym.sym == SDLK_ESCAPE))
-			{
-				exit(0);
-				break ;
-			}
+				all_destroy(box);
 			if (evnt.type == SDL_KEYDOWN && a < KEY_CODE)
+			{
 				box->keys[a] = 1;
+				hooks(box);
+			}
 			else if (evnt.type == SDL_KEYUP && a < KEY_CODE)
 				box->keys[a] = 0;
 			key_push(box);
 		}
-			paint_this(box);
+		///////
+		delta = SDL_GetTicks() - start;
+		start = SDL_GetTicks();
+		if (delta != 0)
+			fps = 1000 / delta;
+		if (i % 60 == 0)
+			printf("FPS = %u\n", fps);
+		/////////////
+		paint_this(box);
+		i++;
 	}
 }
 
@@ -91,6 +114,8 @@ void				add_textures(t_box *box)
 {
 	box->txtrs[0] = load_texture("txtrs/bricks.bmp", box);
 	box->txtrs[1] = load_texture("txtrs/stone.bmp", box);
-	box->txtrs[3] = load_texture("txtrs/eagle.bmp", box);
-	box->txtrs[2] = load_texture("txtrs/boards.bmp", box);
+	box->txtrs[2] = load_texture("txtrs/eagle.bmp", box);
+	box->txtrs[3] = load_texture("txtrs/boards.bmp", box);
+	box->txtrs[4] = load_texture("txtrs/fl.bmp", box);
+	box->txtrs[5] = load_texture("txtrs/rf.bmp", box);
 }

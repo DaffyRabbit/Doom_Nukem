@@ -46,7 +46,6 @@ void			*thi_is_raycast(void *his_is_sheet)
 		this_is_castingray(&box);
 		some_blocks(&box);
 		print_walls(&box);
-		up_and_down(&box);
 		box.atpos++;
 	}
 	return (0);
@@ -54,9 +53,38 @@ void			*thi_is_raycast(void *his_is_sheet)
 
 void			colorize_this(t_box *box)
 {
-	int			a;
+	Uint32		color;
+	/*Uint32		black;
+	Uint8		r;
+	Uint8		g;
+	Uint8		b;
 
-	a = box->coloriz;
+	black = 0x000000;
+	//////////
+	double intens;
+	double b_int;
+	intens = 0.0;
+	if (box->block.bd >= 25)
+	{
+		intens = 0.0;
+		b_int = 1.0;
+	}
+	else if (box->block.bd >= 0)
+	{
+		intens = (1 / box->block.bd * 1.5);
+		if (intens > 1.0)
+			intens = 1.0;
+		b_int = 1 - intens;
+	}*/
+	////////
+	color = box->coloriz;
 	if (box->atpos < WIND_W && box->btpos < WIND_H)
-		((int *)box->surf->pixels)[box->btpos * WIND_W + box->atpos] = a;
+	{
+		// SDL_GetRGB(color, box->txtrs[5]->format, &r, &g, &b);
+		// r = r * intens + black + b_int;
+		// g = g * intens + black * b_int;
+		// b = b * intens + intens + black * b_int;
+		// color = SDL_MapRGB(box->txtrs[5]->format, r, g, b);
+		box->pixels[box->btpos * WIND_W + box->atpos] = color;
+	}
 }

@@ -13,7 +13,7 @@
 #ifndef WOLF3D_H
 # define WOLF3D_H
 
-# include "libft.h"
+# include "../libft/libft.h"
 # include "SDL.h"
 # include <pthread.h>
 # include <math.h>
@@ -88,13 +88,23 @@ typedef struct		s_block
 
 typedef struct		s_box
 {
+	int				mirror_effect;
+	int				no_shadow;
+	double			light_power;
+	int				x_t;
+	int				tex_floor_x;
+	int				tex_floor_y;
+	double			dist;
+	double			tmp_dist;
+	double			x_wall;
+	double			floor_x;
+	double			floor_y;
 	int				ttsky2;
 	int				ttsky;
 	int				sitd;
 	int				tpos;
 	int				atpos;
-	SDL_Surface		*new_pic;
-	SDL_Surface		*npd;
+	Uint32			*pixels;
 	int				npbpp;
 	int				npsl;
 	int				npend;
@@ -104,6 +114,9 @@ typedef struct		s_box
 	int				uselessy;
 	int				**all_map;
 	SDL_Window		*wind;
+	SDL_Texture		*texture;
+	SDL_Texture		*main_t;
+	SDL_Renderer	*rend;
 	SDL_Surface		*surf;
 	int				start;
 	int				error;
@@ -113,6 +126,7 @@ typedef struct		s_box
 	int				coloriz;
 	t_pic			*pic;
 	SDL_Surface		*txtrs[8];
+	SDL_Texture		*t_txtrs[8];
 	int				keys[KEY_CODE];
 	t_cam			cam;
 	t_goparam		go;
@@ -123,6 +137,7 @@ typedef struct		s_box
 	int				exit;
 }					t_box;
 
+int					hooks(t_box *box);
 int					menu_mouse(int code, int x, int y, t_box *box);
 int					exit_this(void);
 void				all_destroy(t_box *box);

@@ -19,6 +19,7 @@ int			paint_this(t_box *box)
 	double	cam_d_x;
 	double	cam_d_y;
 
+	SDL_RenderClear(box->rend);
 	cam_pos_y = box->cam.position.y;
 	cam_pos_x = box->cam.position.x;
 	cam_d_y = box->cam.d.y;
@@ -26,7 +27,9 @@ int			paint_this(t_box *box)
 	some_pthreads(box);
 	just_travel_s(box, cam_pos_x, cam_pos_y, cam_d_x, cam_d_y);
 	some_rotation(box);
-	SDL_UpdateWindowSurface(box->wind);
+	SDL_UpdateTexture(box->main_t, NULL, box->pixels, WIND_W * sizeof(Uint32));
+	SDL_RenderCopy(box->rend, box->main_t, NULL, NULL );
+	SDL_RenderPresent(box->rend);
 	return (0);
 }
 
@@ -134,7 +137,7 @@ void		some_rotation(t_box *box)
 {
 	double	i;
 
-	box->ogo.rot_spd = 0.005;
+	box->ogo.rot_spd = 0.025;
 	if (box->keys[SDL_SCANCODE_SEMICOLON] == 1 || box->keys[SDL_SCANCODE_K] == 1)
 	{
 		if (box->keys[SDL_SCANCODE_K] == 1)
@@ -150,10 +153,10 @@ void		some_rotation(t_box *box)
 		box->cam.p.y = i * sin(box->ogo.rot_spd) +
 			box->cam.p.y * cos(box->ogo.rot_spd);
 	}
-	if (box->keys[SDL_SCANCODE_O] == 1 && box->ogo.lop < 1000)
-		box->ogo.lop += 5;
-	if (box->keys[SDL_SCANCODE_L] == 1 && box->ogo.lop > -1000)
-		box->ogo.lop -= 5;
+	if (box->keys[SDL_SCANCODE_O] == 1 && box->ogo.lop < 600)
+		box->ogo.lop += 25;
+	if (box->keys[SDL_SCANCODE_L] == 1 && box->ogo.lop > -600)
+		box->ogo.lop -= 25;
 }
 
 void	ttsky_and_sit(t_box *box)

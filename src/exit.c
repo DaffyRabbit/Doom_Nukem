@@ -19,7 +19,13 @@ int		exit_this(void)
 
 void	all_destroy(t_box *box)
 {
+	if (box->rend != NULL)
+		SDL_DestroyRenderer(box->rend);
+	if (box->texture != NULL)
+		SDL_DestroyTexture(box->texture);
 	SDL_DestroyWindow(box->wind);
+	SDL_Quit();
+	exit(0);
 }
 
 int		small_map(t_box *box)
