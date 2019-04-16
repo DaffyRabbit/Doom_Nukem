@@ -13,8 +13,9 @@
 #ifndef WOLF3D_H
 # define WOLF3D_H
 
-# include "libft.h"
+# include "../libft/libft.h"
 # include "SDL.h"
+#include "SDL_image.h"
 # include <pthread.h>
 # include <math.h>
 # include <fcntl.h>
@@ -23,6 +24,7 @@
 
 # define WIND_W		1280
 # define WIND_H		720
+# define KEY_CODE	265
 
 typedef struct		s_listparam
 {
@@ -48,15 +50,16 @@ typedef struct		s_pic
 	int				ext;
 	int				b;
 	int				scale;
-	SDL_Surface			*this_pic;
-	SDL_Surface			*this_picm0;
-	SDL_Surface			*this_picm1;
-	SDL_Surface			*this_picm2;
-	SDL_Surface			*this_picbm;
+	SDL_Surface		*this_pic;
+	SDL_Surface		*this_picm0;
+	SDL_Surface		*this_picm1;
+	SDL_Surface		*this_picm2;
+	SDL_Surface		*this_picbm;
 }					t_pic;
 
 typedef struct		s_goparam
 {
+	double			rot_spd;
 	float			spd;
 	int				insky;
 	int				tohell;
@@ -84,15 +87,56 @@ typedef struct		s_block
 	double			btouch;
 }					t_block;
 
+typedef struct		s_mouse 
+{
+	int				x;
+	int				y;
+	double			od_x;
+	double			od_y;
+	double			old_px;
+	double			old_py;
+	double			rot_spd;
+	
+}					t_mouse;
+
+typedef	struct		s_face
+{
+	SDL_Surface		*face;
+	SDL_Texture		*face_texture;
+	SDL_Rect		rect_face;
+	int				w_face;
+	int				h_face;	
+}					t_face;
+
+
+typedef struct 		s_HUD
+{
+	SDL_Rect		rect_scope;
+	SDL_Rect		rect_bott_bar;
+	SDL_Surface		*scope;
+ 	SDL_Texture		*scope_texture; 
+ 	SDL_Surface		*bott_bar;
+ 	SDL_Texture		*bott_bar_texture;
+ 	t_face			face[3];
+	int				w_scope;
+	int				h_scope;
+	int				w_bott_bar;
+	int				h_bott_bar;	
+}					t_HUD;
+
 typedef struct		s_box
 {
+	t_HUD			HUD;
+	int				face_start;
+	Uint32			sleep;
+	int				blok;
+	int				num_face;
 	int				ttsky2;
 	int				ttsky;
 	int				sitd;
 	int				tpos;
 	int				atpos;
-	SDL_Surface			*new_pic;
-	SDL_Surface			*npd;
+	Uint32			*pixels;
 	int				npbpp;
 	int				npsl;
 	int				npend;
@@ -101,9 +145,11 @@ typedef struct		s_box
 	int				mapy;
 	int				uselessy;
 	int				**all_map;
-	SDL_Event			event;
-	SDL_Window			*wind;
-	SDL_Surface			*surf;
+	SDL_Window		*wind;
+	SDL_Texture		*texture;
+	SDL_Texture		*main_t;
+	SDL_Renderer	*rend;
+	SDL_Surface		*surf;
 	int				start;
 	int				error;
 	double			scene;
@@ -112,6 +158,8 @@ typedef struct		s_box
 	int				coloriz;
 	t_pic			*pic;
 	SDL_Surface		*txtrs[8];
+	SDL_Texture		*t_txtrs[8];
+	int				keys[KEY_CODE];
 	t_cam			cam;
 	t_goparam		go;
 	t_tir			tir;
@@ -119,6 +167,7 @@ typedef struct		s_box
 	t_goparam		ogo;
 	t_intlparam		paramtext;
 	int				exit;
+	t_mouse			mouse;
 }					t_box;
 
 int					menu_mouse(int code, int x, int y, t_box *box);
@@ -144,10 +193,11 @@ void				add_textures(t_box *box);
 void				for_cam(int code, t_box *box, int i);
 void				for_go(int code, t_box *box, int i);
 int					key_rele(int code, t_box *box);
-int					key_push(int code, t_box *box);
+int					key_push(t_box *box);
 int					paint_this(t_box *box);
-void				just_travel(t_box *box);
-void				go_and_west(t_box *box);
+void				just_travel_s(t_box *box, double x, double y, double d_x, double d_y);
+void				just_travel_w(t_box *box, double x, double y, double d_x, double d_y);
+void				go_and_west(t_box *box, double x, double y, double p_x, double p_y);
 void				some_rotation(t_box *box);
 void				ttsky_and_sit(t_box *box);
 void				this_is_castingray(t_box *box);
@@ -158,5 +208,13 @@ void				print_walls(t_box *box);
 void				up_and_down(t_box *box);
 int					small_map(t_box *box);
 int					menu_mouse_click(int x, int y, t_box *box);
+SDL_Surface			*load_texture(char *path, t_box *wolf);
+//// mouse scope
+int 				mouse_control(int x, int y, t_box *box);
+int					ft_scope(t_box *box);
+int					ft_HUD(t_box *box);
+int					ft_HUD_bar(t_box *box);
+SDL_Surface		*ft_check_png(t_box *box, char *text);
+///
 
 #endif
