@@ -24,7 +24,9 @@ SRC_N			= main.c\
 				  bonus.c\
 				  painting.c\
 				  tiray.c\
-				  wallandfl.c
+				  wallandfl.c\
+				  mouse_control.c\
+				  HUD.c
 
 SRC_P 			= ./src/
 OBJ 			= $(addprefix $(OBJ_P),$(SRC_N:.c=.o))
@@ -42,8 +44,8 @@ LNK_LIB			= -L ./libft -l ft
 
 # mlx
 
-INC_MLX			= -I ./frameworks/SDL2.framework/Headers/ -F ./frameworks/
-LNK_MLX			= -framework SDL2 -rpath frameworks
+INC_MLX			= -I ./frameworks/SDL2.framework/Headers/ -I ./frameworks/SDL2_image.framework/Headers/ -F ./frameworks/  
+LNK_MLX			=  -framework SDL2  -rpath frameworks  -L ./frameworks/SDL2_image.framework/Headers/  -framework SDL2_image
 
 # compiler
 

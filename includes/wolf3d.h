@@ -105,9 +105,6 @@ typedef struct		s_box
 	int				tpos;
 	int				atpos;
 	Uint32			*pixels;
-	int				npbpp;
-	int				npsl;
-	int				npend;
 	int				map_fd;
 	int				mapx;
 	int				mapy;
@@ -126,7 +123,6 @@ typedef struct		s_box
 	int				coloriz;
 	t_pic			*pic;
 	SDL_Surface		*txtrs[8];
-	SDL_Texture		*t_txtrs[8];
 	int				keys[KEY_CODE];
 	t_cam			cam;
 	t_goparam		go;
