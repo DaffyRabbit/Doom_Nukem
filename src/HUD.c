@@ -4,8 +4,6 @@ int		ft_face_start(t_box *box)
 {
 	box->HUD.face[box->num_face].face_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.face[box->num_face].face);
  	SDL_FreeSurface(box->HUD.face[box->num_face].face);
- 	SDL_RenderClear(box->rend);
-	SDL_RenderCopy(box->rend, box->HUD.face[box->num_face].face_texture, NULL, &box->HUD.face[box->num_face].rect_face);
  	if (box->num_face == 2)
 	{
 		box->blok = 1;
@@ -38,18 +36,14 @@ int		ft_HUD_bar(t_box *box)
 {
  box->HUD.bott_bar_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.bott_bar);
  SDL_FreeSurface(box->HUD.bott_bar);
- SDL_RenderClear(box->rend);
- SDL_RenderCopy(box->rend, box->HUD.bott_bar_texture, NULL, &box->HUD.rect_bott_bar);
  return(0);
 }
 
 int		ft_scope(t_box *box)
 {
  box->HUD.scope_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.scope);
- SDL_FreeSurface(box->HUD.scope);
- SDL_RenderClear(box->rend);
- SDL_RenderCopy(box->rend, box->HUD.scope_texture, NULL, &box->HUD.rect_scope);
- return(0);
+ SDL_FreeSurface(box->HUD.scope); 
+ return(0);m
 }
 
 int		ft_HUD(t_box *box)
@@ -68,5 +62,6 @@ int		ft_HUD(t_box *box)
 	}
 	else
 		ft_face(box);
+	ft_all_bars(box);
 	return(0);
 }
