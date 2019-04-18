@@ -116,6 +116,7 @@ typedef struct		s_h_bar
 	int				w_heals;
 	int				h_heals;
 	int				hp_val;	
+	int				n;
 }					t_h_bar;
 
 typedef struct		s_am_bar

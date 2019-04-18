@@ -4,16 +4,17 @@ void	ft_heals_bar(t_box *box)
 {
 	box->HUD.heals[0].rect_heals.w = 70;
 	box->HUD.heals[0].rect_heals.h = 70;
-	box->HUD.heals[0].rect_heals.x = 225;
+	box->HUD.heals[0].rect_heals.x = 200;
 	box->HUD.heals[0].rect_heals.y = WIND_H - WIND_H/5 + 25;
 	box->HUD.heals[1].rect_heals.w = 70;
 	box->HUD.heals[1].rect_heals.h = 70;
-	box->HUD.heals[1].rect_heals.x = 280;
+	box->HUD.heals[1].rect_heals.x = 270;
 	box->HUD.heals[1].rect_heals.y = WIND_H - WIND_H/5 + 25;
 	box->HUD.heals[2].rect_heals.w = 70;
 	box->HUD.heals[2].rect_heals.h = 70;
 	box->HUD.heals[2].rect_heals.x = 340;
 	box->HUD.heals[2].rect_heals.y = WIND_H - WIND_H/5 + 25;
+	box->HUD.hp_val = 100;
 }
 
 void	ft_bar(t_box *box)

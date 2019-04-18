@@ -17,7 +17,11 @@ int			paint_HUD(t_box *box)
 	SDL_RenderCopy(box->rend, box->HUD.scope_texture, NULL, &box->HUD.rect_scope);
 	SDL_RenderCopy(box->rend, box->HUD.bott_bar_texture, NULL, &box->HUD.rect_bott_bar);
 	SDL_RenderCopy(box->rend, box->HUD.face[box->num_face].face_texture, NULL, &box->HUD.face[box->num_face].rect_face);
+	while (box->HUD.num_i <= 2)
+	{
 	SDL_RenderCopy(box->rend, box->HUD.heals[box->HUD.num_i].heals_texture, NULL, &box->HUD.heals[box->HUD.num_i].rect_heals);
+	box->HUD.num_i++;
+	}
 	return(0);
 }
 

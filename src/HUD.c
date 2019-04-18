@@ -27,6 +27,9 @@ int		ft_face(t_box *box)
 if(box->sleep < SDL_GetTicks() - 1.0 * 1000)
 {
  ft_face_start(box);
+////////HP_chenger
+box->HUD.hp_val--;
+////////
  box->sleep = SDL_GetTicks();
 }
  return(0);
@@ -43,7 +46,7 @@ int		ft_scope(t_box *box)
 {
  box->HUD.scope_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.scope);
  SDL_FreeSurface(box->HUD.scope); 
- return(0);m
+ return(0);
 }
 
 int		ft_HUD(t_box *box)
