@@ -26,7 +26,9 @@ SRC_N			= main.c\
 				  tiray.c\
 				  wallandfl.c\
 				  mouse_control.c\
-				  HUD.c
+				  HUD.c\
+				  HUD_changing.c\
+				  HUD_param.c
 
 SRC_P 			= ./src/
 OBJ 			= $(addprefix $(OBJ_P),$(SRC_N:.c=.o))
@@ -46,9 +48,10 @@ LNK_LIB			= -L ./libft -l ft
 
 INC_MLX			= -I ./frameworks/SDL2.framework/Headers/ -I ./frameworks/SDL2_image.framework/Headers/ -F ./frameworks/  
 LNK_MLX			=  -framework SDL2  -rpath frameworks  -L ./frameworks/SDL2_image.framework/Headers/  -framework SDL2_image
+
 # compiler
 
-CC 				= gcc -g  -Wall -Wextra -Werror
+CC 				= gcc -g -Wall -Wextra -Werror
 
 all: obj $(ADD_LIB) $(NAME)
 
@@ -65,7 +68,7 @@ $(ADD_LIB):
 
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) $(INC_MLX) $(LNK_MLX) $(LNK_LIB)  -lm -o $(NAME)  
+	@$(CC) $(OBJ) $(INC_MLX) $(LNK_MLX) $(LNK_LIB) -lm -o $(NAME)
 	@printf '\033[32m[ Done ] %s\n\033[0m'
 
 clean:

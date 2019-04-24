@@ -12,6 +12,19 @@
 
 #include "wolf3d.h"
 
+int			paint_HUD(t_box *box)
+{
+	SDL_RenderCopy(box->rend, box->HUD.scope_texture, NULL, &box->HUD.rect_scope);
+	SDL_RenderCopy(box->rend, box->HUD.bott_bar_texture, NULL, &box->HUD.rect_bott_bar);
+	SDL_RenderCopy(box->rend, box->HUD.face[box->num_face].face_texture, NULL, &box->HUD.face[box->num_face].rect_face);
+	while (box->HUD.num_i <= 2)
+	{
+	SDL_RenderCopy(box->rend, box->HUD.heals[box->HUD.num_i].heals_texture, NULL, &box->HUD.heals[box->HUD.num_i].rect_heals);
+	box->HUD.num_i++;
+	}
+	return(0);
+}
+
 int			paint_this(t_box *box)
 {
 	double 	cam_pos_x;
@@ -19,6 +32,7 @@ int			paint_this(t_box *box)
 	double	cam_d_x;
 	double	cam_d_y;
 
+	SDL_RenderClear(box->rend);
 	cam_pos_y = box->cam.position.y;
 	cam_pos_x = box->cam.position.x;
 	cam_d_y = box->cam.d.y;
@@ -27,14 +41,10 @@ int			paint_this(t_box *box)
 	just_travel_s(box, cam_pos_x, cam_pos_y, cam_d_x, cam_d_y);
 	some_rotation(box);
 	SDL_UpdateTexture(box->main_t, NULL, box->pixels, WIND_W * sizeof(Uint32));
-	SDL_RenderClear(box->rend);
 	SDL_RenderCopy(box->rend, box->main_t, NULL, NULL );
-	SDL_RenderCopy(box->rend, box->HUD.scope_texture, NULL, &box->HUD.rect_scope);
-	SDL_RenderCopy(box->rend, box->HUD.bott_bar_texture, NULL, &box->HUD.rect_bott_bar);
-	SDL_RenderCopy(box->rend, box->HUD.face[box->num_face].face_texture, NULL, &box->HUD.face[box->num_face].rect_face);
+	paint_HUD(box);
 	SDL_RenderPresent(box->rend);
 	return (0);
-	
 }
 
 void		just_travel_w(t_box *box, double x, double y, double d_x, double d_y)
@@ -141,7 +151,7 @@ void		some_rotation(t_box *box)
 {
 	double	i;
 
-	box->ogo.rot_spd = 0.05;
+	box->ogo.rot_spd = 0.025;
 	if (box->keys[SDL_SCANCODE_SEMICOLON] == 1 || box->keys[SDL_SCANCODE_K] == 1)
 	{
 		if (box->keys[SDL_SCANCODE_K] == 1)
@@ -157,10 +167,10 @@ void		some_rotation(t_box *box)
 		box->cam.p.y = i * sin(box->ogo.rot_spd) +
 			box->cam.p.y * cos(box->ogo.rot_spd);
 	}
-	if (box->keys[SDL_SCANCODE_O] == 1 && box->ogo.lop < 400)
-		box->ogo.lop += 20;
-	if (box->keys[SDL_SCANCODE_L] == 1 && box->ogo.lop > -500)
-		box->ogo.lop -= 20;
+	if (box->keys[SDL_SCANCODE_O] == 1 && box->ogo.lop < 600)
+		box->ogo.lop += 25;
+	if (box->keys[SDL_SCANCODE_L] == 1 && box->ogo.lop > -600)
+		box->ogo.lop -= 25;
 }
 
 void	ttsky_and_sit(t_box *box)

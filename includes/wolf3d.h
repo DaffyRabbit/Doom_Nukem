@@ -108,6 +108,43 @@ typedef	struct		s_face
 	int				h_face;	
 }					t_face;
 
+typedef struct		s_h_bar
+{
+	SDL_Surface		*heals;
+	SDL_Texture		*heals_texture;
+	SDL_Rect		rect_heals;
+	int				w_heals;
+	int				h_heals;
+	int				hp_val;	
+	int				n;
+}					t_h_bar;
+
+typedef struct		s_am_bar
+{
+	SDL_Surface		*ammo;
+	SDL_Texture		*ammo_texture;
+	SDL_Rect		rect_face;
+	int				w_ammo;
+	int				h_ammo;	
+}					t_am_bar;
+
+typedef struct		s_ar_bar
+{
+	SDL_Surface		*armor;
+	SDL_Texture		*armor_texture;
+	SDL_Rect		rect_armor;
+	int				w_armor;
+	int				h_armor;	
+}					t_ar_bar;
+
+typedef struct		s_fr_bar
+{
+	SDL_Surface		*face;
+	SDL_Texture		*face_texture;
+	SDL_Rect		rect_face;
+	int				w_face;
+	int				h_face;	
+}					t_fr_bar;
 
 typedef struct 		s_HUD
 {
@@ -118,10 +155,17 @@ typedef struct 		s_HUD
  	SDL_Surface		*bott_bar;
  	SDL_Texture		*bott_bar_texture;
  	t_face			face[3];
+ 	t_h_bar			heals[3];
+ 	t_am_bar		ammo;
+ 	t_ar_bar		armor;
+ 	t_fr_bar		frag;
+ 	int				hp_val;		
 	int				w_scope;
 	int				h_scope;
 	int				w_bott_bar;
-	int				h_bott_bar;	
+	int				h_bott_bar;
+	int				num_i;
+	char			*numb[10];	
 }					t_HUD;
 
 typedef struct		s_box
@@ -131,15 +175,23 @@ typedef struct		s_box
 	Uint32			sleep;
 	int				blok;
 	int				num_face;
+	int				mirror_effect;
+	int				no_shadow;
+	double			light_power;
+	int				x_t;
+	int				tex_floor_x;
+	int				tex_floor_y;
+	double			dist;
+	double			tmp_dist;
+	double			x_wall;
+	double			floor_x;
+	double			floor_y;
 	int				ttsky2;
 	int				ttsky;
 	int				sitd;
 	int				tpos;
 	int				atpos;
 	Uint32			*pixels;
-	int				npbpp;
-	int				npsl;
-	int				npend;
 	int				map_fd;
 	int				mapx;
 	int				mapy;
@@ -158,7 +210,6 @@ typedef struct		s_box
 	int				coloriz;
 	t_pic			*pic;
 	SDL_Surface		*txtrs[8];
-	SDL_Texture		*t_txtrs[8];
 	int				keys[KEY_CODE];
 	t_cam			cam;
 	t_goparam		go;
@@ -170,6 +221,7 @@ typedef struct		s_box
 	t_mouse			mouse;
 }					t_box;
 
+int					hooks(t_box *box);
 int					menu_mouse(int code, int x, int y, t_box *box);
 int					exit_this(void);
 void				all_destroy(t_box *box);
@@ -208,13 +260,14 @@ void				print_walls(t_box *box);
 void				up_and_down(t_box *box);
 int					small_map(t_box *box);
 int					menu_mouse_click(int x, int y, t_box *box);
-SDL_Surface			*load_texture(char *path, t_box *wolf);
 //// mouse scope
-int 				mouse_control(int x, int y, t_box *box);
+int					mouse_control(int x, int y, t_box *box);
 int					ft_scope(t_box *box);
 int					ft_HUD(t_box *box);
 int					ft_HUD_bar(t_box *box);
-SDL_Surface		*ft_check_png(t_box *box, char *text);
+SDL_Surface			*ft_check_png(t_box *box, char *text);
+int					ft_all_bars(t_box *box);
+void				ft_HUD_param(t_box *box);
 ///
 
 #endif
