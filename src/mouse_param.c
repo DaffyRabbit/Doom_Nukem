@@ -63,6 +63,7 @@ int		menu_mouse_click(int x, int y, t_box *box)
 		}
 		else
 		{
+			ft_HUD_param(box);
 			close(box->map_fd);
 			box->error = 1;
 			box->cam.d.x = 1;
@@ -70,6 +71,7 @@ int		menu_mouse_click(int x, int y, t_box *box)
 			box->cam.p.x = 0;
 			box->cam.p.y = 0.6;
 			box->go.spd = 0.02;
+			box->mouse.rot_spd = 0.002;
 			lets_start_game(box);
 		}
 	}

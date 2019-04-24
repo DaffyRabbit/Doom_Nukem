@@ -32,6 +32,25 @@ SDL_Surface		*load_texture(char *path, t_box *wolf)
 	return (image);
 }
 
+
+SDL_Surface		*ft_check_png(t_box *box, char *text)
+{
+	SDL_Surface *tmp;
+	SDL_Surface *png;
+
+	if ( (tmp = IMG_Load(text)) == NULL)
+ {
+ 	ft_putendl("Error HUD file\n");
+ 	all_destroy(box);		
+	exit(1);
+ }
+ else
+ {
+ 	png = tmp;
+ }
+ return(png);
+}
+
 void				start_game(t_box *box, t_pic *pic, char *name)
 {
 	SDL_Event		evnt;
@@ -73,17 +92,30 @@ void				lets_start_game(t_box *box)
 	add_textures(box);
 	box->main_t = SDL_CreateTexture(box->rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, WIND_W, WIND_H);
 	box->pixels = (Uint32 *)malloc(sizeof(Uint32) * WIND_H * WIND_W);
-	///////////
-	Uint32 start = 0;
-	Uint32 delta = 0;
-	Uint32 fps = 0;
-	int i = 0;
-		start = SDL_GetTicks();
-	//////////
+	/////////////////////////TESTED_FPS/////////////////////////
+	Uint32 FPS = 0;							  
+	Uint32 fps_current;						  
+	Uint32 fps_lasttime = SDL_GetTicks();	  
+	/////////////////////////TESTED_FPS/////////////////////////
 	while (1)
 	{
+		/////////////////////////TESTED_FPS/////////////////////////
+		FPS++;
+		if(fps_lasttime < SDL_GetTicks() - 1.0 * 1000)
+		{
+			fps_lasttime = SDL_GetTicks();
+			fps_current = FPS;
+			FPS = 0;
+			printf("FPS = %d\n", fps_current);
+		}
+		/////////////////////////TESTED_FPS/////////////////////////
 		while (SDL_PollEvent(&evnt))
 		{
+			if (evnt.type == SDL_MOUSEMOTION)
+			{
+				SDL_SetRelativeMouseMode(1);
+				mouse_control(evnt.motion.xrel, evnt.motion.yrel, box);
+			}
 			a = evnt.key.keysym.scancode;
 			if (evnt.type == SDL_QUIT || (evnt.type == SDL_KEYDOWN &&
 			evnt.key.keysym.sym == SDLK_ESCAPE))
@@ -97,16 +129,8 @@ void				lets_start_game(t_box *box)
 				box->keys[a] = 0;
 			key_push(box);
 		}
-		///////
-		delta = SDL_GetTicks() - start;
-		start = SDL_GetTicks();
-		if (delta != 0)
-			fps = 1000 / delta;
-		if (i % 60 == 0)
-			printf("FPS = %u\n", fps);
-		/////////////
+		ft_HUD(box);
 		paint_this(box);
-		i++;
 	}
 }
 

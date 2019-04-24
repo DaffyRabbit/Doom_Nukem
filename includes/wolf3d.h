@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "SDL.h"
+#include "SDL_image.h"
 # include <pthread.h>
 # include <math.h>
 # include <fcntl.h>
@@ -46,9 +47,6 @@ typedef struct		s_cam
 
 typedef struct		s_pic
 {
-	int				ext;
-	int				b;
-	int				scale;
 	SDL_Surface		*this_pic;
 	SDL_Surface		*this_picm0;
 	SDL_Surface		*this_picm1;
@@ -60,10 +58,6 @@ typedef struct		s_goparam
 {
 	double			rot_spd;
 	float			spd;
-	int				insky;
-	int				tohell;
-	int				west;
-	int				south;
 	float			lop;
 }					t_goparam;
 
@@ -86,8 +80,94 @@ typedef struct		s_block
 	double			btouch;
 }					t_block;
 
+typedef struct		s_mouse 
+{
+	int				x;
+	int				y;
+	double			od_x;
+	double			od_y;
+	double			old_px;
+	double			old_py;
+	double			rot_spd;
+	
+}					t_mouse;
+
+typedef	struct		s_face
+{
+	SDL_Surface		*face;
+	SDL_Texture		*face_texture;
+	SDL_Rect		rect_face;
+	int				w_face;
+	int				h_face;	
+}					t_face;
+
+typedef struct		s_h_bar
+{
+	SDL_Surface		*heals;
+	SDL_Texture		*heals_texture;
+	SDL_Rect		rect_heals;
+	int				w_heals;
+	int				h_heals;
+	int				hp_val;	
+	int				n;
+}					t_h_bar;
+
+typedef struct		s_am_bar
+{
+	SDL_Surface		*ammo;
+	SDL_Texture		*ammo_texture;
+	SDL_Rect		rect_face;
+	int				w_ammo;
+	int				h_ammo;	
+}					t_am_bar;
+
+typedef struct		s_ar_bar
+{
+	SDL_Surface		*armor;
+	SDL_Texture		*armor_texture;
+	SDL_Rect		rect_armor;
+	int				w_armor;
+	int				h_armor;	
+}					t_ar_bar;
+
+typedef struct		s_fr_bar
+{
+	SDL_Surface		*face;
+	SDL_Texture		*face_texture;
+	SDL_Rect		rect_face;
+	int				w_face;
+	int				h_face;	
+}					t_fr_bar;
+
+typedef struct 		s_HUD
+{
+	SDL_Rect		rect_scope;
+	SDL_Rect		rect_bott_bar;
+	SDL_Surface		*scope;
+ 	SDL_Texture		*scope_texture; 
+ 	SDL_Surface		*bott_bar;
+ 	SDL_Texture		*bott_bar_texture;
+ 	t_face			face[3];
+ 	t_h_bar			heals[3];
+ 	t_am_bar		ammo;
+ 	t_ar_bar		armor;
+ 	t_fr_bar		frag;
+ 	int				hp_val;		
+	int				w_scope;
+	int				h_scope;
+	int				w_bott_bar;
+	int				h_bott_bar;
+	int				num_i;
+	char			*numb[10];	
+}					t_HUD;
+
 typedef struct		s_box
 {
+	t_HUD			HUD;
+	int				face_start;
+	Uint32			sleep;
+	int				blok;
+	int				num_face;
 	int				mirror_effect;
 	int				no_shadow;
 	double			light_power;
@@ -96,7 +176,6 @@ typedef struct		s_box
 	int				tex_floor_y;
 	double			dist;
 	double			tmp_dist;
-	double			x_wall;
 	double			floor_x;
 	double			floor_y;
 	int				ttsky2;
@@ -114,13 +193,11 @@ typedef struct		s_box
 	SDL_Texture		*texture;
 	SDL_Texture		*main_t;
 	SDL_Renderer	*rend;
-	SDL_Surface		*surf;
 	int				start;
 	int				error;
 	double			scene;
 	int				a;
 	int				btpos;
-	int				coloriz;
 	t_pic			*pic;
 	SDL_Surface		*txtrs[8];
 	int				keys[KEY_CODE];
@@ -130,7 +207,7 @@ typedef struct		s_box
 	t_block			block;
 	t_goparam		ogo;
 	t_intlparam		paramtext;
-	int				exit;
+	t_mouse			mouse;
 }					t_box;
 
 int					hooks(t_box *box);
@@ -172,5 +249,14 @@ void				print_walls(t_box *box);
 void				up_and_down(t_box *box);
 int					small_map(t_box *box);
 int					menu_mouse_click(int x, int y, t_box *box);
+//// mouse scope
+int					mouse_control(int x, int y, t_box *box);
+int					ft_scope(t_box *box);
+int					ft_HUD(t_box *box);
+int					ft_HUD_bar(t_box *box);
+SDL_Surface			*ft_check_png(t_box *box, char *text);
+int					ft_all_bars(t_box *box);
+void				ft_HUD_param(t_box *box);
+///
 
 #endif

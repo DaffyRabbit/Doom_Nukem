@@ -12,6 +12,19 @@
 
 #include "wolf3d.h"
 
+int			paint_HUD(t_box *box)
+{
+	SDL_RenderCopy(box->rend, box->HUD.scope_texture, NULL, &box->HUD.rect_scope);
+	SDL_RenderCopy(box->rend, box->HUD.bott_bar_texture, NULL, &box->HUD.rect_bott_bar);
+	SDL_RenderCopy(box->rend, box->HUD.face[box->num_face].face_texture, NULL, &box->HUD.face[box->num_face].rect_face);
+	while (box->HUD.num_i <= 2)
+	{
+	SDL_RenderCopy(box->rend, box->HUD.heals[box->HUD.num_i].heals_texture, NULL, &box->HUD.heals[box->HUD.num_i].rect_heals);
+	box->HUD.num_i++;
+	}
+	return(0);
+}
+
 int			paint_this(t_box *box)
 {
 	double 	cam_pos_x;
@@ -29,6 +42,7 @@ int			paint_this(t_box *box)
 	some_rotation(box);
 	SDL_UpdateTexture(box->main_t, NULL, box->pixels, WIND_W * sizeof(Uint32));
 	SDL_RenderCopy(box->rend, box->main_t, NULL, NULL );
+	paint_HUD(box);
 	SDL_RenderPresent(box->rend);
 	return (0);
 }
