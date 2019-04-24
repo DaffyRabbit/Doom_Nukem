@@ -47,9 +47,6 @@ typedef struct		s_cam
 
 typedef struct		s_pic
 {
-	int				ext;
-	int				b;
-	int				scale;
 	SDL_Surface		*this_pic;
 	SDL_Surface		*this_picm0;
 	SDL_Surface		*this_picm1;
@@ -61,10 +58,6 @@ typedef struct		s_goparam
 {
 	double			rot_spd;
 	float			spd;
-	int				insky;
-	int				tohell;
-	int				west;
-	int				south;
 	float			lop;
 }					t_goparam;
 
@@ -183,7 +176,6 @@ typedef struct		s_box
 	int				tex_floor_y;
 	double			dist;
 	double			tmp_dist;
-	double			x_wall;
 	double			floor_x;
 	double			floor_y;
 	int				ttsky2;
@@ -201,13 +193,11 @@ typedef struct		s_box
 	SDL_Texture		*texture;
 	SDL_Texture		*main_t;
 	SDL_Renderer	*rend;
-	SDL_Surface		*surf;
 	int				start;
 	int				error;
 	double			scene;
 	int				a;
 	int				btpos;
-	int				coloriz;
 	t_pic			*pic;
 	SDL_Surface		*txtrs[8];
 	int				keys[KEY_CODE];
@@ -217,7 +207,6 @@ typedef struct		s_box
 	t_block			block;
 	t_goparam		ogo;
 	t_intlparam		paramtext;
-	int				exit;
 	t_mouse			mouse;
 }					t_box;
 

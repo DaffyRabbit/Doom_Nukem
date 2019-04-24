@@ -32,9 +32,7 @@ SDL_Surface		*load_texture(char *path, t_box *wolf)
 	return (image);
 }
 
-////////////////////////////////////////////////////////
-/////////////////////////TESTED/////////////////////////
-////////////////////////////////////////////////////////
+
 SDL_Surface		*ft_check_png(t_box *box, char *text)
 {
 	SDL_Surface *tmp;
@@ -46,17 +44,12 @@ SDL_Surface		*ft_check_png(t_box *box, char *text)
  	all_destroy(box);		
 	exit(1);
  }
- else{
+ else
+ {
  	png = tmp;
- 	//SDL_FreeSurface(tmp);
- 	}
+ }
  return(png);
 }
-
-////////////////////////////////////////////////////////
-/////////////////////////TESTED/////////////////////////
-////////////////////////////////////////////////////////
-
 
 void				start_game(t_box *box, t_pic *pic, char *name)
 {
@@ -134,10 +127,8 @@ void				lets_start_game(t_box *box)
 			}
 			else if (evnt.type == SDL_KEYUP && a < KEY_CODE)
 				box->keys[a] = 0;
-			printf("no-shadow = %d\n", box->no_shadow);
 			key_push(box);
 		}
-		//paint_this(box);
 		ft_HUD(box);
 		paint_this(box);
 	}
