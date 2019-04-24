@@ -12,21 +12,6 @@
 
 #include "wolf3d.h"
 
-void	ft_param(t_box *box)
-{
-	ft_HUD_param(box);
-	close(box->map_fd);
-	box->error = 1;	
-	box->cam.d.x = 1;
-	box->cam.d.y = 0;
-	box->cam.p.x = 0;
-	box->cam.p.y = 0.6;
-	box->go.spd = 0.08;
-	box->mouse.rot_spd = 0.002;
-	lets_start_game(box);
-
-}
-
 void	change_map(t_box *box)
 {
 	if (box->start == 1)
@@ -77,7 +62,18 @@ int		menu_mouse_click(int x, int y, t_box *box)
 			change_map(box);
 		}
 		else
-			ft_param(box);
+		{
+			ft_HUD_param(box);
+			close(box->map_fd);
+			box->error = 1;
+			box->cam.d.x = 1;
+			box->cam.d.y = 0;
+			box->cam.p.x = 0;
+			box->cam.p.y = 0.6;
+			box->go.spd = 0.02;
+			box->mouse.rot_spd = 0.002;
+			lets_start_game(box);
+		}
 	}
 	return (0);
 }

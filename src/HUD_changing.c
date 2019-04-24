@@ -1,6 +1,6 @@
 #include "wolf3d.h"
 
-int		ft_check_hp_value(t_box *box)
+int		ft_check_value(t_box *box)
 {
 	int n;
 
@@ -122,7 +122,6 @@ int		ft_armor(t_box *box)
 	}
 	return(0);
 }
-
 
 int		ft_all_bars(t_box *box)
 {

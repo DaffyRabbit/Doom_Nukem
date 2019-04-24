@@ -12,6 +12,19 @@
 
 #include "wolf3d.h"
 
+int		hooks(t_box *box)
+{
+	if (box->keys[SDL_SCANCODE_V] && box->light_power < 2.0)
+			box->light_power += 0.04;
+	else if (box->keys[SDL_SCANCODE_C]  && box->light_power >= 0.4)
+			box->light_power -= 0.04;
+	if (box->keys[SDL_SCANCODE_P] && box->mirror_effect == 0)
+		box->no_shadow = (box->no_shadow == 0) ? 1 : 0;
+	if (box->keys[SDL_SCANCODE_M] && box->no_shadow == 0)
+		box->mirror_effect = (box->mirror_effect == 1) ? 0 : 1;
+	return (0);
+}
+
 int		menu_keys(int code, t_box *box)
 {
 	if (code == SDLK_ESCAPE)
@@ -27,17 +40,17 @@ int		key_push(t_box *box)
 	if (box->keys[SDL_SCANCODE_Q] && box->ttsky == 0)
 	{
 		box->sitd = 1;
-		box->go.spd = 0.02;
+		box->go.spd = 0.035;
 		return (0);
 	}
 	else if (!(box->keys[SDL_SCANCODE_Q]) && !(box->keys[SDL_SCANCODE_LSHIFT]))
 	{
 		if (box->ttsky == 0)
-			box->go.spd = 0.08;
+			box->go.spd = 0.1;
 		box->sitd = 0;
 	}
 	if (box->keys[SDL_SCANCODE_LSHIFT] && box->sitd == 0)
-		box->go.spd = 0.12;
+		box->go.spd = 0.15;
 	if (box->keys[SDL_SCANCODE_SPACE] && box->ttsky == 0 &&
 		box->go.lop <= 0 && box->sitd == 0)
 	{

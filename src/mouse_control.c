@@ -2,7 +2,7 @@
 #include "wolf3d.h"
 
 int			mouse_control(int x, int y, t_box *box)
- {	
+{	
 		box->mouse.old_px = box->cam.p.x;
 		box->cam.p.x = box->cam.p.x * cos((x) * box->mouse.rot_spd) -
 			box->cam.p.y * sin((x) * box->mouse.rot_spd);
@@ -13,13 +13,11 @@ int			mouse_control(int x, int y, t_box *box)
 			box->cam.d.y * sin((x) * box->mouse.rot_spd);
 		box->cam.d.y = box->mouse.od_x * sin((x) * box->mouse.rot_spd) +
 			box->cam.d.y * cos((x) * box->mouse.rot_spd);
-	
-  	if(box->ogo.lop <= 400 && box->ogo.lop >= -500)
- 		box->ogo.lop += -y * 1.2;
- 	if (box->ogo.lop > 400)
+	if(box->ogo.lop <= 400 && box->ogo.lop >= -500)
+		box->ogo.lop += -y * 1.2;
+	if (box->ogo.lop > 400)
 		box->ogo.lop = 400;
 	if (box->ogo.lop < -500)
 		box->ogo.lop = -500;
- 	return(0);
- }
-
+	return(0);
+}

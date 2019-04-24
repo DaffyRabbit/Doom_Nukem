@@ -50,6 +50,7 @@ LNK_LIB			= -L ./libft -l ft
 
 INC_MLX			= -I ./frameworks/SDL2.framework/Headers/ -I ./frameworks/SDL2_image.framework/Headers/ -F ./frameworks/  
 LNK_MLX			=  -framework SDL2  -rpath frameworks  -L ./frameworks/SDL2_image.framework/Headers/  -framework SDL2_image
+
 # compiler
 
 CC 				= gcc -g  -Wall -Wextra -Werror

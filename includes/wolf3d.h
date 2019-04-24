@@ -127,6 +127,7 @@ typedef struct		s_am_bar
 	int				w_ammo;
 	int				h_ammo;
 	int				n;	
+
 }					t_am_bar;
 
 typedef struct		s_ar_bar
@@ -137,6 +138,7 @@ typedef struct		s_ar_bar
 	int				w_armor;
 	int				h_armor;
 	int				n;	
+
 }					t_ar_bar;
 
 typedef struct		s_fr_bar
@@ -183,6 +185,17 @@ typedef struct		s_box
 	Uint32			sleep;
 	int				blok;
 	int				num_face;
+	int				mirror_effect;
+	int				no_shadow;
+	double			light_power;
+	int				x_t;
+	int				tex_floor_x;
+	int				tex_floor_y;
+	double			dist;
+	double			tmp_dist;
+	double			x_wall;
+	double			floor_x;
+	double			floor_y;
 	int				ttsky2;
 	int				ttsky;
 	int				sitd;
@@ -222,6 +235,7 @@ typedef struct		s_box
 	t_mouse			mouse;
 }					t_box;
 
+int					hooks(t_box *box);
 int					menu_mouse(int code, int x, int y, t_box *box);
 int					exit_this(void);
 void				all_destroy(t_box *box);

@@ -14,6 +14,7 @@ void	ft_heals_bar(t_box *box)
 	box->HUD.heals[2].rect_heals.h = 70;
 	box->HUD.heals[2].rect_heals.x = 340;
 	box->HUD.heals[2].rect_heals.y = WIND_H - WIND_H/5 + 25;
+<<<<<<< HEAD
 	box->HUD.hp_val = 20;
 
 }
@@ -46,6 +47,9 @@ void	ft_frag_bar(t_box *box)
 	box->HUD.frag[2].rect_frag.x = 495;
 	box->HUD.frag[2].rect_frag.y = WIND_H - WIND_H/5 + 25;
 	box->HUD.fr_val = 0;
+=======
+	box->HUD.hp_val = 100;
+>>>>>>> master
 }
 
 void	ft_bar(t_box *box)
@@ -61,8 +65,11 @@ void	ft_bar(t_box *box)
  	box->HUD.numb[8] = "txtrs/eight.png";
  	box->HUD.numb[9] = "txtrs/nine.png";
  	ft_heals_bar(box);
+<<<<<<< HEAD
  	ft_armor_bar(box);
  	ft_frag_bar(box);
+=======
+>>>>>>> master
 }
 
 void	ft_HUD_param(t_box *box)

@@ -12,6 +12,19 @@
 
 #include "wolf3d.h"
 
+int			paint_HUD(t_box *box)
+{
+	SDL_RenderCopy(box->rend, box->HUD.scope_texture, NULL, &box->HUD.rect_scope);
+	SDL_RenderCopy(box->rend, box->HUD.bott_bar_texture, NULL, &box->HUD.rect_bott_bar);
+	SDL_RenderCopy(box->rend, box->HUD.face[box->num_face].face_texture, NULL, &box->HUD.face[box->num_face].rect_face);
+	while (box->HUD.num_i <= 2)
+	{
+	SDL_RenderCopy(box->rend, box->HUD.heals[box->HUD.num_i].heals_texture, NULL, &box->HUD.heals[box->HUD.num_i].rect_heals);
+	box->HUD.num_i++;
+	}
+	return(0);
+}
+
 int			paint_this(t_box *box)
 {
 	double 	cam_pos_x;
@@ -139,7 +152,7 @@ void		some_rotation(t_box *box)
 {
 	double	i;
 
-	box->ogo.rot_spd = 0.05;
+	box->ogo.rot_spd = 0.025;
 	if (box->keys[SDL_SCANCODE_SEMICOLON] == 1 || box->keys[SDL_SCANCODE_K] == 1)
 	{
 		if (box->keys[SDL_SCANCODE_K] == 1)
@@ -155,10 +168,10 @@ void		some_rotation(t_box *box)
 		box->cam.p.y = i * sin(box->ogo.rot_spd) +
 			box->cam.p.y * cos(box->ogo.rot_spd);
 	}
-	if (box->keys[SDL_SCANCODE_O] == 1 && box->ogo.lop < 400)
-		box->ogo.lop += 20;
-	if (box->keys[SDL_SCANCODE_L] == 1 && box->ogo.lop > -500)
-		box->ogo.lop -= 20;
+	if (box->keys[SDL_SCANCODE_O] == 1 && box->ogo.lop < 600)
+		box->ogo.lop += 25;
+	if (box->keys[SDL_SCANCODE_L] == 1 && box->ogo.lop > -600)
+		box->ogo.lop -= 25;
 }
 
 void	ttsky_and_sit(t_box *box)

@@ -46,11 +46,11 @@ void			*thi_is_raycast(void *his_is_sheet)
 		this_is_castingray(&box);
 		some_blocks(&box);
 		print_walls(&box);
-		up_and_down(&box);
 		box.atpos++;
 	}
 	return (0);
 }
+
 
 void			colorize_this(t_box *box)
 {
@@ -60,3 +60,4 @@ void			colorize_this(t_box *box)
 	if (box->atpos < WIND_W && box->btpos < WIND_H)
 		box->pixels[box->btpos * WIND_W + box->atpos] = color;
 }
+
