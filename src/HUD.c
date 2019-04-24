@@ -27,9 +27,14 @@ int		ft_face(t_box *box)
 if(box->sleep < SDL_GetTicks() - 1.0 * 1000)
 {
  ft_face_start(box);
-////////HP_chenger
+//////////////////////////////////////////Chenger
+if (box->HUD.hp_val > 0)
 box->HUD.hp_val--;
-////////
+//if (box->HUD.fr_val < 99)
+box->HUD.fr_val+=10;
+if ( box->HUD.hp_val < 50 && box->HUD.hp_val > 0)
+box->HUD.ar_val+=100/box->HUD.hp_val;
+//////////////////////////////////////////Chenger
  box->sleep = SDL_GetTicks();
 }
  return(0);

@@ -125,7 +125,8 @@ typedef struct		s_am_bar
 	SDL_Texture		*ammo_texture;
 	SDL_Rect		rect_face;
 	int				w_ammo;
-	int				h_ammo;	
+	int				h_ammo;
+	int				n;	
 }					t_am_bar;
 
 typedef struct		s_ar_bar
@@ -134,16 +135,18 @@ typedef struct		s_ar_bar
 	SDL_Texture		*armor_texture;
 	SDL_Rect		rect_armor;
 	int				w_armor;
-	int				h_armor;	
+	int				h_armor;
+	int				n;	
 }					t_ar_bar;
 
 typedef struct		s_fr_bar
 {
-	SDL_Surface		*face;
-	SDL_Texture		*face_texture;
-	SDL_Rect		rect_face;
-	int				w_face;
-	int				h_face;	
+	SDL_Surface		*frag;
+	SDL_Texture		*frag_texture;
+	SDL_Rect		rect_frag;
+	int				w_frag;
+	int				h_frag;	
+	int				n;	
 }					t_fr_bar;
 
 typedef struct 		s_HUD
@@ -156,15 +159,20 @@ typedef struct 		s_HUD
  	SDL_Texture		*bott_bar_texture;
  	t_face			face[3];
  	t_h_bar			heals[3];
- 	t_am_bar		ammo;
- 	t_ar_bar		armor;
- 	t_fr_bar		frag;
- 	int				hp_val;		
+ 	t_am_bar		ammo[3];
+ 	t_ar_bar		armor[3];
+ 	t_fr_bar		frag[3];
+ 	int				hp_val;
+ 	int				ar_val;
+ 	int				fr_val;		
 	int				w_scope;
 	int				h_scope;
 	int				w_bott_bar;
 	int				h_bott_bar;
-	int				num_i;
+	int				hp_i;
+	int				ar_i;
+	int				am_i;
+	int				fr_i;
 	char			*numb[10];	
 }					t_HUD;
 
@@ -261,6 +269,7 @@ int					ft_HUD_bar(t_box *box);
 SDL_Surface			*ft_check_png(t_box *box, char *text);
 int					ft_all_bars(t_box *box);
 void				ft_HUD_param(t_box *box);
+int					paint_HUD(t_box *box);
 ///
 
 #endif
