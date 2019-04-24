@@ -28,7 +28,9 @@ SRC_N			= main.c\
 				  mouse_control.c\
 				  HUD.c\
 				  HUD_changing.c\
-				  HUD_param.c
+				  HUD_param.c\
+				  HUD_painting.c
+
 
 SRC_P 			= ./src/
 OBJ 			= $(addprefix $(OBJ_P),$(SRC_N:.c=.o))
