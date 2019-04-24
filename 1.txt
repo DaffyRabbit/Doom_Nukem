@@ -1,9 +1,0 @@
-WASAP!!!!
-FPS = 0
-FPS = 66
-FPS = 66
-FPS = 58
-FPS = 58
-FPS = 62
-FPS = 58
-FPS = 62
