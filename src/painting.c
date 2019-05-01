@@ -19,8 +19,8 @@ int			paint_HUD(t_box *box)
 	SDL_RenderCopy(box->rend, box->HUD.face[box->num_face].face_texture, NULL, &box->HUD.face[box->num_face].rect_face);
 	while (box->HUD.num_i <= 2)
 	{
-	SDL_RenderCopy(box->rend, box->HUD.heals[box->HUD.num_i].heals_texture, NULL, &box->HUD.heals[box->HUD.num_i].rect_heals);
-	box->HUD.num_i++;
+		SDL_RenderCopy(box->rend, box->HUD.heals[box->HUD.num_i].heals_texture, NULL, &box->HUD.heals[box->HUD.num_i].rect_heals);
+		box->HUD.num_i++;
 	}
 	return(0);
 }
@@ -46,6 +46,8 @@ int			paint_this(t_box *box)
 	SDL_RenderPresent(box->rend);
 	return (0);
 }
+
+////////////////////////////// WALL-Collision works badly ////////////////////
 
 void		just_travel_w(t_box *box, double x, double y, double d_x, double d_y)
 {
@@ -106,7 +108,7 @@ void		go_and_west(t_box *box, double x, double y, double p_x, double p_y)
 	if (box->keys[SDL_SCANCODE_A] == 1)
 	{
 		if (!(box->all_map[(int)y][(int)(x - p_x * box->go.spd + 0.15)]) &&
-			!(box->all_map[(int)y][(int)(x - p_x * box->go.spd + 0.15)]) &&
+			!(box->all_map[(int)y][(int)(x - p_x * box->go.spd - 0.15)]) &&
 			!(box->all_map[(int)(y + 0.15)][(int)(x - p_x * box->go.spd)]) &&
 			!(box->all_map[(int)(y - 0.15)][(int)(x - p_x * box->go.spd)]) &&
 			!(box->all_map[(int)(y + 0.15)][(int)(x - p_x * box->go.spd + 0.15)]) &&
@@ -167,10 +169,10 @@ void		some_rotation(t_box *box)
 		box->cam.p.y = i * sin(box->ogo.rot_spd) +
 			box->cam.p.y * cos(box->ogo.rot_spd);
 	}
-	if (box->keys[SDL_SCANCODE_O] == 1 && box->ogo.lop < 600)
-		box->ogo.lop += 25;
-	if (box->keys[SDL_SCANCODE_L] == 1 && box->ogo.lop > -600)
-		box->ogo.lop -= 25;
+	if (box->keys[SDL_SCANCODE_O] == 1 && box->ogo.lop < WIND_H / 2)
+		box->ogo.lop += 20;
+	if (box->keys[SDL_SCANCODE_L] == 1 && box->ogo.lop > -WIND_H / 2)
+		box->ogo.lop -= 20;
 }
 
 void	ttsky_and_sit(t_box *box)

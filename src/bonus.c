@@ -21,7 +21,7 @@ void			some_pthreads(t_box *box)
 	i = 0;
 	while (i < 8)
 	{
-		ft_memcpy((void*)&this_is_sheet[i], (void*)box, sizeof(t_box));
+		ft_memcpy((void *)&this_is_sheet[i], (void *)box, sizeof(t_box));
 		this_is_sheet[i].atpos = i * (WIND_W / 8 + 1);
 		this_is_sheet[i].tpos = (i + 1) * (WIND_W / 8 + 1);
 		pthread_create(&t[i], NULL, thi_is_raycast, &this_is_sheet[i]);

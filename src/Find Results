@@ -1,0 +1,1121 @@
+Searching 191 files for "pri"
+
+/Users/aperesad/Doom_Nukem_current/2transp_test.c:
+   65  			{
+   66  				alpha -= 32;
+   67: 				printf("alpha = %d\n", alpha);
+   68  			}
+   69  			else if (event.key.keysym.sym == SDLK_s && alpha <= 223)
+   70  			{
+   71  				alpha += 32;
+   72: 				printf("alpha = %d\n", alpha);
+   73  			}
+   74  			rect.w = 600;
+
+/Users/aperesad/Doom_Nukem_current/Intra Projects Doom Nukem Edit.htm:
+    <binary>
+
+/Users/aperesad/Doom_Nukem_current/Makefile:
+   61  $(OBJ_P)%.o:$(SRC_P)%.c $(HEADER)
+   62  	@$(CC)  $(INC_MLX) $(INC_LIB) -I $(INC_P) -o $@ -c $<
+   63: 	@printf "Compiling $@\n"
+   64  
+   65  $(ADD_LIB):
+   ..
+   70  $(NAME): $(OBJ)
+   71  	@$(CC) $(OBJ) $(INC_MLX) $(LNK_MLX) $(LNK_LIB) -lm -o $(NAME)
+   72: 	@printf '\033[32m[ Done ] %s\n\033[0m'
+   73  
+   74  clean:
+   75  	@rm -rf $(OBJ_P)
+   76  	@make -C $(LIB_P) clean
+   77: 	@printf '\033[31m[ clean ] %s\n\033[0m'
+   78  
+   79  fclean: clean
+   80  	@rm -rf $(NAME)
+   81  	@make -C $(LIB_P) fclean
+   82: 	@printf '\033[31m[ fclean ] %s\n\033[0m'
+   83  
+   84  re: fclean all
+
+/Users/aperesad/Doom_Nukem_current/wolf3d:
+    <binary>
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/SDL2:
+    <binary>
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/SDL2:
+    <binary>
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_assert.h:
+  253   *  const SDL_AssertData *item = SDL_GetAssertionReport();
+  254   *  while (item) {
+  255:  *      printf("'%s', %s (%s:%d), triggered %u times, always ignore: %s.\\n",
+  256   *             item->condition, item->function, item->filename,
+  257   *             item->linenum, item->trigger_count,
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_config_macosx.h:
+   87  #define HAVE_STRNCASECMP 1
+   88  #define HAVE_VSSCANF 1
+   89: #define HAVE_VSNPRINTF  1
+   90  #define HAVE_M_PI   1
+   91  #define HAVE_ACOS   1
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_error.h:
+   39  /* Public functions */
+   40  /* SDL_SetError() unconditionally returns -1. */
+   41: extern DECLSPEC int SDLCALL SDL_SetError(SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(1);
+   42  extern DECLSPEC const char *SDLCALL SDL_GetError(void);
+   43  extern DECLSPEC void SDLCALL SDL_ClearError(void);
+   ..
+   47   *
+   48   *  \internal
+   49:  *  Private error reporting function - used internally.
+   50   */
+   51  /* @{ */
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_filesystem.h:
+   70   *  application. This directory is unique per user, per application.
+   71   *
+   72:  * This function will decide the appropriate location in the native filesystem,
+   73   *  create the directory if necessary, and return a string of the absolute
+   74   *  path to the directory in UTF-8 encoding.
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_gamecontroller.h:
+   45   *  In order to use these functions, SDL_Init() must have been called
+   46   *  with the ::SDL_INIT_GAMECONTROLLER flag.  This causes SDL to scan the system
+   47:  *  for game controllers, and load appropriate drivers.
+   48   *
+   49   *  If you would like to receive controller updates while the application
+   ..
+  108   *
+  109   *  This string shows an example of a valid mapping for a controller
+  110:  *  "03000000341a00003608000000000000,PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7",
+  111   *
+  112   */
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_haptic.h:
+  223  
+  224  /**
+  225:  *  \brief Spring effect supported - uses axes position.
+  226   *
+  227:  *  Condition haptic effect that simulates a spring.  Effect is based on the
+  228   *  axes position.
+  229   *
+  230   *  \sa SDL_HapticCondition
+  231   */
+  232: #define SDL_HAPTIC_SPRING     (1u<<7)
+  233  
+  234  /**
+  ...
+  580   *
+  581   *  The struct handles the following effects:
+  582:  *   - ::SDL_HAPTIC_SPRING: Effect based on axes position.
+  583   *   - ::SDL_HAPTIC_DAMPER: Effect based on axes velocity.
+  584   *   - ::SDL_HAPTIC_INERTIA: Effect based on axes acceleration.
+  ...
+  594   *
+  595   *  \sa SDL_HapticDirection
+  596:  *  \sa SDL_HAPTIC_SPRING
+  597   *  \sa SDL_HAPTIC_DAMPER
+  598   *  \sa SDL_HAPTIC_INERTIA
+  ...
+  603  {
+  604      /* Header */
+  605:     Uint16 type;            /**< ::SDL_HAPTIC_SPRING, ::SDL_HAPTIC_DAMPER,
+  606                                   ::SDL_HAPTIC_INERTIA or ::SDL_HAPTIC_FRICTION */
+  607      SDL_HapticDirection direction;  /**< Direction of the effect - Not used ATM. */
+  ...
+  973   *  \code
+  974   *  if (SDL_HapticQuery(haptic) & SDL_HAPTIC_CONSTANT) {
+  975:  *      printf("We have constant haptic effect!\n");
+  976   *  }
+  977   *  \endcode
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_hints.h:
+  598   *
+  599   *  This variable can be one of the following values:
+  600:  *    "primary" (default), "portrait", "landscape", "inverted-portrait", "inverted-landscape"
+  601   */
+  602  #define SDL_HINT_QTWAYLAND_CONTENT_ORIENTATION "SDL_QTWAYLAND_CONTENT_ORIENTATION"
+  ...
+  676  
+  677  /**
+  678:  *  \brief A URL to a WinRT app's privacy policy
+  679   *
+  680:  *  All network-enabled WinRT apps must make a privacy policy available to its
+  681   *  users.  On Windows 8, 8.1, and RT, Microsoft mandates that this policy be
+  682   *  be available in the Windows Settings charm, as accessed from within the app.
+  683   *  SDL provides code to add a URL-based link there, which can point to the app's
+  684:  *  privacy policy.
+  685   *
+  686:  *  To setup a URL to an app's privacy policy, set SDL_HINT_WINRT_PRIVACY_POLICY_URL
+  687   *  before calling any SDL_Init() functions.  The contents of the hint should
+  688   *  be a valid URL.  For example, "http://www.example.com".
+  689   *
+  690:  *  The default value is "", which will prevent SDL from adding a privacy policy
+  691   *  link to the Settings charm.  This hint should only be set during app init.
+  692   *
+  693:  *  The label text of an app's "Privacy Policy" link may be customized via another
+  694:  *  hint, SDL_HINT_WINRT_PRIVACY_POLICY_LABEL.
+  695   *
+  696   *  Please note that on Windows Phone, Microsoft does not provide standard UI
+  697:  *  for displaying a privacy policy link, and as such, SDL_HINT_WINRT_PRIVACY_POLICY_URL
+  698   *  will not get used on that platform.  Network-enabled phone apps should display
+  699:  *  their privacy policy through some other, in-app means.
+  700   */
+  701: #define SDL_HINT_WINRT_PRIVACY_POLICY_URL "SDL_WINRT_PRIVACY_POLICY_URL"
+  702  
+  703: /** \brief Label text for a WinRT app's privacy policy link
+  704   *
+  705:  *  Network-enabled WinRT apps must include a privacy policy.  On Windows 8, 8.1, and RT,
+  706   *  Microsoft mandates that this policy be available via the Windows Settings charm.
+  707   *  SDL provides code to add a link there, with its label text being set via the
+  708:  *  optional hint, SDL_HINT_WINRT_PRIVACY_POLICY_LABEL.
+  709   *
+  710:  *  Please note that a privacy policy's contents are not set via this hint.  A separate
+  711:  *  hint, SDL_HINT_WINRT_PRIVACY_POLICY_URL, is used to link to the actual text of the
+  712   *  policy.
+  713   *
+  714   *  The contents of this hint should be encoded as a UTF8 string.
+  715   *
+  716:  *  The default value is "Privacy Policy".  This hint should only be set during app
+  717   *  initialization, preferably before any calls to SDL_Init().
+  718   *
+  719:  *  For additional information on linking to a privacy policy, see the documentation for
+  720:  *  SDL_HINT_WINRT_PRIVACY_POLICY_URL.
+  721   */
+  722: #define SDL_HINT_WINRT_PRIVACY_POLICY_LABEL "SDL_WINRT_PRIVACY_POLICY_LABEL"
+  723  
+  724  /** \brief Allows back-button-press events on Windows Phone to be marked as handled
+  ...
+  726   *  Windows Phone devices typically feature a Back button.  When pressed,
+  727   *  the OS will emit back-button-press events, which apps are expected to
+  728:  *  handle in an appropriate manner.  If apps do not explicitly mark these
+  729   *  events as 'Handled', then the OS will invoke its default behavior for
+  730   *  unhandled back-button-press events, which on Windows Phone 8 and 8.1 is to
+  ...
+ 1045  
+ 1046  /**
+ 1047:  *  \brief  An enumeration of hint priorities
+ 1048   */
+ 1049  typedef enum
+ ....
+ 1052      SDL_HINT_NORMAL,
+ 1053      SDL_HINT_OVERRIDE
+ 1054: } SDL_HintPriority;
+ 1055  
+ 1056  
+ 1057  /**
+ 1058:  *  \brief Set a hint with a specific priority
+ 1059   *
+ 1060:  *  The priority controls the behavior when setting a hint that already
+ 1061:  *  has a value.  Hints will replace existing hints of their priority and
+ 1062:  *  lower.  Environment variables are considered to have override priority.
+ 1063   *
+ 1064   *  \return SDL_TRUE if the hint was set, SDL_FALSE otherwise
+ 1065   */
+ 1066: extern DECLSPEC SDL_bool SDLCALL SDL_SetHintWithPriority(const char *name,
+ 1067                                                           const char *value,
+ 1068:                                                          SDL_HintPriority priority);
+ 1069  
+ 1070  /**
+ 1071:  *  \brief Set a hint with normal priority
+ 1072   *
+ 1073   *  \return SDL_TRUE if the hint was set, SDL_FALSE otherwise
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_joystick.h:
+   54   *  In order to use these functions, SDL_Init() must have been called
+   55   *  with the ::SDL_INIT_JOYSTICK flag.  This causes SDL to scan the system
+   56:  *  for joysticks, and load appropriate drivers.
+   57   *
+   58   *  If you would like to receive joystick updates while the application
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_keyboard.h:
+   71   *  const Uint8 *state = SDL_GetKeyboardState(NULL);
+   72   *  if ( state[SDL_SCANCODE_RETURN] )   {
+   73:  *      printf("<RETURN> is pressed.\n");
+   74   *  }
+   75   *  \endcode
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_keycode.h:
+  140      SDLK_F12 = SDL_SCANCODE_TO_KEYCODE(SDL_SCANCODE_F12),
+  141  
+  142:     SDLK_PRINTSCREEN = SDL_SCANCODE_TO_KEYCODE(SDL_SCANCODE_PRINTSCREEN),
+  143      SDLK_SCROLLLOCK = SDL_SCANCODE_TO_KEYCODE(SDL_SCANCODE_SCROLLLOCK),
+  144      SDLK_PAUSE = SDL_SCANCODE_TO_KEYCODE(SDL_SCANCODE_PAUSE),
+  ...
+  209      SDLK_CANCEL = SDL_SCANCODE_TO_KEYCODE(SDL_SCANCODE_CANCEL),
+  210      SDLK_CLEAR = SDL_SCANCODE_TO_KEYCODE(SDL_SCANCODE_CLEAR),
+  211:     SDLK_PRIOR = SDL_SCANCODE_TO_KEYCODE(SDL_SCANCODE_PRIOR),
+  212      SDLK_RETURN2 = SDL_SCANCODE_TO_KEYCODE(SDL_SCANCODE_RETURN2),
+  213      SDLK_SEPARATOR = SDL_SCANCODE_TO_KEYCODE(SDL_SCANCODE_SEPARATOR),
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_log.h:
+   23   *  \file SDL_log.h
+   24   *
+   25:  *  Simple log messages with categories and priorities.
+   26   *
+   27   *  By default logs are quiet, but if you're debugging SDL you might want:
+   28   *
+   29:  *      SDL_LogSetAllPriority(SDL_LOG_PRIORITY_WARN);
+   30   *
+   31   *  Here's where the messages go on different platforms:
+   ..
+   98  
+   99  /**
+  100:  *  \brief The predefined log priorities
+  101   */
+  102  typedef enum
+  103  {
+  104:     SDL_LOG_PRIORITY_VERBOSE = 1,
+  105:     SDL_LOG_PRIORITY_DEBUG,
+  106:     SDL_LOG_PRIORITY_INFO,
+  107:     SDL_LOG_PRIORITY_WARN,
+  108:     SDL_LOG_PRIORITY_ERROR,
+  109:     SDL_LOG_PRIORITY_CRITICAL,
+  110:     SDL_NUM_LOG_PRIORITIES
+  111: } SDL_LogPriority;
+  112  
+  113  
+  114  /**
+  115:  *  \brief Set the priority of all log categories
+  116   */
+  117: extern DECLSPEC void SDLCALL SDL_LogSetAllPriority(SDL_LogPriority priority);
+  118  
+  119  /**
+  120:  *  \brief Set the priority of a particular log category
+  121   */
+  122: extern DECLSPEC void SDLCALL SDL_LogSetPriority(int category,
+  123:                                                 SDL_LogPriority priority);
+  124  
+  125  /**
+  126:  *  \brief Get the priority of a particular log category
+  127   */
+  128: extern DECLSPEC SDL_LogPriority SDLCALL SDL_LogGetPriority(int category);
+  129  
+  130  /**
+  131:  *  \brief Reset all priorities to default.
+  132   *
+  133   *  \note This is called in SDL_Quit().
+  134   */
+  135: extern DECLSPEC void SDLCALL SDL_LogResetPriorities(void);
+  136  
+  137  /**
+  138:  *  \brief Log a message with SDL_LOG_CATEGORY_APPLICATION and SDL_LOG_PRIORITY_INFO
+  139   */
+  140: extern DECLSPEC void SDLCALL SDL_Log(SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(1);
+  141  
+  142  /**
+  143:  *  \brief Log a message with SDL_LOG_PRIORITY_VERBOSE
+  144   */
+  145: extern DECLSPEC void SDLCALL SDL_LogVerbose(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
+  146  
+  147  /**
+  148:  *  \brief Log a message with SDL_LOG_PRIORITY_DEBUG
+  149   */
+  150: extern DECLSPEC void SDLCALL SDL_LogDebug(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
+  151  
+  152  /**
+  153:  *  \brief Log a message with SDL_LOG_PRIORITY_INFO
+  154   */
+  155: extern DECLSPEC void SDLCALL SDL_LogInfo(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
+  156  
+  157  /**
+  158:  *  \brief Log a message with SDL_LOG_PRIORITY_WARN
+  159   */
+  160: extern DECLSPEC void SDLCALL SDL_LogWarn(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
+  161  
+  162  /**
+  163:  *  \brief Log a message with SDL_LOG_PRIORITY_ERROR
+  164   */
+  165: extern DECLSPEC void SDLCALL SDL_LogError(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
+  166  
+  167  /**
+  168:  *  \brief Log a message with SDL_LOG_PRIORITY_CRITICAL
+  169   */
+  170: extern DECLSPEC void SDLCALL SDL_LogCritical(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
+  171  
+  172  /**
+  173:  *  \brief Log a message with the specified category and priority.
+  174   */
+  175  extern DECLSPEC void SDLCALL SDL_LogMessage(int category,
+  176:                                             SDL_LogPriority priority,
+  177:                                             SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(3);
+  178  
+  179  /**
+  180:  *  \brief Log a message with the specified category and priority.
+  181   */
+  182  extern DECLSPEC void SDLCALL SDL_LogMessageV(int category,
+  183:                                              SDL_LogPriority priority,
+  184                                               const char *fmt, va_list ap);
+  185  
+  ...
+  187   *  \brief The prototype for the log output function
+  188   */
+  189: typedef void (SDLCALL *SDL_LogOutputFunction)(void *userdata, int category, SDL_LogPriority priority, const char *message);
+  190  
+  191  /**
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_mutex.h:
+   26   *  \file SDL_mutex.h
+   27   *
+   28:  *  Functions to provide thread synchronization primitives.
+   29   */
+   30  
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_opengl.h:
+  213  #define GL_DOUBLE				0x140A
+  214  
+  215: /* Primitives */
+  216  #define GL_POINTS				0x0000
+  217  #define GL_LINES				0x0001
+  ...
+  752  #define GL_PROXY_TEXTURE_1D			0x8063
+  753  #define GL_PROXY_TEXTURE_2D			0x8064
+  754: #define GL_TEXTURE_PRIORITY			0x8066
+  755  #define GL_TEXTURE_RESIDENT			0x8067
+  756  #define GL_TEXTURE_BINDING_1D			0x8068
+  ...
+ 1366  GLAPI void GLAPIENTRY glBindTexture( GLenum target, GLuint texture );
+ 1367  
+ 1368: GLAPI void GLAPIENTRY glPrioritizeTextures( GLsizei n,
+ 1369                                              const GLuint *textures,
+ 1370:                                             const GLclampf *priorities );
+ 1371  
+ 1372  GLAPI GLboolean GLAPIENTRY glAreTexturesResident( GLsizei n,
+ ....
+ 1868  #define GL_SUBTRACT				0x84E7
+ 1869  #define GL_CONSTANT				0x8576
+ 1870: #define GL_PRIMARY_COLOR			0x8577
+ 1871  #define GL_PREVIOUS				0x8578
+ 1872  /* texture_env_dot3 */
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_opengl_glext.h:
+  215  #define GL_SUBTRACT                       0x84E7
+  216  #define GL_CONSTANT                       0x8576
+  217: #define GL_PRIMARY_COLOR                  0x8577
+  218  #define GL_PREVIOUS                       0x8578
+  219  #define GL_DOT3_RGB                       0x86AE
+  ...
+  642  #define GL_SHADING_LANGUAGE_VERSION       0x8B8C
+  643  #define GL_CURRENT_PROGRAM                0x8B8D
+  644: #define GL_POINT_SPRITE_COORD_ORIGIN      0x8CA0
+  645  #define GL_LOWER_LEFT                     0x8CA1
+  646  #define GL_UPPER_LEFT                     0x8CA2
+  ...
+  649  #define GL_STENCIL_BACK_WRITEMASK         0x8CA5
+  650  #define GL_VERTEX_PROGRAM_TWO_SIDE        0x8643
+  651: #define GL_POINT_SPRITE                   0x8861
+  652  #define GL_COORD_REPLACE                  0x8862
+  653  #define GL_MAX_TEXTURE_COORDS             0x8871
+  ...
+  931  #define GL_TRANSFORM_FEEDBACK_BUFFER_START 0x8C84
+  932  #define GL_TRANSFORM_FEEDBACK_BUFFER_SIZE 0x8C85
+  933: #define GL_PRIMITIVES_GENERATED           0x8C87
+  934: #define GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN 0x8C88
+  935  #define GL_RASTERIZER_DISCARD             0x8C89
+  936  #define GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS 0x8C8A
+  ...
+ 1113  typedef void (APIENTRYP PFNGLDISABLEIPROC) (GLenum target, GLuint index);
+ 1114  typedef GLboolean (APIENTRYP PFNGLISENABLEDIPROC) (GLenum target, GLuint index);
+ 1115: typedef void (APIENTRYP PFNGLBEGINTRANSFORMFEEDBACKPROC) (GLenum primitiveMode);
+ 1116  typedef void (APIENTRYP PFNGLENDTRANSFORMFEEDBACKPROC) (void);
+ 1117  typedef void (APIENTRYP PFNGLBINDBUFFERRANGEPROC) (GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size);
+ ....
+ 1198  GLAPI void APIENTRY glDisablei (GLenum target, GLuint index);
+ 1199  GLAPI GLboolean APIENTRY glIsEnabledi (GLenum target, GLuint index);
+ 1200: GLAPI void APIENTRY glBeginTransformFeedback (GLenum primitiveMode);
+ 1201  GLAPI void APIENTRY glEndTransformFeedback (void);
+ 1202  GLAPI void APIENTRY glBindBufferRange (GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size);
+ ....
+ 1305  #define GL_RGBA16_SNORM                   0x8F9B
+ 1306  #define GL_SIGNED_NORMALIZED              0x8F9C
+ 1307: #define GL_PRIMITIVE_RESTART              0x8F9D
+ 1308: #define GL_PRIMITIVE_RESTART_INDEX        0x8F9E
+ 1309  #define GL_COPY_READ_BUFFER               0x8F36
+ 1310  #define GL_COPY_WRITE_BUFFER              0x8F37
+ ....
+ 1342  typedef void (APIENTRYP PFNGLDRAWELEMENTSINSTANCEDPROC) (GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei instancecount);
+ 1343  typedef void (APIENTRYP PFNGLTEXBUFFERPROC) (GLenum target, GLenum internalformat, GLuint buffer);
+ 1344: typedef void (APIENTRYP PFNGLPRIMITIVERESTARTINDEXPROC) (GLuint index);
+ 1345  typedef void (APIENTRYP PFNGLCOPYBUFFERSUBDATAPROC) (GLenum readTarget, GLenum writeTarget, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size);
+ 1346  typedef void (APIENTRYP PFNGLGETUNIFORMINDICESPROC) (GLuint program, GLsizei uniformCount, const GLchar *const*uniformNames, GLuint *uniformIndices);
+ ....
+ 1355  GLAPI void APIENTRY glDrawElementsInstanced (GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei instancecount);
+ 1356  GLAPI void APIENTRY glTexBuffer (GLenum target, GLenum internalformat, GLuint buffer);
+ 1357: GLAPI void APIENTRY glPrimitiveRestartIndex (GLuint index);
+ 1358  GLAPI void APIENTRY glCopyBufferSubData (GLenum readTarget, GLenum writeTarget, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size);
+ 1359  GLAPI void APIENTRY glGetUniformIndices (GLuint program, GLsizei uniformCount, const GLchar *const*uniformNames, GLuint *uniformIndices);
+ ....
+ 2198  #define GL_COMPRESSED_RG11_EAC            0x9272
+ 2199  #define GL_COMPRESSED_SIGNED_RG11_EAC     0x9273
+ 2200: #define GL_PRIMITIVE_RESTART_FIXED_INDEX  0x8D69
+ 2201  #define GL_ANY_SAMPLES_PASSED_CONSERVATIVE 0x8D6A
+ 2202  #define GL_MAX_ELEMENT_INDEX              0x8D6B
+ ....
+ 2537  #define GL_VERSION_4_4 1
+ 2538  #define GL_MAX_VERTEX_ATTRIB_STRIDE       0x82E5
+ 2539: #define GL_PRIMITIVE_RESTART_FOR_PATCHES_SUPPORTED 0x8221
+ 2540  #define GL_TEXTURE_BUFFER_BINDING         0x8C2A
+ 2541  #define GL_MAP_PERSISTENT_BIT             0x0040
+ ....
+ 2816  #ifndef GL_ARB_draw_instanced
+ 2817  #define GL_ARB_draw_instanced 1
+ 2818: typedef void (APIENTRYP PFNGLDRAWARRAYSINSTANCEDARBPROC) (GLenum mode, GLint first, GLsizei count, GLsizei primcount);
+ 2819: typedef void (APIENTRYP PFNGLDRAWELEMENTSINSTANCEDARBPROC) (GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei primcount);
+ 2820  #ifdef GL_GLEXT_PROTOTYPES
+ 2821: GLAPI void APIENTRY glDrawArraysInstancedARB (GLenum mode, GLint first, GLsizei count, GLsizei primcount);
+ 2822: GLAPI void APIENTRY glDrawElementsInstancedARB (GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei primcount);
+ 2823  #endif
+ 2824  #endif /* GL_ARB_draw_instanced */
+ ....
+ 3439  #endif /* GL_ARB_point_parameters */
+ 3440  
+ 3441: #ifndef GL_ARB_point_sprite
+ 3442: #define GL_ARB_point_sprite 1
+ 3443: #define GL_POINT_SPRITE_ARB               0x8861
+ 3444  #define GL_COORD_REPLACE_ARB              0x8862
+ 3445: #endif /* GL_ARB_point_sprite */
+ 3446  
+ 3447  #ifndef GL_ARB_program_interface_query
+ ....
+ 3911  #define GL_SUBTRACT_ARB                   0x84E7
+ 3912  #define GL_CONSTANT_ARB                   0x8576
+ 3913: #define GL_PRIMARY_COLOR_ARB              0x8577
+ 3914  #define GL_PREVIOUS_ARB                   0x8578
+ 3915  #endif /* GL_ARB_texture_env_combine */
+ ....
+ 4574  typedef void (APIENTRYP PFNGLPIXELTRANSFERXOESPROC) (GLenum pname, GLfixed param);
+ 4575  typedef void (APIENTRYP PFNGLPIXELZOOMXOESPROC) (GLfixed xfactor, GLfixed yfactor);
+ 4576: typedef void (APIENTRYP PFNGLPRIORITIZETEXTURESXOESPROC) (GLsizei n, const GLuint *textures, const GLfixed *priorities);
+ 4577  typedef void (APIENTRYP PFNGLRASTERPOS2XOESPROC) (GLfixed x, GLfixed y);
+ 4578  typedef void (APIENTRYP PFNGLRASTERPOS2XVOESPROC) (const GLfixed *coords);
+ ....
+ 4679  GLAPI void APIENTRY glPixelTransferxOES (GLenum pname, GLfixed param);
+ 4680  GLAPI void APIENTRY glPixelZoomxOES (GLfixed xfactor, GLfixed yfactor);
+ 4681: GLAPI void APIENTRY glPrioritizeTexturesxOES (GLsizei n, const GLuint *textures, const GLfixed *priorities);
+ 4682  GLAPI void APIENTRY glRasterPos2xOES (GLfixed x, GLfixed y);
+ 4683  GLAPI void APIENTRY glRasterPos2xvOES (const GLfixed *coords);
+ ....
+ 4939  #ifndef GL_AMD_multi_draw_indirect
+ 4940  #define GL_AMD_multi_draw_indirect 1
+ 4941: typedef void (APIENTRYP PFNGLMULTIDRAWARRAYSINDIRECTAMDPROC) (GLenum mode, const void *indirect, GLsizei primcount, GLsizei stride);
+ 4942: typedef void (APIENTRYP PFNGLMULTIDRAWELEMENTSINDIRECTAMDPROC) (GLenum mode, GLenum type, const void *indirect, GLsizei primcount, GLsizei stride);
+ 4943  #ifdef GL_GLEXT_PROTOTYPES
+ 4944: GLAPI void APIENTRY glMultiDrawArraysIndirectAMD (GLenum mode, const void *indirect, GLsizei primcount, GLsizei stride);
+ 4945: GLAPI void APIENTRY glMultiDrawElementsIndirectAMD (GLenum mode, GLenum type, const void *indirect, GLsizei primcount, GLsizei stride);
+ 4946  #endif
+ 4947  #endif /* GL_AMD_multi_draw_indirect */
+ ....
+ 5137  typedef void (APIENTRYP PFNGLDRAWELEMENTARRAYAPPLEPROC) (GLenum mode, GLint first, GLsizei count);
+ 5138  typedef void (APIENTRYP PFNGLDRAWRANGEELEMENTARRAYAPPLEPROC) (GLenum mode, GLuint start, GLuint end, GLint first, GLsizei count);
+ 5139: typedef void (APIENTRYP PFNGLMULTIDRAWELEMENTARRAYAPPLEPROC) (GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount);
+ 5140: typedef void (APIENTRYP PFNGLMULTIDRAWRANGEELEMENTARRAYAPPLEPROC) (GLenum mode, GLuint start, GLuint end, const GLint *first, const GLsizei *count, GLsizei primcount);
+ 5141  #ifdef GL_GLEXT_PROTOTYPES
+ 5142  GLAPI void APIENTRY glElementPointerAPPLE (GLenum type, const void *pointer);
+ 5143  GLAPI void APIENTRY glDrawElementArrayAPPLE (GLenum mode, GLint first, GLsizei count);
+ 5144  GLAPI void APIENTRY glDrawRangeElementArrayAPPLE (GLenum mode, GLuint start, GLuint end, GLint first, GLsizei count);
+ 5145: GLAPI void APIENTRY glMultiDrawElementArrayAPPLE (GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount);
+ 5146: GLAPI void APIENTRY glMultiDrawRangeElementArrayAPPLE (GLenum mode, GLuint start, GLuint end, const GLint *first, const GLsizei *count, GLsizei primcount);
+ 5147  #endif
+ 5148  #endif /* GL_APPLE_element_array */
+ ....
+ 5244  #define GL_TEXTURE_RANGE_POINTER_APPLE    0x85B8
+ 5245  #define GL_TEXTURE_STORAGE_HINT_APPLE     0x85BC
+ 5246: #define GL_STORAGE_PRIVATE_APPLE          0x85BD
+ 5247  #define GL_STORAGE_CACHED_APPLE           0x85BE
+ 5248  #define GL_STORAGE_SHARED_APPLE           0x85BF
+ ....
+ 6614  #ifndef GL_EXT_draw_instanced
+ 6615  #define GL_EXT_draw_instanced 1
+ 6616: typedef void (APIENTRYP PFNGLDRAWARRAYSINSTANCEDEXTPROC) (GLenum mode, GLint start, GLsizei count, GLsizei primcount);
+ 6617: typedef void (APIENTRYP PFNGLDRAWELEMENTSINSTANCEDEXTPROC) (GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei primcount);
+ 6618  #ifdef GL_GLEXT_PROTOTYPES
+ 6619: GLAPI void APIENTRY glDrawArraysInstancedEXT (GLenum mode, GLint start, GLsizei count, GLsizei primcount);
+ 6620: GLAPI void APIENTRY glDrawElementsInstancedEXT (GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei primcount);
+ 6621  #endif
+ 6622  #endif /* GL_EXT_draw_instanced */
+ ....
+ 6981  #ifndef GL_EXT_multi_draw_arrays
+ 6982  #define GL_EXT_multi_draw_arrays 1
+ 6983: typedef void (APIENTRYP PFNGLMULTIDRAWARRAYSEXTPROC) (GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount);
+ 6984: typedef void (APIENTRYP PFNGLMULTIDRAWELEMENTSEXTPROC) (GLenum mode, const GLsizei *count, GLenum type, const void *const*indices, GLsizei primcount);
+ 6985  #ifdef GL_GLEXT_PROTOTYPES
+ 6986: GLAPI void APIENTRY glMultiDrawArraysEXT (GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount);
+ 6987: GLAPI void APIENTRY glMultiDrawElementsEXT (GLenum mode, const GLsizei *count, GLenum type, const void *const*indices, GLsizei primcount);
+ 6988  #endif
+ 6989  #endif /* GL_EXT_multi_draw_arrays */
+ ....
+ 7471  #define GL_INTERPOLATE_EXT                0x8575
+ 7472  #define GL_CONSTANT_EXT                   0x8576
+ 7473: #define GL_PRIMARY_COLOR_EXT              0x8577
+ 7474  #define GL_PREVIOUS_EXT                   0x8578
+ 7475  #define GL_SOURCE0_RGB_EXT                0x8580
+ ....
+ 7580  #ifndef GL_EXT_texture_object
+ 7581  #define GL_EXT_texture_object 1
+ 7582: #define GL_TEXTURE_PRIORITY_EXT           0x8066
+ 7583  #define GL_TEXTURE_RESIDENT_EXT           0x8067
+ 7584  #define GL_TEXTURE_1D_BINDING_EXT         0x8068
+ ....
+ 7590  typedef void (APIENTRYP PFNGLGENTEXTURESEXTPROC) (GLsizei n, GLuint *textures);
+ 7591  typedef GLboolean (APIENTRYP PFNGLISTEXTUREEXTPROC) (GLuint texture);
+ 7592: typedef void (APIENTRYP PFNGLPRIORITIZETEXTURESEXTPROC) (GLsizei n, const GLuint *textures, const GLclampf *priorities);
+ 7593  #ifdef GL_GLEXT_PROTOTYPES
+ 7594  GLAPI GLboolean APIENTRY glAreTexturesResidentEXT (GLsizei n, const GLuint *textures, GLboolean *residences);
+ ....
+ 7597  GLAPI void APIENTRY glGenTexturesEXT (GLsizei n, GLuint *textures);
+ 7598  GLAPI GLboolean APIENTRY glIsTextureEXT (GLuint texture);
+ 7599: GLAPI void APIENTRY glPrioritizeTexturesEXT (GLsizei n, const GLuint *textures, const GLclampf *priorities);
+ 7600  #endif
+ 7601  #endif /* GL_EXT_texture_object */
+ ....
+ 7693  #define GL_INTERLEAVED_ATTRIBS_EXT        0x8C8C
+ 7694  #define GL_SEPARATE_ATTRIBS_EXT           0x8C8D
+ 7695: #define GL_PRIMITIVES_GENERATED_EXT       0x8C87
+ 7696: #define GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN_EXT 0x8C88
+ 7697  #define GL_RASTERIZER_DISCARD_EXT         0x8C89
+ 7698  #define GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS_EXT 0x8C8A
+ ....
+ 7702  #define GL_TRANSFORM_FEEDBACK_BUFFER_MODE_EXT 0x8C7F
+ 7703  #define GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH_EXT 0x8C76
+ 7704: typedef void (APIENTRYP PFNGLBEGINTRANSFORMFEEDBACKEXTPROC) (GLenum primitiveMode);
+ 7705  typedef void (APIENTRYP PFNGLENDTRANSFORMFEEDBACKEXTPROC) (void);
+ 7706  typedef void (APIENTRYP PFNGLBINDBUFFERRANGEEXTPROC) (GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size);
+ ....
+ 7710  typedef void (APIENTRYP PFNGLGETTRANSFORMFEEDBACKVARYINGEXTPROC) (GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLsizei *size, GLenum *type, GLchar *name);
+ 7711  #ifdef GL_GLEXT_PROTOTYPES
+ 7712: GLAPI void APIENTRY glBeginTransformFeedbackEXT (GLenum primitiveMode);
+ 7713  GLAPI void APIENTRY glEndTransformFeedbackEXT (void);
+ 7714  GLAPI void APIENTRY glBindBufferRangeEXT (GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size);
+ ....
+ 8129  #ifndef GL_IBM_multimode_draw_arrays
+ 8130  #define GL_IBM_multimode_draw_arrays 1
+ 8131: typedef void (APIENTRYP PFNGLMULTIMODEDRAWARRAYSIBMPROC) (const GLenum *mode, const GLint *first, const GLsizei *count, GLsizei primcount, GLint modestride);
+ 8132: typedef void (APIENTRYP PFNGLMULTIMODEDRAWELEMENTSIBMPROC) (const GLenum *mode, const GLsizei *count, GLenum type, const void *const*indices, GLsizei primcount, GLint modestride);
+ 8133  #ifdef GL_GLEXT_PROTOTYPES
+ 8134: GLAPI void APIENTRY glMultiModeDrawArraysIBM (const GLenum *mode, const GLint *first, const GLsizei *count, GLsizei primcount, GLint modestride);
+ 8135: GLAPI void APIENTRY glMultiModeDrawElementsIBM (const GLenum *mode, const GLsizei *count, GLenum type, const void *const*indices, GLsizei primcount, GLint modestride);
+ 8136  #endif
+ 8137  #endif /* GL_IBM_multimode_draw_arrays */
+ ....
+ 9148  #define GL_FONT_UNDERLINE_THICKNESS_BIT_NV 0x08000000
+ 9149  #define GL_FONT_HAS_KERNING_BIT_NV        0x10000000
+ 9150: #define GL_PRIMARY_COLOR_NV               0x852C
+ 9151  #define GL_SECONDARY_COLOR_NV             0x852D
+ 9152  typedef GLuint (APIENTRYP PFNGLGENPATHSNVPROC) (GLsizei range);
+ ....
+ 9268  #endif /* GL_NV_pixel_data_range */
+ 9269  
+ 9270: #ifndef GL_NV_point_sprite
+ 9271: #define GL_NV_point_sprite 1
+ 9272: #define GL_POINT_SPRITE_NV                0x8861
+ 9273  #define GL_COORD_REPLACE_NV               0x8862
+ 9274: #define GL_POINT_SPRITE_R_MODE_NV         0x8863
+ 9275  typedef void (APIENTRYP PFNGLPOINTPARAMETERINVPROC) (GLenum pname, GLint param);
+ 9276  typedef void (APIENTRYP PFNGLPOINTPARAMETERIVNVPROC) (GLenum pname, const GLint *params);
+ ....
+ 9279  GLAPI void APIENTRY glPointParameterivNV (GLenum pname, const GLint *params);
+ 9280  #endif
+ 9281: #endif /* GL_NV_point_sprite */
+ 9282  
+ 9283  #ifndef GL_NV_present_video
+ ....
+ 9305  #endif /* GL_NV_present_video */
+ 9306  
+ 9307: #ifndef GL_NV_primitive_restart
+ 9308: #define GL_NV_primitive_restart 1
+ 9309: #define GL_PRIMITIVE_RESTART_NV           0x8558
+ 9310: #define GL_PRIMITIVE_RESTART_INDEX_NV     0x8559
+ 9311: typedef void (APIENTRYP PFNGLPRIMITIVERESTARTNVPROC) (void);
+ 9312: typedef void (APIENTRYP PFNGLPRIMITIVERESTARTINDEXNVPROC) (GLuint index);
+ 9313  #ifdef GL_GLEXT_PROTOTYPES
+ 9314: GLAPI void APIENTRY glPrimitiveRestartNV (void);
+ 9315: GLAPI void APIENTRY glPrimitiveRestartIndexNV (GLuint index);
+ 9316  #endif
+ 9317: #endif /* GL_NV_primitive_restart */
+ 9318  
+ 9319  #ifndef GL_NV_register_combiners
+ ....
+ 9653  #ifndef GL_NV_transform_feedback
+ 9654  #define GL_NV_transform_feedback 1
+ 9655: #define GL_BACK_PRIMARY_COLOR_NV          0x8C77
+ 9656  #define GL_BACK_SECONDARY_COLOR_NV        0x8C78
+ 9657  #define GL_TEXTURE_COORD_NV               0x8C79
+ 9658  #define GL_CLIP_DISTANCE_NV               0x8C7A
+ 9659  #define GL_VERTEX_ID_NV                   0x8C7B
+ 9660: #define GL_PRIMITIVE_ID_NV                0x8C7C
+ 9661  #define GL_GENERIC_ATTRIB_NV              0x8C7D
+ 9662  #define GL_TRANSFORM_FEEDBACK_ATTRIBS_NV  0x8C7E
+ ....
+ 9669  #define GL_TRANSFORM_FEEDBACK_BUFFER_SIZE_NV 0x8C85
+ 9670  #define GL_TRANSFORM_FEEDBACK_RECORD_NV   0x8C86
+ 9671: #define GL_PRIMITIVES_GENERATED_NV        0x8C87
+ 9672: #define GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN_NV 0x8C88
+ 9673  #define GL_RASTERIZER_DISCARD_NV          0x8C89
+ 9674  #define GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS_NV 0x8C8A
+ ....
+ 9684  #define GL_SKIP_COMPONENTS2_NV            -5
+ 9685  #define GL_SKIP_COMPONENTS1_NV            -6
+ 9686: typedef void (APIENTRYP PFNGLBEGINTRANSFORMFEEDBACKNVPROC) (GLenum primitiveMode);
+ 9687  typedef void (APIENTRYP PFNGLENDTRANSFORMFEEDBACKNVPROC) (void);
+ 9688  typedef void (APIENTRYP PFNGLTRANSFORMFEEDBACKATTRIBSNVPROC) (GLuint count, const GLint *attribs, GLenum bufferMode);
+ ....
+ 9697  typedef void (APIENTRYP PFNGLTRANSFORMFEEDBACKSTREAMATTRIBSNVPROC) (GLsizei count, const GLint *attribs, GLsizei nbuffers, const GLint *bufstreams, GLenum bufferMode);
+ 9698  #ifdef GL_GLEXT_PROTOTYPES
+ 9699: GLAPI void APIENTRY glBeginTransformFeedbackNV (GLenum primitiveMode);
+ 9700  GLAPI void APIENTRY glEndTransformFeedbackNV (void);
+ 9701  GLAPI void APIENTRY glTransformFeedbackAttribsNV (GLuint count, const GLint *attribs, GLenum bufferMode);
+ ....
+ 10736  #endif /* GL_SGIX_ir_instrument1 */
+ 10737  
+ 10738: #ifndef GL_SGIX_list_priority
+ 10739: #define GL_SGIX_list_priority 1
+ 10740: #define GL_LIST_PRIORITY_SGIX             0x8182
+ 10741  typedef void (APIENTRYP PFNGLGETLISTPARAMETERFVSGIXPROC) (GLuint list, GLenum pname, GLfloat *params);
+ 10742  typedef void (APIENTRYP PFNGLGETLISTPARAMETERIVSGIXPROC) (GLuint list, GLenum pname, GLint *params);
+ .....
+ 10753  GLAPI void APIENTRY glListParameterivSGIX (GLuint list, GLenum pname, const GLint *params);
+ 10754  #endif
+ 10755: #endif /* GL_SGIX_list_priority */
+ 10756  
+ 10757  #ifndef GL_SGIX_pixel_texture
+ .....
+ 10834  #endif /* GL_SGIX_shadow_ambient */
+ 10835  
+ 10836: #ifndef GL_SGIX_sprite
+ 10837: #define GL_SGIX_sprite 1
+ 10838: #define GL_SPRITE_SGIX                    0x8148
+ 10839: #define GL_SPRITE_MODE_SGIX               0x8149
+ 10840: #define GL_SPRITE_AXIS_SGIX               0x814A
+ 10841: #define GL_SPRITE_TRANSLATION_SGIX        0x814B
+ 10842: #define GL_SPRITE_AXIAL_SGIX              0x814C
+ 10843: #define GL_SPRITE_OBJECT_ALIGNED_SGIX     0x814D
+ 10844: #define GL_SPRITE_EYE_ALIGNED_SGIX        0x814E
+ 10845: typedef void (APIENTRYP PFNGLSPRITEPARAMETERFSGIXPROC) (GLenum pname, GLfloat param);
+ 10846: typedef void (APIENTRYP PFNGLSPRITEPARAMETERFVSGIXPROC) (GLenum pname, const GLfloat *params);
+ 10847: typedef void (APIENTRYP PFNGLSPRITEPARAMETERISGIXPROC) (GLenum pname, GLint param);
+ 10848: typedef void (APIENTRYP PFNGLSPRITEPARAMETERIVSGIXPROC) (GLenum pname, const GLint *params);
+ 10849  #ifdef GL_GLEXT_PROTOTYPES
+ 10850: GLAPI void APIENTRY glSpriteParameterfSGIX (GLenum pname, GLfloat param);
+ 10851: GLAPI void APIENTRY glSpriteParameterfvSGIX (GLenum pname, const GLfloat *params);
+ 10852: GLAPI void APIENTRY glSpriteParameteriSGIX (GLenum pname, GLint param);
+ 10853: GLAPI void APIENTRY glSpriteParameterivSGIX (GLenum pname, const GLint *params);
+ 10854  #endif
+ 10855: #endif /* GL_SGIX_sprite */
+ 10856  
+ 10857  #ifndef GL_SGIX_subsample
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_opengles2_gl2ext.h:
+ 1317  #define GL_ANGLE_instanced_arrays 1
+ 1318  #ifdef GL_GLEXT_PROTOTYPES
+ 1319: GL_APICALL void GL_APIENTRY glDrawArraysInstancedANGLE (GLenum mode, GLint first, GLsizei count, GLsizei primcount);
+ 1320: GL_APICALL void GL_APIENTRY glDrawElementsInstancedANGLE (GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei primcount);
+ 1321  GL_APICALL void GL_APIENTRY glVertexAttribDivisorANGLE (GLuint index, GLuint divisor);
+ 1322  #endif
+ 1323: typedef void (GL_APIENTRYP PFNGLDRAWARRAYSINSTANCEDANGLEPROC) (GLenum mode, GLint first, GLsizei count, GLsizei primcount);
+ 1324: typedef void (GL_APIENTRYP PFNGLDRAWELEMENTSINSTANCEDANGLEPROC) (GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei primcount);
+ 1325  typedef void (GL_APIENTRYP PFNGLVERTEXATTRIBDIVISORANGLEPROC) (GLuint index, GLuint divisor);
+ 1326  #endif
+ ....
+ 1559  #define GL_EXT_multi_draw_arrays 1
+ 1560  #ifdef GL_GLEXT_PROTOTYPES
+ 1561: GL_APICALL void GL_APIENTRY glMultiDrawArraysEXT (GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount);
+ 1562: GL_APICALL void GL_APIENTRY glMultiDrawElementsEXT (GLenum mode, const GLsizei *count, GLenum type, const GLvoid **indices, GLsizei primcount);
+ 1563  #endif /* GL_GLEXT_PROTOTYPES */
+ 1564: typedef void (GL_APIENTRYP PFNGLMULTIDRAWARRAYSEXTPROC) (GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount);
+ 1565: typedef void (GL_APIENTRYP PFNGLMULTIDRAWELEMENTSEXTPROC) (GLenum mode, const GLsizei *count, GLenum type, const GLvoid **indices, GLsizei primcount);
+ 1566  #endif
+ 1567  
+ ....
+ 1819  #define GL_NV_draw_instanced 1
+ 1820  #ifdef GL_GLEXT_PROTOTYPES
+ 1821: GL_APICALL void GL_APIENTRY glDrawArraysInstancedNV (GLenum mode, GLint first, GLsizei count, GLsizei primcount);
+ 1822: GL_APICALL void GL_APIENTRY glDrawElementsInstancedNV (GLenum mode, GLsizei count, GLenum type, const GLvoid *indices, GLsizei primcount);
+ 1823  #endif
+ 1824: typedef void (GL_APIENTRYP PFNGLDRAWARRAYSINSTANCEDNVPROC) (GLenum mode, GLint first, GLsizei count, GLsizei primcount);
+ 1825: typedef void (GL_APIENTRYP PFNGLDRAWELEMENTSINSTANCEDNVPROC) (GLenum mode, GLsizei count, GLenum type, const GLvoid *indices, GLsizei primcount);
+ 1826  #endif
+ 1827  
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_pixels.h:
+  164        (SDL_PIXELORDER(format) == SDL_ARRAYORDER_BGRA))))
+  165  
+  166: /* The flag is set to 1 because 0x1? is not in the printable ASCII range */
+  167  #define SDL_ISPIXELFORMAT_FOURCC(format)    \
+  168      ((format) && (SDL_PIXELFLAG(format) != 1))
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_render.h:
+   31   *      * texture images
+   32   *
+   33:  *  The primitives may be drawn in opaque, blended, or additive modes.
+   34   *
+   35   *  The texture images may be drawn in opaque, blended, or additive modes.
+   ..
+  420   *                   is NULL, the entire texture will be locked.
+  421   *  \param pixels    This is filled in with a pointer to the locked pixels,
+  422:  *                   appropriately offset by the locked area.
+  423   *  \param pitch     This is filled in with the pitch of the locked pixels.
+  424   *
+  ...
+  485   *
+  486   *  \note If this function results in scaling or subpixel drawing by the
+  487:  *        rendering backend, it will be handled using the appropriate
+  488   *        quality hints.
+  489   *
+  ...
+  603   *
+  604   *  \note If this results in scaling or subpixel drawing by the
+  605:  *        rendering backend, it will be handled using the appropriate
+  606   *        quality hints.  For best results use integer scaling factors.
+  607   *
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_scancode.h:
+  164      SDL_SCANCODE_F12 = 69,
+  165  
+  166:     SDL_SCANCODE_PRINTSCREEN = 70,
+  167      SDL_SCANCODE_SCROLLLOCK = 71,
+  168      SDL_SCANCODE_PAUSE = 72,
+  ...
+  270      SDL_SCANCODE_CANCEL = 155,
+  271      SDL_SCANCODE_CLEAR = 156,
+  272:     SDL_SCANCODE_PRIOR = 157,
+  273      SDL_SCANCODE_RETURN2 = 158,
+  274      SDL_SCANCODE_SEPARATOR = 159,
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_sensor.h:
+   46   *  In order to use these functions, SDL_Init() must have been called
+   47   *  with the ::SDL_INIT_SENSOR flag.  This causes SDL to scan the system
+   48:  *  for sensors, and load appropriate drivers.
+   49   */
+   50  
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_stdinc.h:
+  218  /* @} *//* Basic data types */
+  219  
+  220: /* Make sure we have macros for printing 64 bit values.
+  221   * <stdint.h> should define these but this is not true all platforms.
+  222   * (for example win32) */
+  223: #ifndef SDL_PRIs64
+  224: #ifdef PRIs64
+  225: #define SDL_PRIs64 PRIs64
+  226  #elif defined(__WIN32__)
+  227: #define SDL_PRIs64 "I64d"
+  228  #elif defined(__LINUX__) && defined(__LP64__)
+  229: #define SDL_PRIs64 "ld"
+  230  #else
+  231: #define SDL_PRIs64 "lld"
+  232  #endif
+  233  #endif
+  234: #ifndef SDL_PRIu64
+  235: #ifdef PRIu64
+  236: #define SDL_PRIu64 PRIu64
+  237  #elif defined(__WIN32__)
+  238: #define SDL_PRIu64 "I64u"
+  239  #elif defined(__LINUX__) && defined(__LP64__)
+  240: #define SDL_PRIu64 "lu"
+  241  #else
+  242: #define SDL_PRIu64 "llu"
+  243  #endif
+  244  #endif
+  245: #ifndef SDL_PRIx64
+  246: #ifdef PRIx64
+  247: #define SDL_PRIx64 PRIx64
+  248  #elif defined(__WIN32__)
+  249: #define SDL_PRIx64 "I64x"
+  250  #elif defined(__LINUX__) && defined(__LP64__)
+  251: #define SDL_PRIx64 "lx"
+  252  #else
+  253: #define SDL_PRIx64 "llx"
+  254  #endif
+  255  #endif
+  256: #ifndef SDL_PRIX64
+  257: #ifdef PRIX64
+  258: #define SDL_PRIX64 PRIX64
+  259  #elif defined(__WIN32__)
+  260: #define SDL_PRIX64 "I64X"
+  261  #elif defined(__LINUX__) && defined(__LP64__)
+  262: #define SDL_PRIX64 "lX"
+  263  #else
+  264: #define SDL_PRIX64 "llX"
+  265  #endif
+  266  #endif
+  ...
+  274  #define SDL_OUT_BYTECAP(x)
+  275  #define SDL_OUT_Z_BYTECAP(x)
+  276: #define SDL_PRINTF_FORMAT_STRING
+  277  #define SDL_SCANF_FORMAT_STRING
+  278: #define SDL_PRINTF_VARARG_FUNC( fmtargnumber )
+  279  #define SDL_SCANF_VARARG_FUNC( fmtargnumber )
+  280  #else
+  ...
+  289  #define SDL_OUT_Z_BYTECAP(x) _Out_z_bytecap_(x)
+  290  
+  291: #define SDL_PRINTF_FORMAT_STRING _Printf_format_string_
+  292  #define SDL_SCANF_FORMAT_STRING _Scanf_format_string_impl_
+  293  #else
+  ...
+  298  #define SDL_OUT_BYTECAP(x)
+  299  #define SDL_OUT_Z_BYTECAP(x)
+  300: #define SDL_PRINTF_FORMAT_STRING
+  301  #define SDL_SCANF_FORMAT_STRING
+  302  #endif
+  303  #if defined(__GNUC__)
+  304: #define SDL_PRINTF_VARARG_FUNC( fmtargnumber ) __attribute__ (( format( __printf__, fmtargnumber, fmtargnumber+1 )))
+  305  #define SDL_SCANF_VARARG_FUNC( fmtargnumber ) __attribute__ (( format( __scanf__, fmtargnumber, fmtargnumber+1 )))
+  306  #else
+  307: #define SDL_PRINTF_VARARG_FUNC( fmtargnumber )
+  308  #define SDL_SCANF_VARARG_FUNC( fmtargnumber )
+  309  #endif
+  ...
+  492  extern DECLSPEC int SDLCALL SDL_sscanf(const char *text, SDL_SCANF_FORMAT_STRING const char *fmt, ...) SDL_SCANF_VARARG_FUNC(2);
+  493  extern DECLSPEC int SDLCALL SDL_vsscanf(const char *text, const char *fmt, va_list ap);
+  494: extern DECLSPEC int SDLCALL SDL_snprintf(SDL_OUT_Z_CAP(maxlen) char *text, size_t maxlen, SDL_PRINTF_FORMAT_STRING const char *fmt, ... ) SDL_PRINTF_VARARG_FUNC(3);
+  495: extern DECLSPEC int SDLCALL SDL_vsnprintf(SDL_OUT_Z_CAP(maxlen) char *text, size_t maxlen, const char *fmt, va_list ap);
+  496  
+  497  #ifndef HAVE_M_PI
+  ...
+  588  #define SDL_sscanf sscanf
+  589  #define SDL_vsscanf vsscanf
+  590: #define SDL_snprintf snprintf
+  591: #define SDL_vsnprintf vsnprintf
+  592  #endif
+  593  
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_surface.h:
+   86  
+   87      /** info for fast blit mapping to other surfaces */
+   88:     struct SDL_BlitMap *map;    /**< Private */
+   89  
+   90      /** Reference count -- used when freeing surface */
+   ..
+  492  
+  493  /**
+  494:  *  This is a semi-private blit function and it performs low-level surface
+  495   *  blitting only.
+  496   */
+  ...
+  521  
+  522  /**
+  523:  *  This is a semi-private blit function and it performs low-level surface
+  524   *  scaled blitting only.
+  525   */
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_system.h:
+   81  
+   82  /**
+   83:    \brief Sets the UNIX nice value for a thread, using setpriority() if possible, and RealtimeKit if available.
+   84  
+   85     \return 0 on success, or -1 on error.
+   86   */
+   87: extern DECLSPEC int SDLCALL SDL_LinuxSetThreadPriority(Sint64 threadID, int priority);
+   88   
+   89  #endif /* __LINUX__ */
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_thread.h:
+   32  #include "SDL_error.h"
+   33  
+   34: /* Thread synchronization primitives */
+   35  #include "SDL_atomic.h"
+   36  #include "SDL_mutex.h"
+   ..
+   53  
+   54  /**
+   55:  *  The SDL thread priority.
+   56   *
+   57:  *  \note On many systems you require special privileges to set high or time critical priority.
+   58   */
+   59  typedef enum {
+   60:     SDL_THREAD_PRIORITY_LOW,
+   61:     SDL_THREAD_PRIORITY_NORMAL,
+   62:     SDL_THREAD_PRIORITY_HIGH,
+   63:     SDL_THREAD_PRIORITY_TIME_CRITICAL
+   64: } SDL_ThreadPriority;
+   65  
+   66  /**
+   ..
+  222  
+  223  /**
+  224:  *  Set the priority for the current thread
+  225   */
+  226: extern DECLSPEC int SDLCALL SDL_SetThreadPriority(SDL_ThreadPriority priority);
+  227  
+  228  /**
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_version.h:
+   56  } SDL_version;
+   57  
+   58: /* Printable format: "%d.%d.%d", MAJOR, MINOR, PATCHLEVEL
+   59  */
+   60  #define SDL_MAJOR_VERSION   2
+   ..
+  121   *  SDL_VERSION(&compiled);
+  122   *  SDL_GetVersion(&linked);
+  123:  *  printf("We compiled against SDL version %d.%d.%d ...\n",
+  124   *         compiled.major, compiled.minor, compiled.patch);
+  125:  *  printf("But we linked against SDL version %d.%d.%d.\n",
+  126   *         linked.major, linked.minor, linked.patch);
+  127   *  \endcode
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2.framework/Versions/A/Headers/SDL_video.h:
+  326  
+  327  /**
+  328:  *  \brief Get the desktop area represented by a display, with the primary
+  329   *         display located at 0,0
+  330   *
+  ...
+  337  /**
+  338   *  \brief Get the usable desktop area represented by a display, with the
+  339:  *         primary display located at 0,0
+  340   *
+  341   *  This is the same area as SDL_GetDisplayBounds() reports, but with portions
+  ...
+  385   *  \brief Fill in information about a specific display mode.
+  386   *
+  387:  *  \note The display modes are sorted in this priority:
+  388   *        \li bits per pixel -> more colors to fewer colors
+  389   *        \li width -> largest to smallest
+  ...
+  421   *  closest mode matching the requested mode and returned.  The mode format and
+  422   *  refresh_rate default to the desktop mode if they are 0.  The modes are
+  423:  *  scanned with size being first priority, format being second priority, and
+  424   *  finally checking the refresh_rate.  If all the available modes are too
+  425   *  small, then NULL is returned.
+  ...
+ 1024      SDL_HITTEST_RESIZE_TOPLEFT,
+ 1025      SDL_HITTEST_RESIZE_TOP,
+ 1026:     SDL_HITTEST_RESIZE_TOPRIGHT,
+ 1027      SDL_HITTEST_RESIZE_RIGHT,
+ 1028      SDL_HITTEST_RESIZE_BOTTOMRIGHT,
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2_image.framework/SDL2_image:
+    <binary>
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2_image.framework/Versions/A/SDL2_image:
+    <binary>
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2_image.framework/Versions/A/Frameworks/webp.framework/Versions/A/Headers/webp/decode.h:
+  208    uint32_t       pad[4];     // padding for later use
+  209  
+  210:   uint8_t* private_memory;   // Internally allocated memory (only when
+  211                               // is_external_memory is 0). Should not be used
+  212                               // externally, but accessed via the buffer union.
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2_image.framework/Versions/A/Frameworks/webp.framework/Versions/A/Headers/webp/encode.h:
+  347    uint32_t pad6[8];       // padding for later use
+  348  
+  349:   // PRIVATE FIELDS
+  350    ////////////////////
+  351    void* memory_;          // row chunk of memory for yuva planes
+  ...
+  416  // The rectangle for the view is defined by the top-left corner pixel
+  417  // coordinates (left, top) as well as its width and height. This rectangle
+  418: // must be fully be comprised inside the 'src' source picture. If the source
+  419  // picture uses the YUV420 colorspace, the top and left coordinates will be
+  420  // snapped to even values.
+  ...
+  424  // Extracts a view from 'src' picture into 'dst'. The rectangle for the view
+  425  // is defined by the top-left corner pixel coordinates (left, top) as well
+  426: // as its width and height. This rectangle must be fully be comprised inside
+  427  // the 'src' source picture. If the source picture uses the YUV420 colorspace,
+  428  // the top and left coordinates will be snapped to even values.
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2_image.framework/Versions/A/Frameworks/webp.framework/Versions/A/Resources/LICENSE.webp.txt:
+   19    * Neither the name of Google nor the names of its contributors may
+   20      be used to endorse or promote products derived from this software
+   21:     without specific prior written permission.
+   22  
+   23  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+
+/Users/aperesad/Doom_Nukem_current/frameworks/SDL2_image.framework/Versions/A/Headers/SDL_image.h:
+   34  #endif
+   35  
+   36: /* Printable format: "%d.%d.%d", MAJOR, MINOR, PATCHLEVEL
+   37  */
+   38  #define SDL_IMAGE_MAJOR_VERSION 2
+
+/Users/aperesad/Doom_Nukem_current/includes/wolf3d.h:
+  246  void				some_blocks(t_box *box);
+  247  void				add_txtrs(t_box *box, int x, int y);
+  248: void				print_walls(t_box *box);
+  249  void				up_and_down(t_box *box);
+  250  int					small_map(t_box *box);
+
+/Users/aperesad/Doom_Nukem_current/libft/ft_if_print.c:
+    2  /*                                                                            */
+    3  /*                                                        :::      ::::::::   */
+    4: /*   ft_if_print.c                                      :+:      :+:    :+:   */
+    5  /*                                                    +:+ +:+         +:+     */
+    6  /*   By: arykov <marvin@42.fr>                      +#+  +:+       +#+        */
+    .
+   11  /* ************************************************************************** */
+   12  
+   13: char	ft_if_print(char c)
+   14  {
+   15  	int a;
+
+/Users/aperesad/Doom_Nukem_current/libft/ft_isprint.c:
+    2  /*                                                                            */
+    3  /*                                                        :::      ::::::::   */
+    4: /*   ft_isprint.c                                       :+:      :+:    :+:   */
+    5  /*                                                    +:+ +:+         +:+     */
+    6  /*   By: arykov <marvin@42.fr>                      +#+  +:+       +#+        */
+    .
+   11  /* ************************************************************************** */
+   12  
+   13: int	ft_isprint(int c)
+   14  {
+   15  	return (c >= 32 && c <= 126);
+
+/Users/aperesad/Doom_Nukem_current/libft/libft.h:
+   58  int					ft_isalnum(int c);
+   59  int					ft_isascii(int c);
+   60: int					ft_isprint(int c);
+   61  int					ft_tolower(int c);
+   62  int					ft_toupper(int c);
+   ..
+   91  void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+   92  t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+   93: char				ft_if_print(char c);
+   94  long				ft_abs(int n);
+   95  void				ft_lstlexinsert(t_list **begin, t_list *new);
+
+/Users/aperesad/Doom_Nukem_current/libft/Makefile:
+   19  		ft_strlen.c ft_putchar.c ft_putstr.c  ft_putendl.c ft_putnbr.c \
+   20  		ft_atoi.c ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
+   21: 		ft_isprint.c ft_tolower.c ft_toupper.c \
+   22  		ft_memalloc.c ft_memdel.c ft_strnew.c ft_strdel.c ft_strclr.c \
+   23  		ft_striter.c ft_striteri.c ft_strmap.c ft_strmapi.c \
+   ..
+   28  		ft_lstmap.c \
+   29  		ft_isupper.c ft_islower.c ft_abs.c ft_lstlexinsert.c \
+   30: 		ft_lstaddend.c ft_list_size.c ft_if_print.c \
+   31  		get_next_line.c
+   32  SRCP = ./srcs/
+
+/Users/aperesad/Doom_Nukem_current/src/bonus.c:
+   46  		this_is_castingray(&box);
+   47  		some_blocks(&box);
+   48: 		print_walls(&box);
+   49  		box.atpos++;
+   50  	}
+
+/Users/aperesad/Doom_Nukem_current/src/game_start.c:
+  107  			fps_current = FPS;
+  108  			FPS = 0;
+  109: 			printf("FPS = %d\n", fps_current);
+  110  		}
+  111  		/////////////////////////END_TESTED_FPS/////////////////////////
+
+/Users/aperesad/Doom_Nukem_current/src/wallandfl.c:
+   60  }
+   61  
+   62: void		print_walls(t_box *box)
+   63  {
+   64  	if (box->block.bs == 0 && box->tir.fold.x > 0)
+
+/Users/aperesad/Doom_Nukem_current/txtrs/mcstile.bmp:
+    <binary>
+
+591 matches across 46 files

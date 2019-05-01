@@ -92,14 +92,14 @@ void				lets_start_game(t_box *box)
 	add_textures(box);
 	box->main_t = SDL_CreateTexture(box->rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, WIND_W, WIND_H);
 	box->pixels = (Uint32 *)malloc(sizeof(Uint32) * WIND_H * WIND_W);
-	/////////////////////////TESTED_FPS/////////////////////////
+	/////////////////////////START_TESTED_FPS/////////////////////////
 	Uint32 FPS = 0;							  
 	Uint32 fps_current;						  
 	Uint32 fps_lasttime = SDL_GetTicks();	  
-	/////////////////////////TESTED_FPS/////////////////////////
+	/////////////////////////END_TESTED_FPS/////////////////////////
 	while (1)
 	{
-		/////////////////////////TESTED_FPS/////////////////////////
+		/////////////////////////START_TESTED_FPS/////////////////////////
 		FPS++;
 		if(fps_lasttime < SDL_GetTicks() - 1.0 * 1000)
 		{
@@ -108,7 +108,7 @@ void				lets_start_game(t_box *box)
 			FPS = 0;
 			printf("FPS = %d\n", fps_current);
 		}
-		/////////////////////////TESTED_FPS/////////////////////////
+		/////////////////////////END_TESTED_FPS/////////////////////////
 		while (SDL_PollEvent(&evnt))
 		{
 			if (evnt.type == SDL_MOUSEMOTION)
@@ -136,7 +136,7 @@ void				lets_start_game(t_box *box)
 
 void				add_textures(t_box *box)
 {
-	box->txtrs[0] = load_texture("txtrs/bricks.bmp", box);
+	box->txtrs[0] = load_texture("txtrs/brick.bmp", box);
 	box->txtrs[1] = load_texture("txtrs/stone.bmp", box);
 	box->txtrs[2] = load_texture("txtrs/eagle.bmp", box);
 	box->txtrs[3] = load_texture("txtrs/boards.bmp", box);

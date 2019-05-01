@@ -24,10 +24,14 @@ void		some_blocks(t_box *box)
 	box->block.bb = box->block.bh / 2;
 	box->block.bb += box->block.bb * box->go.lop;
 	box->block.bb += WIND_H / 2 + box->ogo.lop;
-	box->block.bt = box->block.bt < 0 ? 0 : box->block.bt;
-	box->block.bt = box->block.bt > WIND_H ? WIND_H : box->block.bt;
-	box->block.bb = box->block.bb < 0 ? 0 : box->block.bb;
-	box->block.bb = box->block.bb > WIND_H ? WIND_H : box->block.bb;
+	if (box->block.bt < 0)
+		box->block.bt = 0;
+	else if (box->block.bt > WIND_H)
+		box->block.bt = WIND_H;
+	if (box->block.bb > WIND_H)
+		box->block.bb = WIND_H;
+	else if (box->block.bb < 0)
+		box->block.bb = 0;
 }
 
 void		add_txtrs(t_box *box, int x, int y)
@@ -77,12 +81,12 @@ void		print_walls(t_box *box)
 	box->paramtext.x = (int)(box->block.btouch * 64);
 	box->paramtext.x = 64 - box->paramtext.x - 1;
 	box->btpos = box->block.bt;
-	while (box->btpos < box->block.bb)
+	while (box->btpos < box->block.bb - 1)
 	{
-		box->paramtext.y = (box->btpos - WIND_H / 2 + 
-			(box->block.bh / 2) * (-box->go.lop + 1)) - box->ogo.lop;
+		box->paramtext.y = box->btpos - WIND_H / 2 + 
+			(box->block.bh / 2) * (-box->go.lop + 1) - box->ogo.lop;
 		box->paramtext.y = (box->paramtext.y * 64 / box->block.bh);
-		box->paramtext.y = abs(box->paramtext.y) % 64;
+		box->paramtext.y %= 64;
 		add_txtrs(box, box->paramtext.x, box->paramtext.y);
 		box->btpos++;
 	}
@@ -196,7 +200,7 @@ void		up_and_down(t_box *box)
 	while (j < box->block.bt) //bt - верхня межа стіни
 	{
 		box->tmp_dist = WIND_H / (2.0 * j - WIND_H - 2 * box->ogo.lop);
-		box->dist = (box->tmp_dist / box->block.bd * (box->go.lop - 1)); // (box->go.lop + 1) ????
+		box->dist = (box->tmp_dist / box->block.bd * (box->go.lop - 1));
 		tmp_floor_x = box->dist * box->floor_x +
 		(1.0 - box->dist) * box->cam.position.x;
 		tmp_floor_y = box->dist * box->floor_y +
@@ -210,7 +214,7 @@ void		up_and_down(t_box *box)
 	while (j < WIND_H)
 	{
 		box->tmp_dist = WIND_H / (2.0 * j - WIND_H - 2 * box->ogo.lop);
-		box->dist = (box->tmp_dist / box->block.bd * (box->go.lop + 1)); // (box->go.lop + 1) ????
+		box->dist = (box->tmp_dist / box->block.bd * (box->go.lop + 1));
 		tmp_floor_x = box->dist * box->floor_x +
 		(1.0 - box->dist) * box->cam.position.x;
 		tmp_floor_y = box->dist * box->floor_y +
