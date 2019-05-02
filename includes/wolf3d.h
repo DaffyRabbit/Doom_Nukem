@@ -151,6 +151,16 @@ typedef struct		s_fr_bar
 	int				n;	
 }					t_fr_bar;
 
+typedef struct 		s_rifle
+{
+	SDL_Surface		*rifle;
+	SDL_Texture		*rifle_texture;
+	SDL_Rect		rect_rifle;
+	int				w_rifle;
+	int				h_rifle;	
+	
+}					t_rifle;
+
 typedef struct 		s_HUD
 {
 	SDL_Rect		rect_scope;
@@ -159,6 +169,7 @@ typedef struct 		s_HUD
  	SDL_Texture		*scope_texture; 
  	SDL_Surface		*bott_bar;
  	SDL_Texture		*bott_bar_texture;
+ 	t_rifle			rifle[6];
  	t_face			face[3];
  	t_h_bar			heals[3];
  	t_am_bar		ammo[3];
@@ -175,6 +186,8 @@ typedef struct 		s_HUD
 	int				ar_i;
 	int				am_i;
 	int				fr_i;
+	int             fire;
+	int				usless;
 	char			*numb[10];	
 }					t_HUD;
 
@@ -183,6 +196,8 @@ typedef struct		s_box
 	t_HUD			HUD;
 	int				face_start;
 	Uint32			sleep;
+	Uint32			sleep_rel;
+	Uint32			sleep_cur;
 	int				blok;
 	int				num_face;
 	int				mirror_effect;
@@ -275,7 +290,8 @@ void				up_and_down(t_box *box);
 int					small_map(t_box *box);
 int					menu_mouse_click(int x, int y, t_box *box);
 SDL_Surface			*load_texture(char *path, t_box *wolf);
-//// mouse scope
+//// mouse scope && HUD
+void				ft_load_HUD_tex(t_box *box);
 int 				mouse_control(int x, int y, t_box *box);
 int					ft_scope(t_box *box);
 int					ft_HUD(t_box *box);
@@ -283,7 +299,8 @@ int					ft_HUD_bar(t_box *box);
 SDL_Surface			*ft_check_png(t_box *box, char *text);
 int					ft_all_bars(t_box *box);
 void				ft_HUD_param(t_box *box);
-int					paint_HUD(t_box *box);
+void				paint_HUD(t_box *box);
+void				ft_shooting(int code, t_box *box);
 ///
 
 #endif

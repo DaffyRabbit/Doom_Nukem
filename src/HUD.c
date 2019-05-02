@@ -3,7 +3,7 @@
 int		ft_face_start(t_box *box)
 {
 	box->HUD.face[box->num_face].face_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.face[box->num_face].face);
- 	SDL_FreeSurface(box->HUD.face[box->num_face].face);
+ 	//SDL_FreeSurface(box->HUD.face[box->num_face].face);
  	if (box->num_face == 2)
 	{
 		box->blok = 1;
@@ -43,26 +43,36 @@ box->HUD.ar_val+=100/box->HUD.hp_val;
 int		ft_HUD_bar(t_box *box)
 {
  box->HUD.bott_bar_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.bott_bar);
- SDL_FreeSurface(box->HUD.bott_bar);
+ //SDL_FreeSurface(box->HUD.bott_bar);
  return(0);
 }
 
 int		ft_scope(t_box *box)
 {
  box->HUD.scope_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.scope);
- SDL_FreeSurface(box->HUD.scope); 
+ //SDL_FreeSurface(box->HUD.scope); 
+ return(0);
+}
+
+int		ft_rifle(t_box *box)
+{
+	int i;
+
+	i = 0;
+	while(i < 7)
+	{
+ 		box->HUD.rifle[i].rifle_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.rifle[i].rifle);
+ 		//SDL_FreeSurface(box->HUD.rifle[i].rifle);
+ 		i++;
+	} 
  return(0);
 }
 
 int		ft_HUD(t_box *box)
 {
-	box->HUD.bott_bar = ft_check_png(box,"txtrs/bott_bar.png");
-	box->HUD.scope = ft_check_png(box,"txtrs/scope_red.png");
-	box->HUD.face[0].face = ft_check_png(box,"txtrs/face_left.png"); 
-	box->HUD.face[1].face = ft_check_png(box,"txtrs/face_center.png"); 
-	box->HUD.face[2].face = ft_check_png(box,"txtrs/face_right.png"); 
 	ft_HUD_bar(box);
-	ft_scope(box);
+	//ft_scope(box);
+	ft_rifle(box);
 	if(box->face_start < 3)
 	{
 		ft_face_start(box);
@@ -70,6 +80,6 @@ int		ft_HUD(t_box *box)
 	}
 	else
 		ft_face(box);
-	ft_all_bars(box);
+		ft_all_bars(box);
 	return(0);
 }

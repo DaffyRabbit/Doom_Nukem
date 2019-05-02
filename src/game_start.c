@@ -103,11 +103,12 @@ void				lets_start_game(t_box *box)
 	Uint32 FPS = 0;							  
 	Uint32 fps_current;						  
 	Uint32 fps_lasttime = SDL_GetTicks();	  
+	
 	/////////////////////////TESTED_FPS/////////////////////////
 	while (1)
 	{
 		/////////////////////////TESTED_FPS/////////////////////////
-		FPS++;
+		
 		if(fps_lasttime < SDL_GetTicks() - 1.0 * 1000)
 		{
 			fps_lasttime = SDL_GetTicks();
@@ -115,14 +116,18 @@ void				lets_start_game(t_box *box)
 			FPS = 0;
 			printf("FPS = %d\n", fps_current);
 		}
+		FPS++;
 		/////////////////////////TESTED_FPS/////////////////////////
 		while (SDL_PollEvent(&evnt))
 		{
+
+			ft_shooting(evnt.button.button, box);
 			if (evnt.type == SDL_MOUSEMOTION)
 			{
 				SDL_SetRelativeMouseMode(1);
 				mouse_control(evnt.motion.xrel, evnt.motion.yrel, box);
 			}
+		
 			a = evnt.key.keysym.scancode;
 			if (evnt.type == SDL_QUIT || (evnt.type == SDL_KEYDOWN &&
 			evnt.key.keysym.sym == SDLK_ESCAPE))
@@ -134,14 +139,14 @@ void				lets_start_game(t_box *box)
 			}
 			else if (evnt.type == SDL_KEYUP && a < KEY_CODE)
 				box->keys[a] = 0;
-			printf("no-shadow = %d\n", box->no_shadow);
 			key_push(box);
+				
 		}
 		ft_HUD(box);
 		paint_this(box);
-	}
-		
+	}		
 }
+
 
 void				add_textures(t_box *box)
 {
@@ -151,4 +156,5 @@ void				add_textures(t_box *box)
 	box->txtrs[3] = load_texture("txtrs/boards.bmp", box);
 	box->txtrs[4] = load_texture("txtrs/fl.bmp", box);
 	box->txtrs[5] = load_texture("txtrs/rf.bmp", box);
+	ft_load_HUD_tex(box);
 }

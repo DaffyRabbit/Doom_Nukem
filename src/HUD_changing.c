@@ -1,6 +1,6 @@
 #include "wolf3d.h"
 
-int		ft_check_value(t_box *box)
+int		ft_check_hp_value(t_box *box)
 {
 	int n;
 
@@ -77,7 +77,7 @@ int		ft_frag(t_box *box)
 	{
 		box->HUD.frag[i].frag = ft_check_png(box,box->HUD.numb[box->HUD.frag[i].n]);
 		box->HUD.frag[i].frag_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.frag[i].frag);
-		SDL_FreeSurface(box->HUD.frag[i].frag);
+		//SDL_FreeSurface(box->HUD.frag[i].frag);
 		i--;
 	}
 	return(0);
@@ -97,7 +97,7 @@ int		ft_heals(t_box *box)
 	{
 		box->HUD.heals[i].heals = ft_check_png(box,box->HUD.numb[box->HUD.heals[i].n]);
 		box->HUD.heals[i].heals_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.heals[i].heals);
-		SDL_FreeSurface(box->HUD.heals[i].heals);
+		//SDL_FreeSurface(box->HUD.heals[i].heals);
 		i--;
 	}
 	return(0);
@@ -117,7 +117,7 @@ int		ft_armor(t_box *box)
 	{
 		box->HUD.armor[i].armor = ft_check_png(box,box->HUD.numb[box->HUD.armor[i].n]);
 		box->HUD.armor[i].armor_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.armor[i].armor);
-		SDL_FreeSurface(box->HUD.armor[i].armor);
+		//SDL_FreeSurface(box->HUD.armor[i].armor);
 		i--;
 	}
 	return(0);
