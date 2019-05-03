@@ -15,36 +15,39 @@ void		paint_HUD(t_box *box)
 		SDL_RenderCopy(box->rend, box->HUD.armor[box->HUD.ar_i].armor_texture, NULL, &box->HUD.armor[box->HUD.ar_i].rect_armor);
 		box->HUD.ar_i++;
 	}
+	while (box->HUD.am_i <= 2)
+	{
+		SDL_RenderCopy(box->rend, box->HUD.ammo[box->HUD.am_i].ammo_texture, NULL, &box->HUD.ammo[box->HUD.am_i].rect_ammo);
+		box->HUD.am_i++;
+	}
 		while (box->HUD.fr_i <= 2)
 	{
 		SDL_RenderCopy(box->rend, box->HUD.frag[box->HUD.fr_i].frag_texture, NULL, &box->HUD.frag[box->HUD.fr_i].rect_frag);
 		box->HUD.fr_i++;
 	}
-	if (box->HUD.fire == 1)
+	if (box->HUD.time > 5)
+		box->HUD.time = 5;
+	if (box->HUD.fire == 1 && box->HUD.am_val > 0 && box->HUD.time == 5)
 	{
-		//box->sleep_rel = SDL_GetTicks();
-		//box->sleep_cur = SDL_GetTicks();
 		SDL_RenderCopy(box->rend, box->HUD.rifle[0].rifle_texture, NULL, &box->HUD.rifle[0].rect_rifle);
 		SDL_RenderCopy(box->rend, box->HUD.rifle[4].rifle_texture, NULL, &box->HUD.rifle[4].rect_rifle);
 		SDL_RenderCopy(box->rend, box->HUD.rifle[5].rifle_texture, NULL, &box->HUD.rifle[5].rect_rifle);
-		// while((box->sleep_cur - box->sleep_rel) < 100)
-		// {
-		// 	box->sleep_cur = SDL_GetTicks();
-		// }
-		// SDL_RenderCopy(box->rend, box->HUD.rifle[1].rifle_texture, NULL, &box->HUD.rifle[1].rect_rifle);
-		// SDL_RenderCopy(box->rend, box->HUD.rifle[2].rifle_texture, NULL, &box->HUD.rifle[2].rect_rifle);
-		// SDL_RenderCopy(box->rend, box->HUD.rifle[3].rifle_texture, NULL, &box->HUD.rifle[3].rect_rifle);
+		box->HUD.am_val--;
+		box->HUD.time = 0;
 	}
 	else
 		SDL_RenderCopy(box->rend, box->HUD.rifle[0].rifle_texture, NULL, &box->HUD.rifle[0].rect_rifle);
+	box->HUD.time++;
 }
 
 void		ft_load_HUD_tex(t_box *box)
 {
 	box->HUD.rifle[0].rifle = ft_check_png(box,"txtrs/rifle.png");
-	box->HUD.rifle[1].rifle = ft_check_png(box,"txtrs/reload1.png");
-	box->HUD.rifle[2].rifle = ft_check_png(box,"txtrs/reload2.png");
-	box->HUD.rifle[3].rifle = ft_check_png(box,"txtrs/reload3.png");
+	/////////////////reload//////////////
+	// box->HUD.rifle[1].rifle = ft_check_png(box,"txtrs/reload1.png");
+	// box->HUD.rifle[2].rifle = ft_check_png(box,"txtrs/reload2.png");
+	// box->HUD.rifle[3].rifle = ft_check_png(box,"txtrs/reload3.png");
+	/////////////////reload//////////////
 	box->HUD.rifle[4].rifle = ft_check_png(box,"txtrs/rifle_fire1.png");
 	box->HUD.rifle[5].rifle = ft_check_png(box,"txtrs/rifle_fire2.png");
 	box->HUD.bott_bar = ft_check_png(box,"txtrs/bott_bar.png");	

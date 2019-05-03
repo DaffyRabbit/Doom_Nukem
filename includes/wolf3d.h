@@ -115,7 +115,6 @@ typedef struct		s_h_bar
 	SDL_Rect		rect_heals;
 	int				w_heals;
 	int				h_heals;
-	int				hp_val;	
 	int				n;
 }					t_h_bar;
 
@@ -123,7 +122,7 @@ typedef struct		s_am_bar
 {
 	SDL_Surface		*ammo;
 	SDL_Texture		*ammo_texture;
-	SDL_Rect		rect_face;
+	SDL_Rect		rect_ammo;
 	int				w_ammo;
 	int				h_ammo;
 	int				n;	
@@ -177,7 +176,8 @@ typedef struct 		s_HUD
  	t_fr_bar		frag[3];
  	int				hp_val;
  	int				ar_val;
- 	int				fr_val;		
+ 	int				fr_val;
+ 	int				am_val;	
 	int				w_scope;
 	int				h_scope;
 	int				w_bott_bar;
@@ -187,6 +187,7 @@ typedef struct 		s_HUD
 	int				am_i;
 	int				fr_i;
 	int             fire;
+	int				time;
 	int				usless;
 	char			*numb[10];	
 }					t_HUD;
