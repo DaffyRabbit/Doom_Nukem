@@ -85,7 +85,7 @@ void				load_menu_txtrs(t_box *box)
 	box->menu_txtrs[9] = menu_png("txtrs/sys_txerr.png", box);
 }
 
-void				add_textures(t_box *box)
+void				load_wall_textures(t_box *box)
 {
 	box->txtrs[0] = load_texture("txtrs/rock.bmp", box);
 	box->txtrs[1] = load_texture("txtrs/mine.bmp", box);

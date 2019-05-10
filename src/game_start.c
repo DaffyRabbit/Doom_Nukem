@@ -277,7 +277,7 @@ void				lets_start_game(t_box *box)
 	int				a;
 	SDL_Event		evnt;
 
-	add_textures(box);
+	load_wall_textures(box);
 	box->main_t = SDL_CreateTexture(box->rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, WIND_W, WIND_H);
 	box->pixels = (Uint32 *)malloc(sizeof(Uint32) * WIND_H * WIND_W);
 	/////////////////////////TESTED_FPS/////////////////////////

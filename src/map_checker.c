@@ -44,7 +44,7 @@ int		check_map(t_box *box)
 int		check_map_par(t_box *box, char *str, int i, int n)
 {
 	if ((box->uselessy == 0 || box->uselessy == box->mapy) &&
-		(str[0] != '0' || str[0] != '0'))
+		(str[0] != '0' || str[0] != '0'))  ////   ??????????????????????????
 		box->all_map[box->uselessy][i] = str[0] - 48;
 	else if (box->uselessy == 0 || box->uselessy == box->mapy)
 		return (-1);

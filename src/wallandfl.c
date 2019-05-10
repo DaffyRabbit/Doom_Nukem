@@ -65,14 +65,9 @@ void		add_txtrs(t_box *box, int x, int y)
 
 void		print_walls(t_box *box)
 {
-	if (box->block.bs == 0 && box->tir.fold.x > 0)
-		box->a = 0;
-	if (box->block.bs == 0 && box->tir.fold.x < 0)
-		box->a = 1;
-	if (box->block.bs == 1 && box->tir.fold.y > 0)
-		box->a = 2;
-	if (box->block.bs == 1 && box->tir.fold.y < 0)
-		box->a = 3;
+	box->a = box->all_map[box->tir.pl.y][box->tir.pl.x];
+	if (box->a == 7 || box->a == 8)
+		box->a -= 5;
 	box->block.btouch = box->block.bs == 0 ?
 		box->cam.position.y + box->block.bd * box->tir.fold.y :
 		box->cam.position.x + box->block.bd * box->tir.fold.x;
