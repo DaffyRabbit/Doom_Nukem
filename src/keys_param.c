@@ -20,21 +20,12 @@ int		hooks(t_box *box)
 			box->light_power -= 0.04;
 	if (box->keys[SDL_SCANCODE_P] && box->mirror_effect == 0)
 		box->no_shadow = (box->no_shadow == 0) ? 1 : 0;
-	if (box->keys[SDL_SCANCODE_M] && box->no_shadow == 0)
+	if (box->keys[SDL_SCANCODE_M] && box->no_shadow == 0 && box->sky == 0)
 		box->mirror_effect = (box->mirror_effect == 1) ? 0 : 1;
+	if (box->keys[SDL_SCANCODE_RETURN] && box->mirror_effect == 0)
+		box->sky = (box->sky == 1) ? 0 : 1;
 	return (0);
 }
-
-int		menu_keys(int code, t_box *box)
-{
-	if (code == SDLK_ESCAPE)
-	{
-		all_destroy(box);
-		exit_this();
-	}
-	return (0);
-}
-
 
 int		key_push(t_box *box)
 {

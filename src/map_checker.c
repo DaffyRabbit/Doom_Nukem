@@ -60,6 +60,14 @@ int		check_map_par(t_box *box, char *str, int i, int n)
 			box->all_map[box->uselessy][i] = 0;
 			n *= 2;
 		}
+		else if (str[0] == '2' || str[0] == '3' || str[0] == '4' || str[0] == '5' || str[0] == '6')
+		{
+			if (str[0] == '4')
+				box->all_map[box->uselessy][i] = 0;
+			else
+				box->all_map[box->uselessy][i] = str[0] - 48;
+			add_sprite(box, str[0], i, box->uselessy);
+		}
 		else
 			box->all_map[box->uselessy][i] = str[0] - 48;
 	}

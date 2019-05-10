@@ -14,7 +14,7 @@
 
 void	this_is_castingray(t_box *box)
 {
-	while (box->all_map[box->tir.pl.y][box->tir.pl.x] == 0)
+	while (box->all_map[box->tir.pl.y][box->tir.pl.x] != 1)
 	{
 		if (box->tir.cast.x < box->tir.cast.y)
 		{

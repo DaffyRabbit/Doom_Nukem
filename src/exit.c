@@ -12,11 +12,6 @@
 
 #include "wolf3d.h"
 
-int		exit_this(void)
-{
-	exit(0);
-}
-
 void	all_destroy(t_box *box)
 {
 	if (box->rend != NULL)

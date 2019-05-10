@@ -17,7 +17,6 @@ NAME = wolf3d
 SRC_N			= main.c\
 				  exit.c\
 				  game_start.c\
-				  mouse_param.c\
 				  keys_param.c\
 				  checker.c\
 				  map_checker.c\
@@ -28,7 +27,12 @@ SRC_N			= main.c\
 				  mouse_control.c\
 				  HUD.c\
 				  HUD_changing.c\
-				  HUD_param.c
+				  HUD_param.c\
+				  sprite.c\
+				  sprite-sort.c\
+				  do-sprite.c\
+				  error.c\
+				  pic_loaders.c
 
 SRC_P 			= ./src/
 OBJ 			= $(addprefix $(OBJ_P),$(SRC_N:.c=.o))
@@ -46,8 +50,8 @@ LNK_LIB			= -L ./libft -l ft
 
 # mlx
 
-INC_MLX			= -I ./frameworks/SDL2.framework/Headers/ -I ./frameworks/SDL2_image.framework/Headers/ -F ./frameworks/  
-LNK_MLX			=  -framework SDL2  -rpath frameworks  -L ./frameworks/SDL2_image.framework/Headers/  -framework SDL2_image
+INC_MLX			= -I ./frameworks/SDL2.framework/Headers/ -I ./frameworks/SDL2_image.framework/Headers/ -I ./frameworks/SDL2_ttf.framework/Headers -I ./frameworks/SDL2_mixer.framework/Headers -F frameworks/
+LNK_MLX			=  -framework SDL2 -framework SDL2_ttf -framework SDL2_mixer -framework SDL2_image -rpath frameworks
 
 # compiler
 
