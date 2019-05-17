@@ -38,7 +38,7 @@ SDL_Surface		*ft_check_png(t_box *box, char *text)
 	SDL_Surface *tmp;
 	SDL_Surface *png;
 
-	if ( (tmp = IMG_Load(text)) == NULL)
+	if ((tmp = IMG_Load(text)) == NULL)
  {
  	ft_putendl("Error HUD file\n");
  	all_destroy(box);		

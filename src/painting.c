@@ -99,7 +99,10 @@ void		just_travel_s(t_box *box, double x, double y, double d_x, double d_y)
 	}
 	just_travel_w(box, x, y, d_x, d_y);
 	go_and_west(box, x, y, box->cam.p.x, box->cam.p.y);
-	ttsky_and_sit(box);
+	if (box->fly_mode == 0)
+		ttsky_and_sit(box);
+	// else
+	// 	fly_mode_on(box);
 }
 
 void		go_and_west(t_box *box, double x, double y, double p_x, double p_y)
@@ -173,6 +176,23 @@ void		some_rotation(t_box *box)
 	if (box->keys[SDL_SCANCODE_L] == 1 && box->ogo.lop > -WIND_H / 2)
 		box->ogo.lop -= 20;
 }
+
+// void	fly_mode_on(t_box *box)
+// {
+// 	if (box->ttsky2 == 1 && box->go.lop < 0.7)
+// 		box->go.lop += 0.075;
+// 	if (box->go.lop >= 0.7)
+// 		box->ttsky2 = 0;
+// 	if (box->ttsky2 == 0 && box->go.lop > 0)
+// 		box->go.lop -= 0.075;
+// 	if (box->sitd == 1 && box->go.lop > -0.5)
+// 		box->go.lop -= 0.1;
+// 	if (box->sitd == 0 && box->go.lop < 0)
+// 	{
+// 		box->go.lop += 0.1;
+// 		box->go.lop = box->go.lop > 0 ? 0 : box->go.lop;
+// 	}
+// }
 
 void	ttsky_and_sit(t_box *box)
 {

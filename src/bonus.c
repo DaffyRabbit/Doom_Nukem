@@ -14,21 +14,21 @@
 
 void			some_pthreads(t_box *box)
 {
-	t_box		this_is_sheet[8];
-	pthread_t	t[8];
+	t_box		this_is_sheet[16];
+	pthread_t	t[16];
 	int			i;
 
 	i = 0;
-	while (i < 8)
+	while (i < 16)
 	{
 		ft_memcpy((void*)&this_is_sheet[i], (void*)box, sizeof(t_box));
-		this_is_sheet[i].atpos = i * (WIND_W / 8 + 1);
-		this_is_sheet[i].tpos = (i + 1) * (WIND_W / 8 + 1);
+		this_is_sheet[i].atpos = i * (WIND_W / 16 + 1);
+		this_is_sheet[i].tpos = (i + 1) * (WIND_W / 16 + 1);
 		pthread_create(&t[i], NULL, thi_is_raycast, &this_is_sheet[i]);
 		++i;
 	}
 	i = 0;
-	while (i < 8)
+	while (i < 16)
 	{
 		pthread_join(t[i], NULL);
 		i++;

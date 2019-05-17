@@ -241,11 +241,11 @@ void		up_and_down(t_box *box)
 	}
 	else
 		draw_sky(box);
-	j = box->block.bb;
+	j = box->block.bb - 1;  /// -1 щоб закрити дірку в 1 рядок під стіною!!!
 	while (j < WIND_H)
 	{
 		box->tmp_dist = WIND_H / (2.0 * j - WIND_H - 2 * box->ogo.lop);
-		box->dist = (box->tmp_dist / box->block.bd * (box->go.lop + 1)); // (box->go.lop + 1) ????
+		box->dist = (box->tmp_dist / box->block.bd * (box->go.lop + 1));
 		tmp_floor_x = box->dist * box->floor_x +
 		(1.0 - box->dist) * box->cam.position.x;
 		tmp_floor_y = box->dist * box->floor_y +

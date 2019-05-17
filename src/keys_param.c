@@ -24,32 +24,55 @@ int		hooks(t_box *box)
 		box->mirror_effect = (box->mirror_effect == 1) ? 0 : 1;
 	if (box->keys[SDL_SCANCODE_RETURN] && box->mirror_effect == 0)
 		box->sky = (box->sky == 1) ? 0 : 1;
+	if (box->keys[SDL_SCANCODE_F] && box->go.lop == 0)
+		box->fly_mode = (box->fly_mode == 1) ? 0 : 1;
 	return (0);
+}
+
+void	space_push(t_box *box)
+{
+	if (box->keys[SDL_SCANCODE_Q] && box->go.lop > 0)
+	{
+		box->go.lop -= 0.008;
+		if (box->go.lop < 0)
+			box->go.lop = 0;
+	}
+	if (box->keys[SDL_SCANCODE_SPACE] &&
+		box->go.lop < 0.85)
+	{
+			box->go.lop += 0.008;
+	}
+	printf("lop = %lf\n", box->go.lop);
 }
 
 int		key_push(t_box *box)
 {
-	if (box->keys[SDL_SCANCODE_Q] && box->ttsky == 0)
+	if (box->fly_mode == 0)
 	{
-		box->sitd = 1;
-		box->go.spd = 0.035;
-		return (0);
+		if (box->keys[SDL_SCANCODE_Q] && box->ttsky == 0)
+		{
+			box->sitd = 1;
+			box->go.spd = 0.035;
+			return (0);
+		}
+		else if (!(box->keys[SDL_SCANCODE_Q]) && !(box->keys[SDL_SCANCODE_LSHIFT]))
+		{
+			if (box->ttsky == 0)
+				box->go.spd = 0.1;
+			box->sitd = 0;
+		}
+		if (box->keys[SDL_SCANCODE_LSHIFT] && box->sitd == 0)
+			box->go.spd = 0.15;
+		if (box->keys[SDL_SCANCODE_SPACE] && box->ttsky == 0 &&
+			box->go.lop <= 0 && box->sitd == 0)
+		{
+				box->ttsky = 1;
+				box->ttsky2 = 1;
+		}
+		else if (!(box->keys[SDL_SCANCODE_SPACE]))
+			box->ttsky = 0;
 	}
-	else if (!(box->keys[SDL_SCANCODE_Q]) && !(box->keys[SDL_SCANCODE_LSHIFT]))
-	{
-		if (box->ttsky == 0)
-			box->go.spd = 0.1;
-		box->sitd = 0;
-	}
-	if (box->keys[SDL_SCANCODE_LSHIFT] && box->sitd == 0)
-		box->go.spd = 0.15;
-	if (box->keys[SDL_SCANCODE_SPACE] && box->ttsky == 0 &&
-		box->go.lop <= 0 && box->sitd == 0)
-	{
-			box->ttsky = 1;
-			box->ttsky2 = 1;
-	}
-	else if (!(box->keys[SDL_SCANCODE_SPACE]))
-		box->ttsky = 0;
+	else
+		space_push(box);
 	return (0);
 }

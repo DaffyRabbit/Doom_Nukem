@@ -23,10 +23,13 @@ void combSort(t_box *box, int amount)
 	int i, j;
 
 	i = 0;
-	while(i < amount - 1){
+	while(i < amount - 1)
+	{
 		j = 0;
-		while(j < amount - i - 1){
-			if(box->sprites.spriteDistance[j] < box->sprites.spriteDistance[j+1]) {           
+		while(j < amount - i - 1)
+		{
+			if(box->sprites.spriteDistance[j] < box->sprites.spriteDistance[j + 1])
+			{           
               ft_my_swap1(box, j, j + 1);
               ft_my_swap2(box, j, j + 1);
            	}
@@ -45,7 +48,7 @@ Uint32		get_pixel(t_box *box, SDL_Surface *surface, int x, int y)
 	double		intens;
 
 	color = 0;
-	if (box->no_shadow == 1 || box->mirror_effect == 1)
+	if (box->no_shadow == 1 || box->mirror_effect == 1 || box->sprites.spt[box->sprites.spriteOrder[box->dsprite.i]].n_text == 2)
 		intens = (box->no_shadow == 1) ? 0.68 : 0.8;
 	else if (box->sprites.spriteDistance[box->dsprite.i] >= 0)
 	{
@@ -69,7 +72,7 @@ void 		sort_sprits(t_box *box)
 {
 	int i = 0;
 
-	while(i < box->sprites.n_sprites)
+	while (i < box->sprites.n_sprites)
 	{
 		box->sprites.spriteOrder[i] = i;
      	box->sprites.spriteDistance[i] = ((box->cam.position.x - box->sprites.spt[i].x) * (box->cam.position.x - box->sprites.spt[i].x) + (box->cam.position.y - box->sprites.spt[i].y) * (box->cam.position.y - box->sprites.spt[i].y)); //sqrt not taken, unneeded

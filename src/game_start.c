@@ -117,11 +117,12 @@ void				start_game(t_box *box)
 	int mnb = 0;
 	int q = 0;
 	SDL_Event		event;
+	box->fly_mode = 0;
 	box->error = 0;
 	box->mapx = 0;
 	box->mapy = 0;
 	box->start = 1;
-	box->sky = 1; // 0
+	box->sky = 0; // 0
 	box->mirror_effect = 0;
 	box->light_power = 1.0;
 	box->no_shadow = 1;

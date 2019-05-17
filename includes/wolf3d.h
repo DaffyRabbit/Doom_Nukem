@@ -61,8 +61,8 @@ typedef struct		s_sprite
 	SDL_Surface		*tex_sprite[10];
 	t_spriteCord 	spt[10];
 	double			spriteDistance[10];
-	int 			n_sprites;
 	int 			spriteOrder[10];
+	int 			n_sprites;
 }					t_sprite;
 
 typedef struct		s_listparam
@@ -252,6 +252,7 @@ typedef struct		s_box
 	int				btpos;
 	int				face_start;
 	int				sky;
+	int				fly_mode;
 }					t_box;
 
 int					hooks(t_box *box);
@@ -309,5 +310,9 @@ void    			draw_sprites2(t_box *box);
 void    			draw_sprites3(t_box *box);
 void    			draw_sprites4(t_box *box);
 /* !sprite */
+
+/////////////////////////////
+void	fly_mode_on(t_box *box);
+////////////////////////////
 void 	takeSprite(t_box *box, double x, double y, double d_x, double d_y);
 #endif
