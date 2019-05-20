@@ -48,16 +48,7 @@ void			*thi_is_raycast(void *his_is_sheet)
 		print_walls(&box);
 		box.atpos++;
 	}
+	draw_sprites(&box);
 	return (0);
-}
-
-
-void			colorize_this(t_box *box)
-{
-	Uint32		color;
-
-	color = box->coloriz;
-	if (box->atpos < WIND_W && box->btpos < WIND_H)
-		box->pixels[box->btpos * WIND_W + box->atpos] = color;
 }
 

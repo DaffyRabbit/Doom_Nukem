@@ -69,7 +69,7 @@ int		menu_mouse_click(int x, int y, t_box *box)
 			box->cam.d.x = 1;
 			box->cam.d.y = 0;
 			box->cam.p.x = 0;
-			box->cam.p.y = 0.6;
+			box->cam.p.y = 0.66;
 			box->go.spd = 0.02;
 			box->mouse.rot_spd = 0.002;
 			lets_start_game(box);

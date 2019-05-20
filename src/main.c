@@ -17,7 +17,7 @@ int				main(void)
 	t_box		box;
 	t_pic		pic;
 
-	box.go.south = 0;
+	box.sprites.n_sprites = 0;
 	start_game(&box, &pic, "Wolf3d");
 	return (0);
 }

@@ -24,10 +24,14 @@ void		some_blocks(t_box *box)
 	box->block.bb = box->block.bh / 2;
 	box->block.bb += box->block.bb * box->go.lop;
 	box->block.bb += WIND_H / 2 + box->ogo.lop;
-	box->block.bt = box->block.bt < 0 ? 0 : box->block.bt;
-	box->block.bt = box->block.bt > WIND_H ? WIND_H : box->block.bt;
-	box->block.bb = box->block.bb < 0 ? 0 : box->block.bb;
-	box->block.bb = box->block.bb > WIND_H ? WIND_H : box->block.bb;
+	if (box->block.bt < 0)
+		box->block.bt = 0;
+	else if (box->block.bt > WIND_H)
+		box->block.bt = WIND_H;
+	if (box->block.bb > WIND_H)
+		box->block.bb = WIND_H;
+	else if (box->block.bb < 0)
+		box->block.bb = 0;
 }
 
 void		add_txtrs(t_box *box, int x, int y)
@@ -77,17 +81,19 @@ void		print_walls(t_box *box)
 	box->paramtext.x = (int)(box->block.btouch * 64);
 	box->paramtext.x = 64 - box->paramtext.x - 1;
 	box->btpos = box->block.bt;
-	while (box->btpos < box->block.bb)
+	while (box->btpos < box->block.bb - 1)
 	{
-		box->paramtext.y = (box->btpos * 256 - WIND_H * 128 + 128 *
-			(box->block.bh) * ((-box->go.lop + 1))) - box->ogo.lop * 256;
-		box->paramtext.y = ((box->paramtext.y * 64) / box->block.bh) / 256;
-		box->paramtext.y = abs(box->paramtext.y) % 64;
+		box->paramtext.y = box->btpos - WIND_H / 2 + 
+			(box->block.bh / 2) * (-box->go.lop + 1) - box->ogo.lop;
+		box->paramtext.y = (box->paramtext.y * 64 / box->block.bh);
+		box->paramtext.y %= 64;
 		add_txtrs(box, box->paramtext.x, box->paramtext.y);
 		box->btpos++;
 	}
+	box->sprites.ZBuffer[box->atpos] = box->block.bd;
 	up_and_down(box);
 }
+
 
 void		floor_param(t_box *box)
 {
@@ -179,10 +185,40 @@ void			add_txtrs2(t_box *box, int y, int a)
 			color = SDL_MapRGB(box->txtrs[a]->format, r, g, b);
 			box->pixels[y * WIND_W + box->atpos] = color;
 		}
-		else
-			box->pixels[y * WIND_W + box->atpos] = 0x000000;
 	}
 }
+
+/////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+
+void		draw_sky(t_box *box)
+{
+	double	alpha;
+	int		i;
+	Uint32	color;
+
+	i = 0;
+	alpha = asin(box->cam.d.x);
+	if (alpha != alpha)
+		alpha = M_PI;
+	if (box->cam.d.y > 0)
+		alpha *= -1;
+	alpha += M_PI;
+	alpha += box->atpos * 60 * 2 * M_PI / 360 / WIND_H - 30 * 2 * M_PI / 360;
+	alpha += (alpha < 0) ? 2 * M_PI : 0;
+	alpha -= (alpha > 2 * M_PI) ? 2 * M_PI : 0;
+	box->tex_floor_x = alpha * box->txtrs[6]->w / (2 * M_PI);
+	while (i < box->block.bt)
+	{
+		box->tex_floor_y = (WIND_H / 2 + i - box->ogo.lop) * box->txtrs[6]->h / WIND_H;
+		color = ((int *)box->txtrs[6]->pixels)[box->tex_floor_y * box->txtrs[6]->w + box->tex_floor_x];
+		box->pixels[i * WIND_W + box->atpos] = color;
+		i++;
+	}
+}
+
+/////////////////////////////////////////////////////
+////////////////////////////////////////////////////
 
 void		up_and_down(t_box *box)
 {
@@ -192,19 +228,24 @@ void		up_and_down(t_box *box)
 
 	floor_param(box);
 	j = 0;
-	while (j < box->block.bt) //bt - верхня межа стіни
+	if (box->sky == 0)
 	{
-		box->tmp_dist = WIND_H / (2.0 * j - WIND_H - 2 * box->ogo.lop);
-		box->dist = (box->tmp_dist / box->block.bd * (box->go.lop - 1)); // (box->go.lop + 1) ????
-		tmp_floor_x = box->dist * box->floor_x +
-		(1.0 - box->dist) * box->cam.position.x;
-		tmp_floor_y = box->dist * box->floor_y +
-		(1.0 - box->dist) * box->cam.position.y;
-		box->tex_floor_x = (int)(tmp_floor_x * 64) % 64;
-		box->tex_floor_y = (int)(tmp_floor_y * 64) % 64;
-		add_txtrs2(box, j, 5);
-		j++;
+		while (j < box->block.bt) //bt - верхня межа стіни
+		{
+			box->tmp_dist = WIND_H / (2.0 * j - WIND_H - 2 * box->ogo.lop);
+			box->dist = (box->tmp_dist / box->block.bd * (box->go.lop - 1));
+			tmp_floor_x = box->dist * box->floor_x +
+			(1.0 - box->dist) * box->cam.position.x;
+			tmp_floor_y = box->dist * box->floor_y +
+			(1.0 - box->dist) * box->cam.position.y;
+			box->tex_floor_x = (int)(tmp_floor_x * 64) % 64;
+			box->tex_floor_y = (int)(tmp_floor_y * 64) % 64;
+			add_txtrs2(box, j, 5);
+			j++;
+		}
 	}
+	else
+		draw_sky(box);
 	j = box->block.bb;
 	while (j < WIND_H)
 	{

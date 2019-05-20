@@ -24,17 +24,9 @@ int		ft_face_start(t_box *box)
 
 int		ft_face(t_box *box)
 {
-if(box->sleep < SDL_GetTicks() - 1.0 * 1000)
+if(box->sleep < SDL_GetTicks() - 1.0 * 900)
 {
  ft_face_start(box);
-//////////////////////////////////////////Chenger
-if (box->HUD.hp_val > 0)
-box->HUD.hp_val--;
-//if (box->HUD.fr_val < 99)
-box->HUD.fr_val+=10;
-if ( box->HUD.hp_val < 50 && box->HUD.hp_val > 0)
-box->HUD.ar_val+=100/box->HUD.hp_val;
-//////////////////////////////////////////Chenger
  box->sleep = SDL_GetTicks();
 }
  return(0);
@@ -42,26 +34,20 @@ box->HUD.ar_val+=100/box->HUD.hp_val;
 
 int		ft_HUD_bar(t_box *box)
 {
- box->HUD.bott_bar_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.bott_bar);
+ box->HUD.bar.bott_bar_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.bar.bott_bar);
+ box->HUD.bar.rad_bar_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.bar.rad_bar);
  //SDL_FreeSurface(box->HUD.bott_bar);
  return(0);
 }
 
-int		ft_scope(t_box *box)
-{
- box->HUD.scope_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.scope);
- //SDL_FreeSurface(box->HUD.scope); 
- return(0);
-}
-
-int		ft_rifle(t_box *box)
+int		ft_weapon(t_box *box)
 {
 	int i;
 
 	i = 0;
-	while(i < 7)
+	while(i < 6)
 	{
- 		box->HUD.rifle[i].rifle_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.rifle[i].rifle);
+ 		box->HUD.weapon[i].weapon_texture = SDL_CreateTextureFromSurface(box->rend,box->HUD.weapon[i].weapon);
  		//SDL_FreeSurface(box->HUD.rifle[i].rifle);
  		i++;
 	} 
@@ -71,12 +57,11 @@ int		ft_rifle(t_box *box)
 int		ft_HUD(t_box *box)
 {
 	ft_HUD_bar(box);
-	//ft_scope(box);
-	ft_rifle(box);
-	if(box->face_start < 3)
+	ft_weapon(box);
+	if(box->HUD.face[0].face_start < 3)
 	{
 		ft_face_start(box);
-		box->face_start++;
+		box->HUD.face[0].face_start++;
 	}
 	else
 		ft_face(box);
