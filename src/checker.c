@@ -70,13 +70,15 @@ int		check_c(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (i > 0)
-			return (-4);
+		if (!(str[i] >= '0' && str[i] <= '9'))
+			return(-1);
+		if (i > 4)
+			return (-1);
 		i++;
 	}
-	if (str[0] >= '0' && str[0] <= '9')
-		return (0);
-	return (-5);
+	if (str[0] == '0' && i > 1)
+		return (-1);
+	return (0);
 }
 
 int		check_line(t_box *box)

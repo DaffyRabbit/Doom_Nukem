@@ -364,7 +364,7 @@ void 				ft_my_swap2(t_box *box, int i, int j);
 void 				combSort(t_box *box, int amount);
 Uint32				get_pixel(t_box *box, SDL_Surface *surface, int x, int y);
 void 				sort_sprits(t_box *box);
-void        		add_sprite(t_box *box, char n, int x, int y);
+void        		add_sprite(t_box *box, int n, int x, int y);
 void				draw_sprites(t_box *box);
 void    			draw_sprites2(t_box *box);
 void    			draw_sprites3(t_box *box);

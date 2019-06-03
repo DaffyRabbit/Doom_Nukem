@@ -1,6 +1,6 @@
 #include "wolf3d.h"
 
-void        add_sprite(t_box *box, char n, int x, int y)
+void        add_sprite(t_box *box, int n, int x, int y)
 {
   box->sprites.spt[box->sprites.n_sprites].x = x + 0.5;
   box->sprites.spt[box->sprites.n_sprites].y = y + 0.5;
@@ -8,15 +8,15 @@ void        add_sprite(t_box *box, char n, int x, int y)
 	// if (n == '1')
 	// 	box->sprites.spt[box->sprites.n_sprites].n_text = 5;
   ///////
-	if (n == '2')
+	if (n == 2)
 		box->sprites.spt[box->sprites.n_sprites].n_text = 0;
-	if (n == '3')
+	if (n == 3)
 		box->sprites.spt[box->sprites.n_sprites].n_text = 1;
-	if (n == '4')
+	if (n == 4)
 		box->sprites.spt[box->sprites.n_sprites].n_text = 2;
-	if (n == '5')
+	if (n == 5)
 		box->sprites.spt[box->sprites.n_sprites].n_text = 3;
-	if (n == '6')
+	if (n == 6)
 		box->sprites.spt[box->sprites.n_sprites].n_text = 4;
   box->sprites.n_sprites++;
 }
