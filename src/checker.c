@@ -14,12 +14,13 @@
 
 int		open_map(t_box *box)
 {
-	if (box->start == 1)
-		box->map_fd = open("maps/map0", O_RDONLY);
-	else if (box->start == 2)
-		box->map_fd = open("maps/map1", O_RDONLY);
-	else if (box->start == 3)
-		box->map_fd = open("maps/map2", O_RDONLY);
+	box->map_fd = open(box->map_list.map_path[box->start], O_RDONLY);
+// 	if (box->start == 1)
+// 		box->map_fd = open("maps/map0.map", O_RDONLY);
+// 	else if (box->start == 2)
+// 		box->map_fd = open("maps/map1.map", O_RDONLY);
+// 	else if (box->start == 3)
+// 		box->map_fd = open("maps/map2.map", O_RDONLY);
 	return (box->map_fd);
 }
 

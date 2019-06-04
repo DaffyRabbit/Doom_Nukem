@@ -19,38 +19,38 @@ void chose_map(int x, int y, int *z, int *c, int f)
 		if (y > 297 && y < 345)
 		{
 			if (f == 1)
-				*z = 0;
-			*c = 0;
-		}
-		else if (y > 352 && y < 400)
-		{
-			if (f == 1)
 				*z = 1;
 			*c = 1;
 		}
-		else if (y > 407 && y < 455)
+		else if (y > 352 && y < 400)
 		{
 			if (f == 1)
 				*z = 2;
 			*c = 2;
 		}
-		else if (y > 462 && y < 510)
+		else if (y > 407 && y < 455)
 		{
 			if (f == 1)
 				*z = 3;
 			*c = 3;
 		}
-		else if (y > 517 && y < 565)
+		else if (y > 462 && y < 510)
 		{
 			if (f == 1)
 				*z = 4;
 			*c = 4;
 		}
-		else if (y > 572 && y < 620)
+		else if (y > 517 && y < 565)
 		{
 			if (f == 1)
 				*z = 5;
 			*c = 5;
+		}
+		else if (y > 572 && y < 620)
+		{
+			if (f == 1)
+				*z = 6;
+			*c = 6;
 		}
 	}
 	else
@@ -117,6 +117,7 @@ void				start_game(t_box *box)
 	int mnb = 0;
 	int q = 0;
 	SDL_Event		event;
+	box->map_list.c_list = 0;
 	box->fly_mode = 0;
 	box->error = 0;
 	box->mapx = 0;
@@ -131,6 +132,7 @@ void				start_game(t_box *box)
 
 	ft_init_music(box);
 	load_menu_txtrs(box);
+	load_maps(&box->map_list);
 	while (1)
 	{
 		while (SDL_PollEvent(&event))
@@ -168,6 +170,7 @@ void				start_game(t_box *box)
 				else if ((mousex > 690 && mousex < 846) && (mousey > 628 && mousey < 674))
 					all_destroy(box);
 				chose_map(mousex, mousey, &z, &c, 1);
+				if_b_or_n(box, mousex, mousey, &z, &c);
 			}
 			SDL_RenderClear(box->rend);
 			SDL_GetMouseState(&mousex, &mousey);
@@ -225,7 +228,7 @@ void				start_game(t_box *box)
 
 		/////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////
-		int ch = 0;
+		/*int ch = 0;
 		int y = 304;
 		SDL_Texture  *pic;
 		SDL_Color color0 = {28, 98, 190, 0};
@@ -266,8 +269,12 @@ void				start_game(t_box *box)
 		}
 		ApplySurface(944, y, 0, 0, pic, (*box).rend);
 		y += 54;
-		ch++;
+		ch++;*/
 		/////////////////////////////////////////////////////
+		show_map_name(box, c, z);
+		ifc_map_name(box, c, z);
+		ifp_map_name(box, c, z);
+		ifcnp_map_name(box, c, z);
 		/////////////////////////////////////////////////////
 
 		SDL_RenderPresent(box->rend);

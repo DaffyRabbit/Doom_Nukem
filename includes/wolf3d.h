@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <dirent.h>
 
 # define WIND_W		1280
 # define WIND_H		720
@@ -245,8 +246,18 @@ typedef struct 		s_music
 	
 }					t_music;
 
+typedef struct 		s_maps
+{
+	int 		l_f;
+	int 		max_maps;
+	int 		c_list;
+	char 		**map_path;
+	char 		**map_name;
+}					t_maps;
+
 typedef struct		s_box
 {
+	t_maps			map_list;
 	t_sprite 		sprites;
 	int				keys[KEY_CODE];
 	t_bag 			bag;
@@ -303,6 +314,12 @@ typedef struct		s_box
 	int				fly_mode;
 }					t_box;
 
+void 	if_b_or_n(t_box *box, int x, int y, int *z, int *c);
+void	show_map_name(t_box *box, int c, int z);
+void	ifc_map_name(t_box *box, int c, int z);
+void	ifp_map_name(t_box *box, int c, int z);
+void	ifcnp_map_name(t_box *box, int c, int z);
+void 				load_maps(t_maps *m_l);
 int					hooks(t_box *box);
 SDL_Surface			*load_texture(char *path, t_box *wolf);
 void				load_menu_txtrs(t_box *box);

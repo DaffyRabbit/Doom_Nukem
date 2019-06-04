@@ -37,7 +37,8 @@ SRC_N			= main.c\
 				  sprite-sort.c\
 				  do-sprite.c\
 				  error.c\
-				  pic_loaders.c
+				  pic_loaders.c\
+				  menu_map_add.c
 
 SRC_P 			= ./src/
 OBJ 			= $(addprefix $(OBJ_P),$(SRC_N:.c=.o))
