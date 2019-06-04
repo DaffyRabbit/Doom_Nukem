@@ -23,10 +23,40 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <dirent.h>
 
 # define WIND_W		1280
 # define WIND_H		720
 # define KEY_CODE	265
+# define INT_MAX	2147483647
+
+typedef struct 		s_maps
+{
+	int 		l_f;
+	int 		max_maps;
+	int 		c_list;
+	char 		**map_path;
+	char 		**map_name;
+}					t_maps;
+
+typedef struct		s_rectItems
+{
+	SDL_Rect		rect_items;
+}					t_rectItems;
+
+typedef struct		s_bag
+{
+	SDL_Texture		*text_item;
+	t_rectItems		rect[6];
+	int 			items[6];
+	SDL_Texture 	*Message;
+	SDL_Texture 	*full_message;
+	SDL_Rect 		Message_rect;
+	int 			posX;
+	int 			posY;
+	int 			n_items;
+	int				time;
+}					t_bag;
 
 typedef struct		s_drawSprite
 {
@@ -58,10 +88,10 @@ typedef struct		s_spriteCord
 typedef struct		s_sprite
 {
 	double			ZBuffer[1280];
-	SDL_Surface		*tex_sprite[10];
-	t_spriteCord 	spt[10];
-	double			spriteDistance[10];
-	int 			spriteOrder[10];
+	SDL_Surface		*tex_sprite[20];
+	t_spriteCord 	spt[20];
+	double			spriteDistance[20];
+	int 			spriteOrder[20];
 	int 			n_sprites;
 }					t_sprite;
 
@@ -137,7 +167,8 @@ typedef	struct		s_face
 	SDL_Texture		*face_texture;
 	SDL_Rect		rect_face;
 	int				w_face;
-	int				h_face;	
+	int				h_face;
+	int				face_start;
 }					t_face;
 
 typedef struct		s_h_bar
@@ -160,53 +191,83 @@ typedef struct		s_am_bar
 	int				h_ammo;	
 }					t_am_bar;
 
-typedef struct		s_ar_bar
-{
-	SDL_Surface		*armor;
-	SDL_Texture		*armor_texture;
-	SDL_Rect		rect_armor;
-	int				w_armor;
-	int				h_armor;	
-}					t_ar_bar;
 
-typedef struct		s_fr_bar
+typedef struct		s_rad_bar
 {
-	SDL_Surface		*face;
-	SDL_Texture		*face_texture;
-	SDL_Rect		rect_face;
-	int				w_face;
-	int				h_face;
-}					t_fr_bar;
+	SDL_Surface		*rad;
+	SDL_Texture		*rad_texture;
+	SDL_Rect		rect_rad;
+	int				w_rad;
+	int				h_rad;
+	int				n;
+	int				ticks;
+}					t_rad_bar;
 
-typedef struct 		s_HUD
+typedef struct 		s_weapon
 {
-	t_face			face[3];
-	t_h_bar			heals[3];
-	char			*numb[10];
-	t_am_bar		ammo;
-	t_ar_bar		armor;
-	t_fr_bar		frag;
-	SDL_Rect		rect_scope;
+	SDL_Surface		*weapon;
+	SDL_Texture		*weapon_texture;
+	SDL_Rect		rect_weapon;
+	int				w_weapon;
+	int				h_weapon;	
+	int 			usless;
+}					t_weapon;
+
+typedef struct 		s_bar
+{
 	SDL_Rect		rect_bott_bar;
- 	SDL_Texture		*scope_texture; 
- 	SDL_Texture		*bott_bar_texture;
-	SDL_Surface		*scope;
  	SDL_Surface		*bott_bar;
- 	int				hp_val;		
-	int				w_scope;
-	int				h_scope;
-	int				w_bott_bar;
-	int				h_bott_bar;
-	int				num_i;
-}					t_HUD;
+ 	SDL_Texture		*bott_bar_texture;
+ 	SDL_Rect		rect_rad_bar;
+	SDL_Surface		*rad_bar;
+	SDL_Texture		*rad_bar_texture;
+	int				w_rad_bar;
+	int				h_rad_bar;
+	
+}					t_bar;
+
+typedef struct 		s_hud
+{
+	t_bar			bar;
+ 	t_weapon		weapon[6];
+ 	t_face			face[3];
+ 	t_h_bar			heals[3];
+ 	t_rad_bar		rad[3];
+	char			*numb[10];
+	int				w_start;	
+ 	int				hp_val;
+ 	int				rad_val;	
+	int				h_scope; //If delete - segment. fault
+	int				hp_i;
+	int				rad_i;
+	int             fire;
+	int				time;
+	int				w_time;
+}					t_hud;
+
+typedef struct 		s_music
+{
+	Mix_Music	*bgm;
+	Mix_Music	*bgm_menu;
+	Mix_Music	*dead_sound;
+	Mix_Chunk	*rad;
+	Mix_Chunk	*walk;
+	Mix_Chunk	*knife;
+	Mix_Chunk	*jet;
+	int			walking;
+	
+}					t_music;
 
 typedef struct		s_box
 {
+	t_maps			map_list;
 	t_sprite 		sprites;
 	int				keys[KEY_CODE];
-	t_HUD			HUD;
+	t_bag 			bag;
+	t_hud			hud;
 	SDL_Surface		*txtrs[10];
 	SDL_Texture		*menu_txtrs[10];
+	t_music			music;
 	t_drawSprite	dsprite;
 	t_tir			tir;
 	t_cam			cam;
@@ -228,6 +289,7 @@ typedef struct		s_box
 	double			light_power;
 	double			scene;
 	Uint32			*pixels;
+	int				**all_map;
 	Uint32			sleep;
 	int				blok;
 	int				num_face;
@@ -245,13 +307,13 @@ typedef struct		s_box
 	int				mapx;
 	int				mapy;
 	int				uselessy;
-	int				**all_map;
 	int				start;
 	int				error;
 	int				a;
 	int				btpos;
 	int				face_start;
 	int				sky;
+	int				dead;
 	int				fly_mode;
 }					t_box;
 
@@ -289,14 +351,33 @@ void				add_txtrs(t_box *box, int x, int y);
 void				print_walls(t_box *box);
 void				up_and_down(t_box *box);
 int					small_map(t_box *box);
-//// mouse scope
+//// mouse scope && HUD
+void				ft_check_walk(t_box *box);
+void				ft_dead(t_box *box);
+void				ft_init_music(t_box *box);
 int					mouse_control(int x, int y, t_box *box);
 int					ft_scope(t_box *box);
-int					ft_HUD(t_box *box);
-int					ft_HUD_bar(t_box *box);
 SDL_Surface			*ft_check_png(t_box *box, char *text);
+int					ft_hud(t_box *box);
+int					ft_hud_bar(t_box *box);
 int					ft_all_bars(t_box *box);
-void				ft_HUD_param(t_box *box);
+void				ft_load_hud_tex(t_box *box);
+void				ft_music_free(t_box *box);
+void				ft_hud_param(t_box *box);
+void				paint_hud(t_box *box);
+void				ft_shooting(int code, t_box *box);
+void				ft_freee(t_box *box);
+void				ft_r_bars_face(t_box *box);
+void				ft_start_anim(t_box *box);
+void				ft_knife_sh(t_box *box);
+void				ft_lets_music(t_box *box);
+void				ApplyTexture(int x, int y, t_box *box);
+void 				if_b_or_n(t_box *box, int x, int y, int *z, int *c);
+void				show_map_name(t_box *box, int c, int z);
+void				ifc_map_name(t_box *box, int c, int z);
+void				ifp_map_name(t_box *box, int c, int z);
+void				ifcnp_map_name(t_box *box, int c, int z);
+void 				load_maps(t_maps *m_l);
 ///
 /* sprite */
 void 				ft_my_swap1(t_box *box, int i, int j);
@@ -304,7 +385,7 @@ void 				ft_my_swap2(t_box *box, int i, int j);
 void 				combSort(t_box *box, int amount);
 Uint32				get_pixel(t_box *box, SDL_Surface *surface, int x, int y);
 void 				sort_sprits(t_box *box);
-void        		add_sprite(t_box *box, char n, int x, int y);
+void        		add_sprite(t_box *box, int n, int x, int y);
 void				draw_sprites(t_box *box);
 void    			draw_sprites2(t_box *box);
 void    			draw_sprites3(t_box *box);
@@ -314,5 +395,9 @@ void    			draw_sprites4(t_box *box);
 /////////////////////////////
 void	fly_mode_on(t_box *box);
 ////////////////////////////
-void 	takeSprite(t_box *box, double x, double y, double d_x, double d_y);
+int 	takeSprite(t_box *box, double x, double y, double d_x, double d_y);
+SDL_Texture* renderText(char *message, char *fontFile, SDL_Color color, int fontSize,
+					SDL_Renderer *renderer);
+void ApplySurface(int x, int y, int w, int h, SDL_Texture *tex, SDL_Renderer *rend);
+
 #endif

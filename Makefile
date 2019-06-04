@@ -25,14 +25,20 @@ SRC_N			= main.c\
 				  tiray.c\
 				  wallandfl.c\
 				  mouse_control.c\
-				  HUD.c\
-				  HUD_changing.c\
-				  HUD_param.c\
+				  hud.c\
+				  hud_changing.c\
+				  hud_painting.c\
+				  hud_param.c\
+				  hud_animations.c\
+				  ft_freee.c\
+				  music.c\
+				  dead.c\
 				  sprite.c\
 				  sprite-sort.c\
 				  do-sprite.c\
 				  error.c\
-				  pic_loaders.c
+				  pic_loaders.c\
+				  menu_map_add.c
 
 SRC_P 			= ./src/
 OBJ 			= $(addprefix $(OBJ_P),$(SRC_N:.c=.o))

@@ -1,22 +1,46 @@
 #include "wolf3d.h"
 
-void        add_sprite(t_box *box, char n, int x, int y)
+void        add_sprite(t_box *box, int n, int x, int y)
 {
   box->sprites.spt[box->sprites.n_sprites].x = x + 0.5;
   box->sprites.spt[box->sprites.n_sprites].y = y + 0.5;
-  if (n == '2')
-	box->sprites.spt[box->sprites.n_sprites].n_text = 0;
-  if (n == '3')
-	box->sprites.spt[box->sprites.n_sprites].n_text = 1;
-  if (n == '4')
-	box->sprites.spt[box->sprites.n_sprites].n_text = 2;
-  if (n == '5')
-	box->sprites.spt[box->sprites.n_sprites].n_text = 3;
-  if (n == '6')
-	box->sprites.spt[box->sprites.n_sprites].n_text = 4;
+ //  //////
+	// if (n == '1')
+	// 	box->sprites.spt[box->sprites.n_sprites].n_text = 5;
+  ///////
+	if (n == 2)
+		box->sprites.spt[box->sprites.n_sprites].n_text = 0;
+	if (n == 3)
+		box->sprites.spt[box->sprites.n_sprites].n_text = 1;
+	if (n == 4)
+		box->sprites.spt[box->sprites.n_sprites].n_text = 2;
+	if (n == 5)
+		box->sprites.spt[box->sprites.n_sprites].n_text = 3;
+	if (n == 6)
+		box->sprites.spt[box->sprites.n_sprites].n_text = 4;
   box->sprites.n_sprites++;
-  printf("WASAP?\n");
 }
+
+// void		dog_sprite_side(t_box *box)
+// {
+// 	double		spr_x;
+// 	double		spr_y;
+// 	double		side_spr_x;
+// 	double		side_spr_y;
+
+// 	spr_x = box->sprites.spt[box->sprites.spriteOrder[box->dsprite.i]].x;
+// 	spr_y = box->sprites.spt[box->sprites.spriteOrder[box->dsprite.i]].y;
+// 	side_spr_x = spr_x - box->cam.position.x;
+// 	side_spr_y = spr_y - box->cam.position.y;
+// 		if (side_spr_y > 0 && side_spr_x > 0)
+// 			box->sprites.spt[box->sprites.spriteOrder[box->dsprite.i]].n_text = 5;
+// 		else if (side_spr_y < 0  && side_spr_x > 0)
+// 			box->sprites.spt[box->sprites.spriteOrder[box->dsprite.i]].n_text = 6;
+// 		else if (side_spr_y < 0  && side_spr_x < 0)
+// 			box->sprites.spt[box->sprites.spriteOrder[box->dsprite.i]].n_text = 7;
+// 		else
+// 			box->sprites.spt[box->sprites.spriteOrder[box->dsprite.i]].n_text = 8;
+// }
 
 void		draw_sprites(t_box *box)
 {
@@ -25,6 +49,10 @@ void		draw_sprites(t_box *box)
 	while(box->dsprite.i < box->sprites.n_sprites)
 	{
 		//////////
+	 	//////////
+		// if (box->sprites.spt[box->sprites.spriteOrder[box->dsprite.i]].n_text == 5)
+		// 	dog_sprite_side(box);
+	 	//////////
 	 	//////////
 		if (box->sprites.spt[box->sprites.spriteOrder[box->dsprite.i]].n_text == 2 &&
 		box->sky == 1)
@@ -92,7 +120,8 @@ void    draw_sprites4(t_box *box)
   int d;
   int y;
 
-  if (box->dsprite.transformY > 0 && box->dsprite.drawStartX > 0 && box->dsprite.drawStartX < WIND_W && box->dsprite.transformY < box->sprites.ZBuffer[box->dsprite.drawStartX])
+  if (box->dsprite.transformY > 0 && box->dsprite.drawStartX > 0 && box->dsprite.drawStartX < WIND_W
+  	&& box->dsprite.transformY < box->sprites.ZBuffer[box->dsprite.drawStartX] && box->sprites.ZBuffer[box->dsprite.drawStartX] < INT_MAX)
   {
 	y = box->dsprite.drawStartY;
 	while (y < box->dsprite.drawEndY)

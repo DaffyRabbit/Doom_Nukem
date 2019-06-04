@@ -18,6 +18,8 @@ void	all_destroy(t_box *box)
 		SDL_DestroyRenderer(box->rend);
 	if (box->texture != NULL)
 		SDL_DestroyTexture(box->texture);
+	ft_freee(box);
+	ft_music_free(box);
 	SDL_DestroyWindow(box->wind);
 	SDL_Quit();
 	exit(0);

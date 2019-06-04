@@ -12,17 +12,60 @@
 
 #include "wolf3d.h"
 
-int			paint_HUD(t_box *box)
+void		lost_key(t_box *box)
 {
-	SDL_RenderCopy(box->rend, box->HUD.scope_texture, NULL, &box->HUD.rect_scope);
-	SDL_RenderCopy(box->rend, box->HUD.bott_bar_texture, NULL, &box->HUD.rect_bott_bar);
-	SDL_RenderCopy(box->rend, box->HUD.face[box->num_face].face_texture, NULL, &box->HUD.face[box->num_face].rect_face);
-	while (box->HUD.num_i <= 2)
+	box->bag.n_items--;
+	box->bag.posX = box->bag.posX - 50;
+	if (box->bag.n_items == 3)
 	{
-	SDL_RenderCopy(box->rend, box->HUD.heals[box->HUD.num_i].heals_texture, NULL, &box->HUD.heals[box->HUD.num_i].rect_heals);
-	box->HUD.num_i++;
+		box->bag.posX = 105;
+		box->bag.posY = box->bag.posY - 50;
 	}
-	return(0);
+	box->bag.Message = NULL;
+	box->bag.full_message = NULL;
+}
+
+void		door_open_message(t_box *box, double x, double y, double d_x, double d_y)
+{
+	double	dist_x;
+	double	dist_y;
+
+	SDL_Color color = {51, 51, 255, 0};
+	dist_x = fabs(d_x) > fabs(d_y) ? d_x : 0;
+	dist_y = fabs(d_x) <= fabs(d_y) ? d_y : 0;
+	if (box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 8 &&
+		box->bag.Message == NULL)
+		box->bag.Message = renderText("Press 'E' to open the doors", 
+			"ttf/mainfont.ttf", color, 22, (*box).rend);
+	else if (box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] != 8)
+		box->bag.Message = NULL;
+}
+
+void		check_doors(t_box *box, double x, double y, double d_x, double d_y)
+{
+	double	dist_x;
+	double	dist_y;
+
+	SDL_Color color = {216, 30, 42, 0};
+	dist_x = fabs(d_x) > fabs(d_y) ? d_x : 0;
+	dist_y = fabs(d_x) <= fabs(d_y) ? d_y : 0;
+	if (box->keys[SDL_SCANCODE_E] == 1 && box->bag.n_items > 0 &&
+		box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 8)
+	{
+		box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] = 1;
+		lost_key(box);
+	}
+	else if (box->keys[SDL_SCANCODE_E] == 1 && box->bag.n_items <= 0 &&
+		box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 8)
+	{
+		box->bag.Message = NULL;
+		box->bag.Message = renderText("You don't have keys!", 
+			"ttf/mainfont.ttf", color, 30, (*box).rend);
+		box->bag.time = 1;
+	}
+	if (box->bag.time == 75)
+		box->bag.Message = NULL;
+	box->bag.time = (box->bag.time > 90) ? 0 : (box->bag.time + 1);
 }
 
 int			paint_this(t_box *box)
@@ -37,38 +80,37 @@ int			paint_this(t_box *box)
 	cam_pos_x = box->cam.position.x;
 	cam_d_y = box->cam.d.y;
 	cam_d_x = box->cam.d.x;
+	door_open_message(box, cam_pos_x, cam_pos_y, cam_d_x, cam_d_y);
+	check_doors(box, cam_pos_x, cam_pos_y, cam_d_x, cam_d_y);
 	some_pthreads(box);
 	takeSprite(box, cam_pos_x, cam_pos_y, cam_d_x, cam_d_y);
 	just_travel_s(box, cam_pos_x, cam_pos_y, cam_d_x, cam_d_y);
 	some_rotation(box);
 	SDL_UpdateTexture(box->main_t, NULL, box->pixels, WIND_W * sizeof(Uint32));
 	SDL_RenderCopy(box->rend, box->main_t, NULL, NULL );
-	paint_HUD(box);
+	paint_hud(box);
 	SDL_RenderPresent(box->rend);
 	return (0);
 }
 
+
 void		just_travel_w(t_box *box, double x, double y, double d_x, double d_y)
 {
+	double		a;
+
+	a = 0.15;
 	if (box->keys[SDL_SCANCODE_W] == 1)
 	{
-		if ((box->all_map[(int)(y + 0.15)][(int)(x + d_x * box->go.spd)] == 0) &&
-			(box->all_map[(int)(y - 0.15)][(int)(x + d_x * box->go.spd)] == 0) &&
-			(box->all_map[(int)y][(int)(x + d_x * box->go.spd + 0.15)] == 0) &&
-			(box->all_map[(int)y][(int)(x + d_x * box->go.spd - 0.15)] == 0) &&
-			(box->all_map[(int)(y + 0.15)][(int)(x + d_x * box->go.spd - 0.15)] == 0) &&
-			(box->all_map[(int)(y + 0.15)][(int)(x + d_x * box->go.spd + 0.15)] == 0) &&
-			(box->all_map[(int)(y - 0.15)][(int)(x + d_x * box->go.spd - 0.15)] == 0) &&
-			(box->all_map[(int)(y - 0.15)][(int)(x + d_x * box->go.spd + 0.15)] == 0))
+		ft_check_walk(box);
+		if ((box->all_map[(int)(y + a)][(int)(x + d_x * box->go.spd - a)]) < 2 &&
+			(box->all_map[(int)(y + a)][(int)(x + d_x * box->go.spd + a)]) < 2 &&
+			(box->all_map[(int)(y - a)][(int)(x + d_x * box->go.spd - a)]) < 2 &&
+			(box->all_map[(int)(y - a)][(int)(x + d_x * box->go.spd + a)]) < 2)
 			box->cam.position.x += box->cam.d.x * box->go.spd;
-		if ((box->all_map[(int)(y + d_y * box->go.spd)][(int)(x + 0.15)] == 0) &&
-			(box->all_map[(int)(y + d_y * box->go.spd)][(int)(x - 0.15)] == 0) &&
-			(box->all_map[(int)(y + d_y * box->go.spd + 0.15)][(int)x] == 0) &&
-			(box->all_map[(int)(y + d_y * box->go.spd - 0.15)][(int)x] == 0) &&
-			(box->all_map[(int)(y + d_y * box->go.spd + 0.15)][(int)(x + 0.15)] == 0) &&
-			(box->all_map[(int)(y + d_y * box->go.spd + 0.15)][(int)(x - 0.15)] == 0) &&
-			(box->all_map[(int)(y + d_y * box->go.spd - 0.15)][(int)(x + 0.15)] == 0) &&
-			(box->all_map[(int)(y + d_y * box->go.spd - 0.15)][(int)(x - 0.15)] == 0))
+		if ((box->all_map[(int)(y + d_y * box->go.spd + a)][(int)(x + a)]) < 2 &&
+			(box->all_map[(int)(y + d_y * box->go.spd + a)][(int)(x - a)]) < 2 &&
+			(box->all_map[(int)(y + d_y * box->go.spd - a)][(int)(x + a)]) < 2 &&
+			(box->all_map[(int)(y + d_y * box->go.spd - a)][(int)(x - a)]) < 2)
 			box->cam.position.y += box->cam.d.y * box->go.spd;
 	}
 	return ;
@@ -76,25 +118,21 @@ void		just_travel_w(t_box *box, double x, double y, double d_x, double d_y)
 
 void		just_travel_s(t_box *box, double x, double y, double d_x, double d_y)
 {
+	double a;
+
+	a = 0.15;
 	if (box->keys[SDL_SCANCODE_S] == 1)
 	{
-		if ((box->all_map[(int)y][(int)(x - d_x * box->go.spd + 0.15)] == 0) &&
-			(box->all_map[(int)y][(int)(x - d_x * box->go.spd - 0.15)] == 0) &&
-			(box->all_map[(int)(y + 0.15)][(int)(x - d_x * box->go.spd)] == 0) &&
-			(box->all_map[(int)(y - 0.15)][(int)(x - d_x * box->go.spd)] == 0) &&
-			(box->all_map[(int)(y + 0.15)][(int)(x - d_x * box->go.spd - 0.15)] == 0) &&
-			(box->all_map[(int)(y + 0.15)][(int)(x - d_x * box->go.spd + 0.15)] == 0) &&
-			(box->all_map[(int)(y - 0.15)][(int)(x - d_x * box->go.spd - 0.15)] == 0) &&
-			(box->all_map[(int)(y - 0.15)][(int)(x - d_x * box->go.spd + 0.15)] == 0))
+		ft_check_walk(box);
+		if ((box->all_map[(int)(y + a)][(int)(x - d_x * box->go.spd - a)]) < 2 &&
+			(box->all_map[(int)(y + a)][(int)(x - d_x * box->go.spd + a)]) < 2 &&
+			(box->all_map[(int)(y - a)][(int)(x - d_x * box->go.spd - a)]) < 2 &&
+			(box->all_map[(int)(y - a)][(int)(x - d_x * box->go.spd + a)]) < 2)
 			box->cam.position.x -= box->cam.d.x * box->go.spd;
-		if ((box->all_map[(int)(y - d_y * box->go.spd + 0.15)][(int)x] == 0) &&
-			(box->all_map[(int)(y - d_y * box->go.spd - 0.15)][(int)x] == 0) &&
-			(box->all_map[(int)(y - d_y * box->go.spd)][(int)(x + 0.15)] == 0) &&
-			(box->all_map[(int)(y - d_y * box->go.spd)][(int)(x - 0.15)] == 0) &&
-			(box->all_map[(int)(y - d_y * box->go.spd + 0.15)][(int)(x + 0.15)] == 0) &&
-			(box->all_map[(int)(y - d_y * box->go.spd + 0.15)][(int)(x - 0.15)] == 0) &&
-			(box->all_map[(int)(y - d_y * box->go.spd - 0.15)][(int)(x - 0.15)] == 0) &&
-			(box->all_map[(int)(y - d_y * box->go.spd - 0.15)][(int)(x + 0.15)] == 0))
+		if ((box->all_map[(int)(y - d_y * box->go.spd + a)][(int)(x + a)]) < 2 &&
+			(box->all_map[(int)(y - d_y * box->go.spd + a)][(int)(x - a)]) < 2 &&
+			(box->all_map[(int)(y - d_y * box->go.spd - a)][(int)(x - a)]) < 2 &&
+			(box->all_map[(int)(y - d_y * box->go.spd - a)][(int)(x + a)]) < 2)
 			box->cam.position.y -= box->cam.d.y * box->go.spd;
 	}
 	just_travel_w(box, x, y, d_x, d_y);
@@ -107,46 +145,35 @@ void		just_travel_s(t_box *box, double x, double y, double d_x, double d_y)
 
 void		go_and_west(t_box *box, double x, double y, double p_x, double p_y)
 {
+	double a;
+
+	a = 0.15;
 	if (box->keys[SDL_SCANCODE_A] == 1)
 	{
-		if ((box->all_map[(int)y][(int)(x - p_x * box->go.spd + 0.15)] == 0) &&
-			(box->all_map[(int)y][(int)(x - p_x * box->go.spd + 0.15)] == 0) &&
-			(box->all_map[(int)(y + 0.15)][(int)(x - p_x * box->go.spd)] == 0) &&
-			(box->all_map[(int)(y - 0.15)][(int)(x - p_x * box->go.spd)] == 0) &&
-			(box->all_map[(int)(y + 0.15)][(int)(x - p_x * box->go.spd + 0.15)] == 0) &&
-			(box->all_map[(int)(y + 0.15)][(int)(x - p_x * box->go.spd - 0.15)] == 0) &&
-			(box->all_map[(int)(y - 0.15)][(int)(x - p_x * box->go.spd + 0.15)] == 0) &&
-			(box->all_map[(int)(y - 0.15)][(int)(x - p_x * box->go.spd - 0.15)] == 0))
+		ft_check_walk(box);
+		if ((box->all_map[(int)(y + a)][(int)(x - p_x * box->go.spd + a)]) < 2 &&
+			(box->all_map[(int)(y + a)][(int)(x - p_x * box->go.spd - a)]) < 2 &&
+			(box->all_map[(int)(y - a)][(int)(x - p_x * box->go.spd + a)]) < 2 &&
+			(box->all_map[(int)(y - a)][(int)(x - p_x * box->go.spd - a)]) < 2)
 			box->cam.position.x -= box->cam.p.x * box->go.spd;
-		if ((box->all_map[(int)(y - p_y * box->go.spd + 0.15)][(int)x] == 0) &&
-			(box->all_map[(int)(y - p_y * box->go.spd - 0.15)][(int)x] == 0) &&
-			(box->all_map[(int)(y - p_y * box->go.spd)][(int)(x + 0.15)] == 0) &&
-			(box->all_map[(int)(y - p_y * box->go.spd)][(int)(x - 0.15)] == 0) &&
-			(box->all_map[(int)(y - p_y * box->go.spd - 0.15)][(int)(x - 0.15)] == 0) &&
-			(box->all_map[(int)(y - p_y * box->go.spd + 0.15)][(int)(x - 0.15)] == 0) &&
-			(box->all_map[(int)(y - p_y * box->go.spd - 0.15)][(int)(x + 0.15)] == 0) &&
-			(box->all_map[(int)(y - p_y * box->go.spd + 0.15)][(int)(x + 0.15)] == 0))
+		if ((box->all_map[(int)(y - p_y * box->go.spd - a)][(int)(x - a)]) < 2 &&
+			(box->all_map[(int)(y - p_y * box->go.spd + a)][(int)(x - a)]) < 2 &&
+			(box->all_map[(int)(y - p_y * box->go.spd - a)][(int)(x + a)]) < 2 &&
+			(box->all_map[(int)(y - p_y * box->go.spd + a)][(int)(x + a)]) < 2)
 			box->cam.position.y -= box->cam.p.y * box->go.spd;
 	}
 	if (box->keys[SDL_SCANCODE_D] == 1)
 	{
-		if ((box->all_map[(int)y][(int)(x + p_x * box->go.spd + 0.15)] == 0) && 
-			(box->all_map[(int)y][(int)(x + p_x * box->go.spd - 0.15)] == 0) &&
-			(box->all_map[(int)(y + 0.15)][(int)(x + p_x * box->go.spd)] == 0) &&
-			(box->all_map[(int)(y - 0.15)][(int)(x + p_x * box->go.spd)] == 0) &&
-			(box->all_map[(int)(y + 0.15)][(int)(x + p_x * box->go.spd + 0.15)] == 0) &&
-			(box->all_map[(int)(y - 0.15)][(int)(x + p_x * box->go.spd + 0.15)] == 0) &&
-			(box->all_map[(int)(y + 0.15)][(int)(x + p_x * box->go.spd - 0.15)] == 0) &&
-			(box->all_map[(int)(y - 0.15)][(int)(x + p_x * box->go.spd - 0.15)] == 0))
+		ft_check_walk(box);
+		if ((box->all_map[(int)(y + a)][(int)(x + p_x * box->go.spd + a)]) < 2 &&
+			(box->all_map[(int)(y - a)][(int)(x + p_x * box->go.spd + a)]) < 2 &&
+			(box->all_map[(int)(y + a)][(int)(x + p_x * box->go.spd - a)]) < 2 &&
+			(box->all_map[(int)(y - a)][(int)(x + p_x * box->go.spd - a)]) < 2)
 			box->cam.position.x += box->cam.p.x * box->go.spd;
-		if ((box->all_map[(int)(y + p_y * box->go.spd)][(int)(x + 0.15)] == 0) &&
-			(box->all_map[(int)(y + p_y * box->go.spd)][(int)(x - 0.15)] == 0) &&
-			(box->all_map[(int)(y + p_y * box->go.spd - 0.15)][(int)(x)] == 0) &&
-			(box->all_map[(int)(y + p_y * box->go.spd + 0.15)][(int)(x)] == 0) &&
-			(box->all_map[(int)(y + p_y * box->go.spd - 0.15)][(int)(x + 0.15)] == 0) &&
-			(box->all_map[(int)(y + p_y * box->go.spd + 0.15)][(int)(x + 0.15)] == 0) &&
-			(box->all_map[(int)(y + p_y * box->go.spd - 0.15)][(int)(x - 0.15)] == 0) &&
-			(box->all_map[(int)(y + p_y * box->go.spd + 0.15)][(int)(x - 0.15)] == 0))
+		if ((box->all_map[(int)(y + p_y * box->go.spd - a)][(int)(x + a)]) < 2 &&
+			(box->all_map[(int)(y + p_y * box->go.spd + a)][(int)(x + a)]) < 2 &&
+			(box->all_map[(int)(y + p_y * box->go.spd - a)][(int)(x - a)]) < 2 &&
+			(box->all_map[(int)(y + p_y * box->go.spd + a)][(int)(x - a)]) < 2)
 			box->cam.position.y += box->cam.p.y * box->go.spd;
 	}
 }
@@ -177,31 +204,14 @@ void		some_rotation(t_box *box)
 		box->ogo.lop -= 20;
 }
 
-// void	fly_mode_on(t_box *box)
-// {
-// 	if (box->ttsky2 == 1 && box->go.lop < 0.7)
-// 		box->go.lop += 0.075;
-// 	if (box->go.lop >= 0.7)
-// 		box->ttsky2 = 0;
-// 	if (box->ttsky2 == 0 && box->go.lop > 0)
-// 		box->go.lop -= 0.075;
-// 	if (box->sitd == 1 && box->go.lop > -0.5)
-// 		box->go.lop -= 0.1;
-// 	if (box->sitd == 0 && box->go.lop < 0)
-// 	{
-// 		box->go.lop += 0.1;
-// 		box->go.lop = box->go.lop > 0 ? 0 : box->go.lop;
-// 	}
-// }
-
 void	ttsky_and_sit(t_box *box)
 {
-	if (box->ttsky2 == 1 && box->go.lop < 0.7)
-		box->go.lop += 0.075;
-	if (box->go.lop >= 0.7)
+	if (box->ttsky2 == 1 && box->go.lop < 0.55)
+		box->go.lop += 0.04;
+	if (box->go.lop >= 0.55)
 		box->ttsky2 = 0;
 	if (box->ttsky2 == 0 && box->go.lop > 0)
-		box->go.lop -= 0.075;
+		box->go.lop -= 0.04;
 	if (box->sitd == 1 && box->go.lop > -0.5)
 		box->go.lop -= 0.1;
 	if (box->sitd == 0 && box->go.lop < 0)

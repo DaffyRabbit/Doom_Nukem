@@ -14,12 +14,13 @@
 
 int		open_map(t_box *box)
 {
-	if (box->start == 1)
-		box->map_fd = open("maps/map0", O_RDONLY);
-	else if (box->start == 2)
-		box->map_fd = open("maps/map1", O_RDONLY);
-	else if (box->start == 3)
-		box->map_fd = open("maps/map2", O_RDONLY);
+	box->map_fd = open(box->map_list.map_path[box->start], O_RDONLY);
+// 	if (box->start == 1)
+// 		box->map_fd = open("maps/map0.map", O_RDONLY);
+// 	else if (box->start == 2)
+// 		box->map_fd = open("maps/map1.map", O_RDONLY);
+// 	else if (box->start == 3)
+// 		box->map_fd = open("maps/map2.map", O_RDONLY);
 	return (box->map_fd);
 }
 
@@ -30,11 +31,15 @@ int		ft_check_all(t_box *box)
 	i = 0;
 	if (check_wrong(box) < 0)
 	{
+		printf("check_wrong\n");
 		close(box->map_fd);
 		return (-1);
 	}
 	if (small_map(box) == -9)
+	{
+		printf("small_map\n");
 		return (-1);
+	}
 	close(box->map_fd);
 	box->all_map = (int **)malloc(sizeof(int *) * box->mapy + 1);
 	while (box->mapy >= i)
@@ -44,6 +49,7 @@ int		ft_check_all(t_box *box)
 	open_map(box);
 	if (check_map(box) < 0)
 	{
+		printf("check_map\n");
 		close(box->map_fd);
 		return (-1);
 	}
@@ -70,14 +76,26 @@ int		check_c(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (i > 0)
-			return (-4);
+		if (!(str[i] >= '0' && str[i] <= '9'))
+		{
+			printf("check_c1\n");
+			return(-1);
+		}
+		if (i > 4)
+		{
+		printf("check_c2\n");
+			return (-1);
+		}
 		i++;
 	}
-	if (str[0] >= '0' && str[0] <= '9')
-		return (0);
-	return (-5);
+	if (str[0] == '0' && i > 1)
+	{
+	printf("check_c3\n");
+		return (-1);
+	}
+	return (0);
 }
+
 
 int		check_line(t_box *box)
 {
@@ -93,7 +111,10 @@ int		check_line(t_box *box)
 		while (w_s[cx])
 		{
 			if ((box->error = check_c(w_s[cx])) < 0)
+			{
+			printf("check_c\n");	
 				return (-1);
+			}
 			free(w_s[cx]);
 			cx++;
 		}

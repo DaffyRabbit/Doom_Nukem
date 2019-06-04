@@ -63,11 +63,22 @@ void		add_txtrs(t_box *box, int x, int y)
 	}
 }
 
+void		choose_side_texture(t_box *box)
+{
+	if (box->a == 7 || box->a == 8)
+		box->a -= 5;
+	if ((box->block.bs == 0 && box->all_map[box->tir.pl.y][box->tir.pl.x + 1] == 1 &&
+		box->tir.fold.x < 0) || (box->block.bs == 1 && box->all_map[box->tir.pl.y + 1][box->tir.pl.x] == 1 &&
+		box->tir.fold.y < 0))
+	{
+		box->a = 7;
+	}
+}
+
 void		print_walls(t_box *box)
 {
 	box->a = box->all_map[box->tir.pl.y][box->tir.pl.x];
-	if (box->a == 7 || box->a == 8)
-		box->a -= 5;
+	choose_side_texture(box);
 	box->block.btouch = box->block.bs == 0 ?
 		box->cam.position.y + box->block.bd * box->tir.fold.y :
 		box->cam.position.x + box->block.bd * box->tir.fold.x;
@@ -164,7 +175,7 @@ void			add_txtrs2(t_box *box, int y, int a)
 	Uint8		r;
 	Uint8		g;
 	Uint8		b;
-	
+
 	intens = intens_calc(box, y, a);
 	if (box->mirror_effect == 1)
 		intens = mirror_effect(box, a, intens);
@@ -183,26 +194,31 @@ void			add_txtrs2(t_box *box, int y, int a)
 	}
 }
 
-/////////////////////////////////////////////////////
-////////////////////////////////////////////////////
-
-void		draw_sky(t_box *box)
+void		dome_image(double angle, t_box *box)
 {
-	double	alpha;
+	angle += M_PI;
+	angle +=  M_PI * box->atpos / 3 / WIND_H;
+	angle -=  M_PI / 6;
+	if (angle < 0)
+		angle += 2 * M_PI;
+	if (angle > 2 * M_PI)
+		angle -= 2 * M_PI;
+	box->tex_floor_x = angle * box->txtrs[6]->w / (2 * M_PI);
+}
+
+void		sky_dome(t_box *box)
+{
+	double	angle;
 	int		i;
 	Uint32	color;
 
 	i = 0;
-	alpha = asin(box->cam.d.x);
-	if (alpha != alpha)
-		alpha = M_PI;
-	if (box->cam.d.y > 0)
-		alpha *= -1;
-	alpha += M_PI;
-	alpha += box->atpos * 60 * 2 * M_PI / 360 / WIND_H - 30 * 2 * M_PI / 360;
-	alpha += (alpha < 0) ? 2 * M_PI : 0;
-	alpha -= (alpha > 2 * M_PI) ? 2 * M_PI : 0;
-	box->tex_floor_x = alpha * box->txtrs[6]->w / (2 * M_PI);
+	angle = asin(box->cam.d.x);
+	if (isnan(angle))
+		angle = M_PI;
+	if (!(box->cam.d.y < 0))
+		angle *= -1;
+	dome_image(angle, box);
 	while (i < box->block.bt)
 	{
 		box->tex_floor_y = (WIND_H / 2 + i - box->ogo.lop) * box->txtrs[6]->h / WIND_H;
@@ -211,9 +227,6 @@ void		draw_sky(t_box *box)
 		i++;
 	}
 }
-
-/////////////////////////////////////////////////////
-////////////////////////////////////////////////////
 
 void		up_and_down(t_box *box)
 {
@@ -240,7 +253,7 @@ void		up_and_down(t_box *box)
 		}
 	}
 	else
-		draw_sky(box);
+		sky_dome(box);
 	j = box->block.bb - 1;  /// -1 щоб закрити дірку в 1 рядок під стіною!!!
 	while (j < WIND_H)
 	{
@@ -256,4 +269,3 @@ void		up_and_down(t_box *box)
 		j++;
 	}
 }
-

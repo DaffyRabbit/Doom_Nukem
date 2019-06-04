@@ -35,6 +35,8 @@ void	fatal_error(int er, t_box *box)
 		ft_putendl("Some sytem img not found!");
 	if (er == 7)
 		ft_putendl("ALL GOOD");
+	if (er == 8)
+		ft_putendl("Music error!");
 	if (er > 1 && er < 5)
 		SDL_Quit();
 	if (er >= 5)

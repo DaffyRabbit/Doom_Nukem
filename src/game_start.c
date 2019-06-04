@@ -19,38 +19,38 @@ void chose_map(int x, int y, int *z, int *c, int f)
 		if (y > 297 && y < 345)
 		{
 			if (f == 1)
-				*z = 0;
-			*c = 0;
-		}
-		else if (y > 352 && y < 400)
-		{
-			if (f == 1)
 				*z = 1;
 			*c = 1;
 		}
-		else if (y > 407 && y < 455)
+		else if (y > 352 && y < 400)
 		{
 			if (f == 1)
 				*z = 2;
 			*c = 2;
 		}
-		else if (y > 462 && y < 510)
+		else if (y > 407 && y < 455)
 		{
 			if (f == 1)
 				*z = 3;
 			*c = 3;
 		}
-		else if (y > 517 && y < 565)
+		else if (y > 462 && y < 510)
 		{
 			if (f == 1)
 				*z = 4;
 			*c = 4;
 		}
-		else if (y > 572 && y < 620)
+		else if (y > 517 && y < 565)
 		{
 			if (f == 1)
 				*z = 5;
 			*c = 5;
+		}
+		else if (y > 572 && y < 620)
+		{
+			if (f == 1)
+				*z = 6;
+			*c = 6;
 		}
 	}
 	else
@@ -115,8 +115,8 @@ void				start_game(t_box *box)
 	int z = -1;
 	int c = -1;
 	int mnb = 0;
-	int q = 0;
 	SDL_Event		event;
+	box->map_list.c_list = 0;
 	box->fly_mode = 0;
 	box->error = 0;
 	box->mapx = 0;
@@ -129,13 +129,13 @@ void				start_game(t_box *box)
 	int mousex;
 	int mousey;
 
+	ft_init_music(box);
 	load_menu_txtrs(box);
+	load_maps(&box->map_list);
 	while (1)
 	{
 		while (SDL_PollEvent(&event))
 		{
-			if (event.type == SDL_QUIT)
-				q = 1;
 			if (event.type == SDL_QUIT || (event.key.keysym.sym == SDLK_ESCAPE &&
 				event.key.state == SDL_RELEASED))
 				all_destroy(box);
@@ -151,7 +151,7 @@ void				start_game(t_box *box)
 					}
 					else
 					{
-						ft_HUD_param(box);
+						ft_hud_param(box);
 						close(box->map_fd);
 						box->error = 1;
 						box->cam.d.x = 1;
@@ -167,6 +167,7 @@ void				start_game(t_box *box)
 				else if ((mousex > 690 && mousex < 846) && (mousey > 628 && mousey < 674))
 					all_destroy(box);
 				chose_map(mousex, mousey, &z, &c, 1);
+				if_b_or_n(box, mousex, mousey, &z, &c);
 			}
 			SDL_RenderClear(box->rend);
 			SDL_GetMouseState(&mousex, &mousey);
@@ -224,7 +225,7 @@ void				start_game(t_box *box)
 
 		/////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////
-		int ch = 0;
+		/*int ch = 0;
 		int y = 304;
 		SDL_Texture  *pic;
 		SDL_Color color0 = {28, 98, 190, 0};
@@ -265,10 +266,13 @@ void				start_game(t_box *box)
 		}
 		ApplySurface(944, y, 0, 0, pic, (*box).rend);
 		y += 54;
-		ch++;
+		ch++;*/
 		/////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////
-
+		show_map_name(box, c, z);
+		ifc_map_name(box, c, z);
+		ifp_map_name(box, c, z);
+		ifcnp_map_name(box, c, z);
 		SDL_RenderPresent(box->rend);
 	}
 }
@@ -278,6 +282,7 @@ void				lets_start_game(t_box *box)
 	int				a;
 	SDL_Event		evnt;
 
+	ft_lets_music(box);
 	load_wall_textures(box);
 	box->main_t = SDL_CreateTexture(box->rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, WIND_W, WIND_H);
 	box->pixels = (Uint32 *)malloc(sizeof(Uint32) * WIND_H * WIND_W);
@@ -286,7 +291,7 @@ void				lets_start_game(t_box *box)
 	Uint32 fps_current;						  
 	Uint32 fps_lasttime = SDL_GetTicks();	  
 	/////////////////////////TESTED_FPS/////////////////////////
-	while (1)
+	while (box->dead != 1)
 	{
 		/////////////////////////TESTED_FPS/////////////////////////
 		FPS++;
@@ -300,6 +305,7 @@ void				lets_start_game(t_box *box)
 		/////////////////////////TESTED_FPS/////////////////////////
 		while (SDL_PollEvent(&evnt))
 		{
+			ft_shooting(evnt.button.button, box);
 			if (evnt.type == SDL_MOUSEMOTION)
 			{
 				SDL_SetRelativeMouseMode(1);
@@ -318,7 +324,10 @@ void				lets_start_game(t_box *box)
 				box->keys[a] = 0;
 			key_push(box);
 		}
-		ft_HUD(box);
+		ft_hud(box);
 		paint_this(box);
 	}
+	SDL_RenderClear(box->rend);
+	SDL_SetRelativeMouseMode(0);
+	start_game(box);
 }

@@ -22,6 +22,8 @@ void	add_resources(t_box *box)
 	if ((box->rend = SDL_CreateRenderer(box->wind, -1, SDL_RENDERER_ACCELERATED |
 										SDL_RENDERER_PRESENTVSYNC)) == NULL)
 		fatal_error(3, box);
+	if (Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+		fatal_error(8, box);
 	if (TTF_Init() != 0)
 		fatal_error(4, box);
 	if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG)
@@ -33,6 +35,9 @@ int				main(void)
 	t_box		box;
 
 	box.sprites.n_sprites = 0;
+	box.bag.posX = 5;
+	box.bag.posY = WIND_H - WIND_H/5 + 5;
+	box.bag.n_items = 0;
 	add_resources(&box);
 	start_game(&box);
 	return (0);

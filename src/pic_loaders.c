@@ -32,7 +32,6 @@ SDL_Surface		*load_texture(char *path, t_box *wolf)
 	return (image);
 }
 
-
 SDL_Surface		*ft_check_png(t_box *box, char *text)
 {
 	SDL_Surface *tmp;
@@ -87,16 +86,23 @@ void				load_menu_txtrs(t_box *box)
 
 void				load_wall_textures(t_box *box)
 {
+	box->texture = menu_png("txtrs/game_over.png", box);
 	box->txtrs[0] = load_texture("txtrs/rock.bmp", box);
 	box->txtrs[1] = load_texture("txtrs/mine.bmp", box);
 	box->txtrs[2] = load_texture("txtrs/brick.bmp", box);
-	box->txtrs[3] = load_texture("txtrs/brown.bmp", box);
+	box->txtrs[3] = load_texture("txtrs/Door1.bmp", box);
 	box->txtrs[4] = load_texture("txtrs/castle.bmp", box);
 	box->txtrs[5] = load_texture("txtrs/ceiling_01.bmp", box);
 	box->txtrs[6] = load_texture("txtrs/night_r.bmp", box);
-	box->sprites.tex_sprite[0] = IMG_Load("txtrs/barrel.png");
-	box->sprites.tex_sprite[1] = IMG_Load("txtrs/pillar.png");
+	box->txtrs[7] = load_texture("txtrs/Door2.bmp", box);
+	box->sprites.tex_sprite[0] = IMG_Load("txtrs/acid_barel.png");
+	box->sprites.tex_sprite[1] = IMG_Load("txtrs/acid.png");
 	box->sprites.tex_sprite[2] = IMG_Load("txtrs/lamp.png");
 	box->sprites.tex_sprite[3] = IMG_Load("txtrs/table-chairs.png");
 	box->sprites.tex_sprite[4] = IMG_Load("txtrs/key.png");
+	box->sprites.tex_sprite[5] = IMG_Load("txtrs/dog1.png");
+	box->sprites.tex_sprite[6] = IMG_Load("txtrs/dog2.png");
+	box->sprites.tex_sprite[7] = IMG_Load("txtrs/dog3.png");
+	box->sprites.tex_sprite[8] = IMG_Load("txtrs/dog4.png");
+	ft_load_hud_tex(box);
 }

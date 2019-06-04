@@ -13,8 +13,7 @@ int			mouse_control(int x, int y, t_box *box)
 			box->cam.d.y * sin((x) * box->mouse.rot_spd);
 		box->cam.d.y = box->mouse.od_x * sin((x) * box->mouse.rot_spd) +
 			box->cam.d.y * cos((x) * box->mouse.rot_spd);
-	
-	if(box->ogo.lop <= WIND_H / 2 && box->ogo.lop >= -WIND_H / 2)
+	if (box->ogo.lop <= WIND_H / 2 && box->ogo.lop >= -WIND_H / 2)
 		box->ogo.lop += -y * 1.2;
 	if (box->ogo.lop > WIND_H / 2)
 		box->ogo.lop = WIND_H / 2;
