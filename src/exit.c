@@ -14,6 +14,25 @@
 
 void	all_destroy(t_box *box)
 {
+	printf("map_list = %lu\n", sizeof(box->map_list));
+	printf("sprites = %lu\n", sizeof(box->sprites));
+	printf("keys = %lu\n", sizeof(box->keys));
+	printf("bag = %lu\n", sizeof(box->bag));
+	printf("hud = %lu\n", sizeof(box->hud));
+	printf("txtrs = %lu\n", sizeof(box->txtrs));
+	printf("menu_txtrs = %lu\n", sizeof(box->menu_txtrs));
+	printf("music = %lu\n", sizeof(box->music));
+	printf("dsprite = %lu\n", sizeof(box->dsprite));
+	printf("tir = %lu\n", sizeof(box->tir));
+	printf("cam = %lu\n", sizeof(box->cam));
+	printf("mouse = %lu\n", sizeof(box->mouse));
+	printf("block = %lu\n", sizeof(box->block));
+	printf("go = %lu\n", sizeof(box->go));
+	printf("ogo = %lu\n", sizeof(box->ogo));
+	printf("paramtext = %lu\n", sizeof(box->paramtext));
+	printf("pic = %lu\n", sizeof(box->pic));
+	printf("wind = %lu\n", sizeof(box->wind));
+	printf("texture = %lu\n", sizeof(box->texture));
 	if (box->rend != NULL)
 		SDL_DestroyRenderer(box->rend);
 	if (box->texture != NULL)

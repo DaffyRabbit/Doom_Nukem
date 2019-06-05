@@ -46,8 +46,6 @@ void		ft_load_hud_tex(t_box *box)
 void		ft_shooting(int code, t_box *box)
 {
 	if (code == SDL_BUTTON_LEFT && box->hud.weapon[0].usless == 1)
-	{
 		box->hud.fire = 1;
-	}
 	box->hud.weapon[0].usless = 1;
 }

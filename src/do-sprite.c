@@ -7,9 +7,7 @@ int 	takeSprite(t_box *box, double x, double y, double d_x, double d_y)
 
 	if (box->bag.n_items == 6)
 	{
-		 /// !!!!!!!!!!!! //////////
 		box->bag.full_message = renderText("Your bag is full!", "ttf/mainfont.ttf", color, 20, (*box).rend);
-		/// !!!!!!!!!!!! //////////
 		return 0;
 	}
 	SDL_RenderClear(box->rend);

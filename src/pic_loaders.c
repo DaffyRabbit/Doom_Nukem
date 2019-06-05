@@ -20,6 +20,7 @@ SDL_Surface		*load_texture(char *path, t_box *wolf)
 	tmp = SDL_LoadBMP(path);
 	if (tmp == NULL)
 	{
+		printf("%s\n", path);
 		ft_putendl("Error while loading a texture file\n");
 		all_destroy(wolf);
 		exit(1);
@@ -90,11 +91,16 @@ void				load_wall_textures(t_box *box)
 	box->txtrs[0] = load_texture("txtrs/rock.bmp", box);
 	box->txtrs[1] = load_texture("txtrs/mine.bmp", box);
 	box->txtrs[2] = load_texture("txtrs/brick.bmp", box);
-	box->txtrs[3] = load_texture("txtrs/Door1.bmp", box);
+	box->txtrs[3] = load_texture("txtrs/brown.bmp", box);
 	box->txtrs[4] = load_texture("txtrs/castle.bmp", box);
-	box->txtrs[5] = load_texture("txtrs/ceiling_01.bmp", box);
-	box->txtrs[6] = load_texture("txtrs/night_r.bmp", box);
-	box->txtrs[7] = load_texture("txtrs/Door2.bmp", box);
+	box->txtrs[5] = load_texture("txtrs/txt1.bmp", box);  ////////////!!!!
+	box->txtrs[6] = load_texture("txtrs/sand.bmp", box);
+	box->txtrs[7] = load_texture("txtrs/bricks.bmp", box);
+	box->txtrs[8] = load_texture("txtrs/Door2.bmp", box);
+	box->txtrs[9] = load_texture("txtrs/Door1.bmp", box);
+	box->txtrs[10] = load_texture("txtrs/night_r.bmp", box);
+	box->txtrs[11] = load_texture("txtrs/fl.bmp", box);
+	box->txtrs[12] = load_texture("txtrs/ceiling_01.bmp", box);
 	box->sprites.tex_sprite[0] = IMG_Load("txtrs/acid_barel.png");
 	box->sprites.tex_sprite[1] = IMG_Load("txtrs/acid.png");
 	box->sprites.tex_sprite[2] = IMG_Load("txtrs/lamp.png");

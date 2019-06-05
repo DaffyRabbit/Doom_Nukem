@@ -33,11 +33,11 @@ void		door_open_message(t_box *box, double x, double y, double d_x, double d_y)
 	SDL_Color color = {51, 51, 255, 0};
 	dist_x = fabs(d_x) > fabs(d_y) ? d_x : 0;
 	dist_y = fabs(d_x) <= fabs(d_y) ? d_y : 0;
-	if (box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 8 &&
+	if (box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 34 &&
 		box->bag.Message == NULL)
 		box->bag.Message = renderText("Press 'E' to open the doors", 
 			"ttf/mainfont.ttf", color, 22, (*box).rend);
-	else if (box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] != 8)
+	else if (box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] != 34)
 		box->bag.Message = NULL;
 }
 
@@ -50,13 +50,13 @@ void		check_doors(t_box *box, double x, double y, double d_x, double d_y)
 	dist_x = fabs(d_x) > fabs(d_y) ? d_x : 0;
 	dist_y = fabs(d_x) <= fabs(d_y) ? d_y : 0;
 	if (box->keys[SDL_SCANCODE_E] == 1 && box->bag.n_items > 0 &&
-		box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 8)
+		box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 34)
 	{
 		box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] = 1;
 		lost_key(box);
 	}
 	else if (box->keys[SDL_SCANCODE_E] == 1 && box->bag.n_items <= 0 &&
-		box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 8)
+		box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 34)
 	{
 		box->bag.Message = NULL;
 		box->bag.Message = renderText("You don't have keys!", 
@@ -139,8 +139,6 @@ void		just_travel_s(t_box *box, double x, double y, double d_x, double d_y)
 	go_and_west(box, x, y, box->cam.p.x, box->cam.p.y);
 	if (box->fly_mode == 0)
 		ttsky_and_sit(box);
-	// else
-	// 	fly_mode_on(box);
 }
 
 void		go_and_west(t_box *box, double x, double y, double p_x, double p_y)

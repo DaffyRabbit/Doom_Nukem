@@ -260,18 +260,18 @@ typedef struct 		s_music
 
 typedef struct		s_box
 {
-	t_maps			map_list;
 	t_sprite 		sprites;
 	int				keys[KEY_CODE];
-	t_bag 			bag;
 	t_hud			hud;
-	SDL_Surface		*txtrs[10];
+	t_bag 			bag;
+	SDL_Surface		*txtrs[13];
 	SDL_Texture		*menu_txtrs[10];
-	t_music			music;
 	t_drawSprite	dsprite;
+	t_music			music;
 	t_tir			tir;
 	t_cam			cam;
 	t_mouse			mouse;
+	t_maps			map_list;
 	t_block			block;
 	t_goparam		go;
 	t_goparam		ogo;

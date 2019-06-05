@@ -65,14 +65,18 @@ void		add_txtrs(t_box *box, int x, int y)
 
 void		choose_side_texture(t_box *box)
 {
-	if (box->a == 7 || box->a == 8)
-		box->a -= 5;
+	if (box->a >= 25 && box->a <= 34)
+		box->a -= 25;
 	if ((box->block.bs == 0 && box->all_map[box->tir.pl.y][box->tir.pl.x + 1] == 1 &&
-		box->tir.fold.x < 0) || (box->block.bs == 1 && box->all_map[box->tir.pl.y + 1][box->tir.pl.x] == 1 &&
-		box->tir.fold.y < 0))
+		box->tir.fold.x < 0 && (box->all_map[box->tir.pl.y][box->tir.pl.x + 2] > 24 &&
+		box->all_map[box->tir.pl.y][box->tir.pl.x + 2] < 35)) || (box->block.bs == 1 &&
+		box->all_map[box->tir.pl.y + 1][box->tir.pl.x] == 1 && box->tir.fold.y < 0 &&
+		(box->all_map[box->tir.pl.y + 2][box->tir.pl.x] < 35 &&
+		box->all_map[box->tir.pl.y + 2][box->tir.pl.x] > 24)))
 	{
-		box->a = 7;
+		box->a = 8;
 	}
+	
 }
 
 void		print_walls(t_box *box)
@@ -203,7 +207,7 @@ void		dome_image(double angle, t_box *box)
 		angle += 2 * M_PI;
 	if (angle > 2 * M_PI)
 		angle -= 2 * M_PI;
-	box->tex_floor_x = angle * box->txtrs[6]->w / (2 * M_PI);
+	box->tex_floor_x = angle * box->txtrs[10]->w / (2 * M_PI);
 }
 
 void		sky_dome(t_box *box)
@@ -221,8 +225,8 @@ void		sky_dome(t_box *box)
 	dome_image(angle, box);
 	while (i < box->block.bt)
 	{
-		box->tex_floor_y = (WIND_H / 2 + i - box->ogo.lop) * box->txtrs[6]->h / WIND_H;
-		color = ((int *)box->txtrs[6]->pixels)[box->tex_floor_y * box->txtrs[6]->w + box->tex_floor_x];
+		box->tex_floor_y = (WIND_H / 2 + i - box->ogo.lop) * box->txtrs[10]->h / WIND_H;
+		color = ((int *)box->txtrs[10]->pixels)[box->tex_floor_y * box->txtrs[10]->w + box->tex_floor_x];
 		box->pixels[i * WIND_W + box->atpos] = color;
 		i++;
 	}
@@ -248,7 +252,7 @@ void		up_and_down(t_box *box)
 			(1.0 - box->dist) * box->cam.position.y;
 			box->tex_floor_x = (int)(tmp_floor_x * 64) % 64;
 			box->tex_floor_y = (int)(tmp_floor_y * 64) % 64;
-			add_txtrs2(box, j, 5);
+			add_txtrs2(box, j, 12);
 			j++;
 		}
 	}
@@ -265,7 +269,7 @@ void		up_and_down(t_box *box)
 		(1.0 - box->dist) * box->cam.position.y;
 		box->tex_floor_x = (int)(tmp_floor_x * 64) % 64;
 		box->tex_floor_y = abs((int)(tmp_floor_y * 64) % 64);
-		add_txtrs2(box, j, 4);
+		add_txtrs2(box, j, 11);
 		j++;
 	}
 }

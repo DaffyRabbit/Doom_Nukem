@@ -14,8 +14,8 @@
 
 void	this_is_castingray(t_box *box)
 {
-	while (box->all_map[box->tir.pl.y][box->tir.pl.x] != 7 &&
-		box->all_map[box->tir.pl.y][box->tir.pl.x] != 8)
+	while (box->all_map[box->tir.pl.y][box->tir.pl.x] < 25 ||
+		box->all_map[box->tir.pl.y][box->tir.pl.x] > 34)
 	{
 		if (box->tir.cast.x < box->tir.cast.y)
 		{

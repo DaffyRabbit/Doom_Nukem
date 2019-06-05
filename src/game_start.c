@@ -222,53 +222,6 @@ void				start_game(t_box *box)
 			box->this_txtr = box->menu_txtrs[7];
 			ApplyTexture(683, 619, box);
 		}
-
-		/////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////
-		/*int ch = 0;
-		int y = 304;
-		SDL_Texture  *pic;
-		SDL_Color color0 = {28, 98, 190, 0};
-		SDL_Color color1 = {255, 87, 51, 0};
-		SDL_Color color2 = {147, 28, 190, 0};
-
-		pic = NULL;
-		if (z != ch && c != ch)
-			pic = renderText("map0", "ttf/mainfont.ttf", color0, 35, (*box).rend);
-		else if (z == ch && c != ch)
-		{
-			pic = renderText("map0", "ttf/mainfont.ttf", color1, 35, (*box).rend);
-			box->start = 1;
-		}
-		else if (z != ch && c == ch)
-			pic = renderText("map0", "ttf/mainfont.ttf", color2, 35, (*box).rend);
-		else if (z == ch && c == ch)
-		{
-			pic = renderText("map0", "ttf/mainfont.ttf", color1, 35, (*box).rend);
-			box->start = 1;
-		}
-		ApplySurface(944, y, 0, 0, pic, (*box).rend);
-		y += 54;
-		ch++;
-		if (z != ch && c != ch)
-			pic = renderText("map1", "ttf/mainfont.ttf", color0, 35, (*box).rend);
-		else if (z == ch && c != ch)
-		{
-			pic = renderText("map1", "ttf/mainfont.ttf", color1, 35, (*box).rend);
-			box->start = 2;
-		}
-		else if (z != ch && c == ch)
-			pic = renderText("map1", "ttf/mainfont.ttf", color2, 35, (*box).rend);
-		else if (z == ch && c == ch)
-		{
-			pic = renderText("map1", "ttf/mainfont.ttf", color1, 35, (*box).rend);
-			box->start = 2;
-		}
-		ApplySurface(944, y, 0, 0, pic, (*box).rend);
-		y += 54;
-		ch++;*/
-		/////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////
 		show_map_name(box, c, z);
 		ifc_map_name(box, c, z);
 		ifp_map_name(box, c, z);
@@ -295,7 +248,7 @@ void				lets_start_game(t_box *box)
 	{
 		/////////////////////////TESTED_FPS/////////////////////////
 		FPS++;
-		if(fps_lasttime < SDL_GetTicks() - 1.0 * 1000)
+		if (fps_lasttime < SDL_GetTicks() - 1.0 * 1000)
 		{
 			fps_lasttime = SDL_GetTicks();
 			fps_current = FPS;

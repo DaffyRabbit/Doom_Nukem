@@ -1,7 +1,5 @@
 #include "wolf3d.h"
 
-#include "wolf3d.h"
-
 int		ft_check_hp_value(t_box *box)
 {
 	int n;
