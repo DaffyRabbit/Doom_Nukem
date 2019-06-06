@@ -25,6 +25,36 @@ void		lost_key(t_box *box)
 	box->bag.full_message = NULL;
 }
 
+void		healt_pickup(t_box *box, double x, double y)
+{
+	double	a = 0.05; 	
+	
+	if ((box->all_map[(int)(y + a)][(int)(x - a)]) == 2)
+	{
+		box->all_map[(int)(y + a)][(int)(x - a)] = 0;
+		box->hud.hp_val = box->hud.hp_val < 75 ? box->hud.hp_val + 25 : 100;
+		box->hud.rad_val = box->hud.rad_val < 25 ? 0 : box->hud.rad_val - 25;
+	}
+	else if ((box->all_map[(int)(y + a)][(int)(x + a)]) == 2)
+	{
+		box->all_map[(int)(y + a)][(int)(x + a)] = 0;
+		box->hud.hp_val = box->hud.hp_val < 75 ? box->hud.hp_val + 25 : 100;
+		box->hud.rad_val = box->hud.rad_val < 25 ? 0 : box->hud.rad_val - 25;
+	}
+	else if ((box->all_map[(int)(y - a)][(int)(x - a)]) == 2)
+	{
+		box->all_map[(int)(y - a)][(int)(x - a)] = 0;
+		box->hud.hp_val = box->hud.hp_val < 75 ? box->hud.hp_val + 25 : 100;
+		box->hud.rad_val = box->hud.rad_val < 25 ? 0 : box->hud.rad_val - 25;
+	}
+	else if ((box->all_map[(int)(y - a)][(int)(x + a)]) == 2)
+	{
+		box->all_map[(int)(y - a)][(int)(x + a)] = 0;
+		box->hud.hp_val = box->hud.hp_val < 75 ? box->hud.hp_val + 25 : 100;
+		box->hud.rad_val = box->hud.rad_val < 25 ? 0 : box->hud.rad_val - 25;
+	}
+}
+
 void		door_open_message(t_box *box, double x, double y, double d_x, double d_y)
 {
 	double	dist_x;
@@ -46,6 +76,7 @@ void		check_doors(t_box *box, double x, double y, double d_x, double d_y)
 	double	dist_x;
 	double	dist_y;
 
+	healt_pickup(box, x, y);
 	SDL_Color color = {216, 30, 42, 0};
 	dist_x = fabs(d_x) > fabs(d_y) ? d_x : 0;
 	dist_y = fabs(d_x) <= fabs(d_y) ? d_y : 0;
@@ -102,15 +133,15 @@ void		just_travel_w(t_box *box, double x, double y, double d_x, double d_y)
 	if (box->keys[SDL_SCANCODE_W] == 1)
 	{
 		ft_check_walk(box);
-		if ((box->all_map[(int)(y + a)][(int)(x + d_x * box->go.spd - a)]) < 2 &&
-			(box->all_map[(int)(y + a)][(int)(x + d_x * box->go.spd + a)]) < 2 &&
-			(box->all_map[(int)(y - a)][(int)(x + d_x * box->go.spd - a)]) < 2 &&
-			(box->all_map[(int)(y - a)][(int)(x + d_x * box->go.spd + a)]) < 2)
+		if ((box->all_map[(int)(y + a)][(int)(x + d_x * box->go.spd - a)]) < 3 &&
+			(box->all_map[(int)(y + a)][(int)(x + d_x * box->go.spd + a)]) < 3 &&
+			(box->all_map[(int)(y - a)][(int)(x + d_x * box->go.spd - a)]) < 3 &&
+			(box->all_map[(int)(y - a)][(int)(x + d_x * box->go.spd + a)]) < 3)
 			box->cam.position.x += box->cam.d.x * box->go.spd;
-		if ((box->all_map[(int)(y + d_y * box->go.spd + a)][(int)(x + a)]) < 2 &&
-			(box->all_map[(int)(y + d_y * box->go.spd + a)][(int)(x - a)]) < 2 &&
-			(box->all_map[(int)(y + d_y * box->go.spd - a)][(int)(x + a)]) < 2 &&
-			(box->all_map[(int)(y + d_y * box->go.spd - a)][(int)(x - a)]) < 2)
+		if ((box->all_map[(int)(y + d_y * box->go.spd + a)][(int)(x + a)]) < 3 &&
+			(box->all_map[(int)(y + d_y * box->go.spd + a)][(int)(x - a)]) < 3 &&
+			(box->all_map[(int)(y + d_y * box->go.spd - a)][(int)(x + a)]) < 3 &&
+			(box->all_map[(int)(y + d_y * box->go.spd - a)][(int)(x - a)]) < 3)
 			box->cam.position.y += box->cam.d.y * box->go.spd;
 	}
 	return ;
@@ -124,15 +155,15 @@ void		just_travel_s(t_box *box, double x, double y, double d_x, double d_y)
 	if (box->keys[SDL_SCANCODE_S] == 1)
 	{
 		ft_check_walk(box);
-		if ((box->all_map[(int)(y + a)][(int)(x - d_x * box->go.spd - a)]) < 2 &&
-			(box->all_map[(int)(y + a)][(int)(x - d_x * box->go.spd + a)]) < 2 &&
-			(box->all_map[(int)(y - a)][(int)(x - d_x * box->go.spd - a)]) < 2 &&
-			(box->all_map[(int)(y - a)][(int)(x - d_x * box->go.spd + a)]) < 2)
+		if ((box->all_map[(int)(y + a)][(int)(x - d_x * box->go.spd - a)]) < 3 &&
+			(box->all_map[(int)(y + a)][(int)(x - d_x * box->go.spd + a)]) < 3 &&
+			(box->all_map[(int)(y - a)][(int)(x - d_x * box->go.spd - a)]) < 3 &&
+			(box->all_map[(int)(y - a)][(int)(x - d_x * box->go.spd + a)]) < 3)
 			box->cam.position.x -= box->cam.d.x * box->go.spd;
-		if ((box->all_map[(int)(y - d_y * box->go.spd + a)][(int)(x + a)]) < 2 &&
-			(box->all_map[(int)(y - d_y * box->go.spd + a)][(int)(x - a)]) < 2 &&
-			(box->all_map[(int)(y - d_y * box->go.spd - a)][(int)(x - a)]) < 2 &&
-			(box->all_map[(int)(y - d_y * box->go.spd - a)][(int)(x + a)]) < 2)
+		if ((box->all_map[(int)(y - d_y * box->go.spd + a)][(int)(x + a)]) < 3 &&
+			(box->all_map[(int)(y - d_y * box->go.spd + a)][(int)(x - a)]) < 3 &&
+			(box->all_map[(int)(y - d_y * box->go.spd - a)][(int)(x - a)]) < 3 &&
+			(box->all_map[(int)(y - d_y * box->go.spd - a)][(int)(x + a)]) < 3)
 			box->cam.position.y -= box->cam.d.y * box->go.spd;
 	}
 	just_travel_w(box, x, y, d_x, d_y);
@@ -149,29 +180,29 @@ void		go_and_west(t_box *box, double x, double y, double p_x, double p_y)
 	if (box->keys[SDL_SCANCODE_A] == 1)
 	{
 		ft_check_walk(box);
-		if ((box->all_map[(int)(y + a)][(int)(x - p_x * box->go.spd + a)]) < 2 &&
-			(box->all_map[(int)(y + a)][(int)(x - p_x * box->go.spd - a)]) < 2 &&
-			(box->all_map[(int)(y - a)][(int)(x - p_x * box->go.spd + a)]) < 2 &&
-			(box->all_map[(int)(y - a)][(int)(x - p_x * box->go.spd - a)]) < 2)
+		if ((box->all_map[(int)(y + a)][(int)(x - p_x * box->go.spd + a)]) < 3 &&
+			(box->all_map[(int)(y + a)][(int)(x - p_x * box->go.spd - a)]) < 3 &&
+			(box->all_map[(int)(y - a)][(int)(x - p_x * box->go.spd + a)]) < 3 &&
+			(box->all_map[(int)(y - a)][(int)(x - p_x * box->go.spd - a)]) < 3)
 			box->cam.position.x -= box->cam.p.x * box->go.spd;
-		if ((box->all_map[(int)(y - p_y * box->go.spd - a)][(int)(x - a)]) < 2 &&
-			(box->all_map[(int)(y - p_y * box->go.spd + a)][(int)(x - a)]) < 2 &&
-			(box->all_map[(int)(y - p_y * box->go.spd - a)][(int)(x + a)]) < 2 &&
-			(box->all_map[(int)(y - p_y * box->go.spd + a)][(int)(x + a)]) < 2)
+		if ((box->all_map[(int)(y - p_y * box->go.spd - a)][(int)(x - a)]) < 3 &&
+			(box->all_map[(int)(y - p_y * box->go.spd + a)][(int)(x - a)]) < 3 &&
+			(box->all_map[(int)(y - p_y * box->go.spd - a)][(int)(x + a)]) < 3 &&
+			(box->all_map[(int)(y - p_y * box->go.spd + a)][(int)(x + a)]) < 3)
 			box->cam.position.y -= box->cam.p.y * box->go.spd;
 	}
 	if (box->keys[SDL_SCANCODE_D] == 1)
 	{
 		ft_check_walk(box);
-		if ((box->all_map[(int)(y + a)][(int)(x + p_x * box->go.spd + a)]) < 2 &&
-			(box->all_map[(int)(y - a)][(int)(x + p_x * box->go.spd + a)]) < 2 &&
-			(box->all_map[(int)(y + a)][(int)(x + p_x * box->go.spd - a)]) < 2 &&
-			(box->all_map[(int)(y - a)][(int)(x + p_x * box->go.spd - a)]) < 2)
+		if ((box->all_map[(int)(y + a)][(int)(x + p_x * box->go.spd + a)]) < 3 &&
+			(box->all_map[(int)(y - a)][(int)(x + p_x * box->go.spd + a)]) < 3 &&
+			(box->all_map[(int)(y + a)][(int)(x + p_x * box->go.spd - a)]) < 3 &&
+			(box->all_map[(int)(y - a)][(int)(x + p_x * box->go.spd - a)]) < 3)
 			box->cam.position.x += box->cam.p.x * box->go.spd;
-		if ((box->all_map[(int)(y + p_y * box->go.spd - a)][(int)(x + a)]) < 2 &&
-			(box->all_map[(int)(y + p_y * box->go.spd + a)][(int)(x + a)]) < 2 &&
-			(box->all_map[(int)(y + p_y * box->go.spd - a)][(int)(x - a)]) < 2 &&
-			(box->all_map[(int)(y + p_y * box->go.spd + a)][(int)(x - a)]) < 2)
+		if ((box->all_map[(int)(y + p_y * box->go.spd - a)][(int)(x + a)]) < 3 &&
+			(box->all_map[(int)(y + p_y * box->go.spd + a)][(int)(x + a)]) < 3 &&
+			(box->all_map[(int)(y + p_y * box->go.spd - a)][(int)(x - a)]) < 3 &&
+			(box->all_map[(int)(y + p_y * box->go.spd + a)][(int)(x - a)]) < 3)
 			box->cam.position.y += box->cam.p.y * box->go.spd;
 	}
 }

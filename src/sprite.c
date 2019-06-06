@@ -4,7 +4,7 @@ void        add_sprite(t_box *box, int n, int x, int y)
 {
   box->sprites.spt[box->sprites.n_sprites].x = x + 0.5;
   box->sprites.spt[box->sprites.n_sprites].y = y + 0.5;
-	if (n == 2)
+	if (n == 8)
 		box->sprites.spt[box->sprites.n_sprites].n_text = 0;
 	if (n == 3)
 		box->sprites.spt[box->sprites.n_sprites].n_text = 1;
@@ -16,6 +16,8 @@ void        add_sprite(t_box *box, int n, int x, int y)
 		box->sprites.spt[box->sprites.n_sprites].n_text = 4;
 	if (n == 7)
 		box->sprites.spt[box->sprites.n_sprites].n_text = 5;
+	if (n == 2)
+		box->sprites.spt[box->sprites.n_sprites].n_text = 9;
   box->sprites.n_sprites++;
 }
 

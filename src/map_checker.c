@@ -80,7 +80,7 @@ int		check_map_par(t_box *box, char *str, int i, int n)
 		box->all_map[box->uselessy][i] = 0;
 	else
 		box->all_map[box->uselessy][i] = block;
-	if (block >= 2 && block <= 7)
+	if (block >= 2 && block <= 8)
 		add_sprite(box, block, i, box->uselessy);
 	// else
 	// {

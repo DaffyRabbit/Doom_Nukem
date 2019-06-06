@@ -105,10 +105,11 @@ void				load_wall_textures(t_box *box)
 	box->sprites.tex_sprite[1] = IMG_Load("txtrs/acid.png");
 	box->sprites.tex_sprite[2] = IMG_Load("txtrs/lamp.png");
 	box->sprites.tex_sprite[3] = IMG_Load("txtrs/table-chairs.png");
-	box->sprites.tex_sprite[4] = IMG_Load("txtrs/key.png");
+	box->sprites.tex_sprite[4] = IMG_Load("txtrs/keys.png");
 	box->sprites.tex_sprite[5] = IMG_Load("txtrs/dog1.png");
 	box->sprites.tex_sprite[6] = IMG_Load("txtrs/dog2.png");
 	box->sprites.tex_sprite[7] = IMG_Load("txtrs/dog3.png");
 	box->sprites.tex_sprite[8] = IMG_Load("txtrs/dog4.png");
+	box->sprites.tex_sprite[9] = IMG_Load("txtrs/health.png");
 	ft_load_hud_tex(box);
 }
