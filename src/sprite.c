@@ -18,7 +18,9 @@ void        add_sprite(t_box *box, int n, int x, int y)
 		box->sprites.spt[box->sprites.n_sprites].n_text = 5;
 	if (n == 2)
 		box->sprites.spt[box->sprites.n_sprites].n_text = 9;
-  box->sprites.n_sprites++;
+	if (n == 9)
+		box->sprites.spt[box->sprites.n_sprites].n_text = 11;
+	box->sprites.n_sprites++;
 }
 
 void		dog_sprite_side(t_box *box)
@@ -110,25 +112,25 @@ void    draw_sprites3(t_box *box)
 
 void    draw_sprites4(t_box *box)
 {
-  Uint32    color;
-  int d;
-  int y;
+  box->dsprite.color = 0;
+  box->dsprite.d = 0;
+  box->dsprite.y = 0;
 
   if (box->dsprite.transformY > 0 && box->dsprite.drawStartX > 0 && box->dsprite.drawStartX < WIND_W
   	&& box->dsprite.transformY < box->sprites.ZBuffer[box->dsprite.drawStartX] && box->sprites.ZBuffer[box->dsprite.drawStartX] < INT_MAX)
   {
-	y = box->dsprite.drawStartY;
-	while (y < box->dsprite.drawEndY)
+	box->dsprite.y = box->dsprite.drawStartY;
+	while (box->dsprite.y < box->dsprite.drawEndY)
 	{
-	 	d = (y * 256 - WIND_H * 128 + box->dsprite.spriteHeight * 128 * ((-box->go.lop + 1))) - box->ogo.lop * 256;
-	 	box->dsprite.texY = ((d * 64) / box->dsprite.spriteHeight) / 256;
+	 	box->dsprite.d = (box->dsprite.y * 256 - WIND_H * 128 + box->dsprite.spriteHeight * 128 * ((-box->go.lop + 1))) - box->ogo.lop * 256;
+	 	box->dsprite.texY = ((box->dsprite.d * 64) / box->dsprite.spriteHeight) / 256;
 	 	box->dsprite.texY = abs(box->dsprite.texY) % 64;
-	 	color = get_pixel(box,box->sprites.tex_sprite[box->sprites.spt[box->sprites.spriteOrder[box->dsprite.i]].n_text],box->dsprite.texX,box->dsprite.texY);
-	 	if ((color & 0x00FFFFFF) != 0)
+	 	box->dsprite.color = get_pixel(box,box->sprites.tex_sprite[box->sprites.spt[box->sprites.spriteOrder[box->dsprite.i]].n_text],box->dsprite.texX,box->dsprite.texY);
+	 	if (box->dsprite.color != 0)
 	 	{
-			box->pixels[y * WIND_W + box->dsprite.drawStartX] = color;
+			box->pixels[box->dsprite.y * WIND_W + box->dsprite.drawStartX] = box->dsprite.color;
 		}
-		y++;
+		box->dsprite.y++;
 	}
   }
 }

@@ -6,6 +6,7 @@ void		ft_init_music(t_box *box)
 	box->music.bgm_menu = Mix_LoadMUS("music/bgm_menu.mp3");
 	box->music.bgm = Mix_LoadMUS("music/bgm.mp3");
 	box->music.dead_sound = Mix_LoadMUS("music/dead_sound.mp3");
+	box->music.gta = Mix_LoadMUS("music/GTA.mp3");
 	Mix_PlayMusic(box->music.bgm_menu, -1);
 	box->music.rad = Mix_LoadWAV("music/rad.mp3");
 	box->music.walk = Mix_LoadWAV("music/walk.mp3");

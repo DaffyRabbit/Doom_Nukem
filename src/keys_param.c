@@ -42,7 +42,6 @@ void	space_push(t_box *box)
 	{
 			box->go.lop += 0.008;
 	}
-	printf("lop = %lf\n", box->go.lop);
 }
 
 int		key_push(t_box *box)

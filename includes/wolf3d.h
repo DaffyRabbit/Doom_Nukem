@@ -25,10 +25,15 @@
 # include <stdlib.h>
 # include <dirent.h>
 
+////////Leaks
+#define LEAK system("leaks wolf3d | grep 'Process' ")
+
+
 # define WIND_W		1280
 # define WIND_H		720
 # define KEY_CODE	265
 # define INT_MAX	2147483647
+# define LEAK system("leaks wolf3d | grep 'Process' ")
 
 typedef struct 		s_maps
 {
@@ -65,6 +70,7 @@ typedef struct		s_drawSprite
 	double 			invDet;
 	double 			transformX;
 	double 			transformY;
+	Uint32    		color;
 	int 			spriteScreenX;
 	int 			spriteHeight;
 	int 			drawStartY;
@@ -75,6 +81,8 @@ typedef struct		s_drawSprite
 	int 			i;
 	int 			texX;
 	int 			texY;
+  	int 			d;
+  	int 			y;
 }					t_drawSprite;
 
 typedef struct		s_spriteCord
@@ -87,8 +95,8 @@ typedef struct		s_spriteCord
 
 typedef struct		s_sprite
 {
-	double			ZBuffer[1280];
-	SDL_Surface		*tex_sprite[20];
+	double			ZBuffer[WIND_W];
+	SDL_Surface		*tex_sprite[12];
 	t_spriteCord 	spt[20];
 	double			spriteDistance[20];
 	int 			spriteOrder[20];
@@ -178,19 +186,9 @@ typedef struct		s_h_bar
 	SDL_Rect		rect_heals;
 	int				w_heals;
 	int				h_heals;
-	int				hp_val;	
+	int				hp_val;
 	int				n;
 }					t_h_bar;
-
-typedef struct		s_am_bar
-{
-	SDL_Surface		*ammo;
-	SDL_Texture		*ammo_texture;
-	SDL_Rect		rect_face;
-	int				w_ammo;
-	int				h_ammo;	
-}					t_am_bar;
-
 
 typedef struct		s_rad_bar
 {
@@ -228,6 +226,7 @@ typedef struct 		s_bar
 
 typedef struct 		s_hud
 {
+	SDL_Surface		*num[10];
 	t_bar			bar;
  	t_weapon		weapon[6];
  	t_face			face[3];
@@ -237,7 +236,6 @@ typedef struct 		s_hud
 	int				w_start;	
  	int				hp_val;
  	int				rad_val;	
-	int				h_scope; //If delete - segment. fault
 	int				hp_i;
 	int				rad_i;
 	int             fire;
@@ -250,6 +248,7 @@ typedef struct 		s_music
 	Mix_Music	*bgm;
 	Mix_Music	*bgm_menu;
 	Mix_Music	*dead_sound;
+	Mix_Music	*gta;
 	Mix_Chunk	*rad;
 	Mix_Chunk	*walk;
 	Mix_Chunk	*knife;
@@ -279,6 +278,7 @@ typedef struct		s_box
 	t_pic			*pic;
 	SDL_Window		*wind;
 	SDL_Texture		*texture;
+	SDL_Texture		*texture2;
 	SDL_Texture		*main_t;
 	SDL_Texture		*this_txtr;
 	SDL_Renderer	*rend;
@@ -317,6 +317,7 @@ typedef struct		s_box
 	int				fly_mode;
 }					t_box;
 
+void				end_level(t_box *box);
 int					hooks(t_box *box);
 SDL_Surface			*load_texture(char *path, t_box *wolf);
 void				load_menu_txtrs(t_box *box);
@@ -378,6 +379,7 @@ void				ifc_map_name(t_box *box, int c, int z);
 void				ifp_map_name(t_box *box, int c, int z);
 void				ifcnp_map_name(t_box *box, int c, int z);
 void 				load_maps(t_maps *m_l);
+int		ft_weapon(t_box *box);
 ///
 /* sprite */
 void 				ft_my_swap1(t_box *box, int i, int j);
@@ -399,5 +401,7 @@ int 	takeSprite(t_box *box, double x, double y, double d_x, double d_y);
 SDL_Texture* renderText(char *message, char *fontFile, SDL_Color color, int fontSize,
 					SDL_Renderer *renderer);
 void ApplySurface(int x, int y, int w, int h, SDL_Texture *tex, SDL_Renderer *rend);
+void		healt_pickup(t_box *box, double x, double y, double d_x, double d_y);
+void 	take4sprite(t_box *box, double x, double y, double d_x, double d_y);
 
 #endif

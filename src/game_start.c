@@ -264,7 +264,7 @@ void				lets_start_game(t_box *box)
 				SDL_SetRelativeMouseMode(1);
 				mouse_control(evnt.motion.xrel, evnt.motion.yrel, box);
 			}
-			a = evnt.key.keysym.scancode;
+		 	a = evnt.key.keysym.scancode;
 			if (evnt.type == SDL_QUIT || (evnt.type == SDL_KEYDOWN &&
 			evnt.key.keysym.sym == SDLK_ESCAPE))
 				all_destroy(box);
@@ -280,7 +280,4 @@ void				lets_start_game(t_box *box)
 		ft_hud(box);
 		paint_this(box);
 	}
-	SDL_RenderClear(box->rend);
-	SDL_SetRelativeMouseMode(0);
-	start_game(box);
 }

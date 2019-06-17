@@ -20,7 +20,8 @@ void ft_my_swap2(t_box *box, int i, int j)
 
 void combSort(t_box *box, int amount)
 {
-	int i, j;
+	int i;
+	int j;
 
 	i = 0;
 	while(i < amount - 1)
@@ -60,6 +61,10 @@ Uint32		get_pixel(t_box *box, SDL_Surface *surface, int x, int y)
 	if ((x >= 0 && x <= 64) && (y >= 0 && y <= 64))
 	{
 		SDL_GetRGB(((int *)surface->pixels)[(y * surface->w) + x], surface->format, &r, &g, &b);
+		if (r == 152 && g == 0 && b == 136)
+		{
+			return 0;
+		}
 		r = r * intens;
 		g = g * intens;
 		b = b * intens;
@@ -70,8 +75,9 @@ Uint32		get_pixel(t_box *box, SDL_Surface *surface, int x, int y)
 
 void 		sort_sprits(t_box *box)
 {
-	int i = 0;
+	int i;
 
+	i = 0;
 	while (i < box->sprites.n_sprites)
 	{
 		box->sprites.spriteOrder[i] = i;

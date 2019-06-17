@@ -76,16 +76,16 @@ void load_maps(t_maps *m_l)
 		{
 			i = ft_strlen(dp->d_name);
 			m_l->map_name[j] = add_map_name(dp->d_name);
-			printf("%s\n", m_l->map_name[j]);
 			i += ft_strlen("maps/");
-			m_l->map_path[j] = (char *)malloc(sizeof(char) * i + 1);
-			m_l->map_path[j] = ft_strjoin("maps/", dp->d_name);
-			printf("%s\n", m_l->map_path[j]);
+			m_l->map_path[j] = (char *)malloc(sizeof(char) * i);
+			m_l->map_path[j] = ft_strcat(m_l->map_path[j],"maps/");
+			m_l->map_path[j] = ft_strcat(m_l->map_path[j], dp->d_name);
 			j++;
 		}
 		i = 0;
 	}
-	m_l->map_path[j] = NULL;
+	closedir(dfd);
+	close(fddir);
 }
 
 void	show_map_name(t_box *box, int c, int z)

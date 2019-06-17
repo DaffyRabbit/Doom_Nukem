@@ -25,34 +25,58 @@ void		lost_key(t_box *box)
 	box->bag.full_message = NULL;
 }
 
-void		healt_pickup(t_box *box, double x, double y)
+void		health_pickup(t_box *box, double x, double y, double d_x, double d_y)
 {
 	double	a = 0.05; 	
 	
-	if ((box->all_map[(int)(y + a)][(int)(x - a)]) == 2)
+	if ((box->all_map[(int)(y)][(int)(x + d_x * box->go.spd - a)]) == 2)
 	{
-		box->all_map[(int)(y + a)][(int)(x - a)] = 0;
+		box->all_map[(int)(y)][(int)(x + d_x * box->go.spd - a)] = 0;
+		take4sprite(box, x, y, d_x, d_y);
 		box->hud.hp_val = box->hud.hp_val < 75 ? box->hud.hp_val + 25 : 100;
-		box->hud.rad_val = box->hud.rad_val < 25 ? 0 : box->hud.rad_val - 25;
+		box->hud.rad_val = box->hud.rad_val < 20 ? 0 : box->hud.rad_val - 20;
 	}
-	else if ((box->all_map[(int)(y + a)][(int)(x + a)]) == 2)
+	else if ((box->all_map[(int)(y + d_y * box->go.spd + a)][(int)(x)]) == 2)
 	{
-		box->all_map[(int)(y + a)][(int)(x + a)] = 0;
+		box->all_map[(int)(y + d_y * box->go.spd + a)][(int)(x)] = 0;
+		take4sprite(box, x, y, d_x, d_y);
 		box->hud.hp_val = box->hud.hp_val < 75 ? box->hud.hp_val + 25 : 100;
-		box->hud.rad_val = box->hud.rad_val < 25 ? 0 : box->hud.rad_val - 25;
+		box->hud.rad_val = box->hud.rad_val < 20 ? 0 : box->hud.rad_val - 20;
 	}
-	else if ((box->all_map[(int)(y - a)][(int)(x - a)]) == 2)
+	else if ((box->all_map[(int)(y + d_y * box->go.spd - a)][(int)(x)]) == 2)
 	{
-		box->all_map[(int)(y - a)][(int)(x - a)] = 0;
+		box->all_map[(int)(y + d_y * box->go.spd - a)][(int)(x)] = 0;
+		take4sprite(box, x, y, d_x, d_y);
 		box->hud.hp_val = box->hud.hp_val < 75 ? box->hud.hp_val + 25 : 100;
-		box->hud.rad_val = box->hud.rad_val < 25 ? 0 : box->hud.rad_val - 25;
+		box->hud.rad_val = box->hud.rad_val < 20 ? 0 : box->hud.rad_val - 20;
 	}
-	else if ((box->all_map[(int)(y - a)][(int)(x + a)]) == 2)
+	else if ((box->all_map[(int)(y)][(int)(x + d_x * box->go.spd + a)]) == 2)
 	{
-		box->all_map[(int)(y - a)][(int)(x + a)] = 0;
+		box->all_map[(int)(y)][(int)(x + d_x * box->go.spd + a)] = 0;
+		take4sprite(box, x, y, d_x, d_y);
 		box->hud.hp_val = box->hud.hp_val < 75 ? box->hud.hp_val + 25 : 100;
-		box->hud.rad_val = box->hud.rad_val < 25 ? 0 : box->hud.rad_val - 25;
+		box->hud.rad_val = box->hud.rad_val < 20 ? 0 : box->hud.rad_val - 20;
 	}
+}
+
+void		graal_message(t_box *box, double x, double y, double d_x, double d_y)
+{
+	double	dist_x;
+	double	dist_y;
+
+	SDL_Color color = {51, 51, 255, 0};
+	dist_x = fabs(d_x) > fabs(d_y) ? d_x : 0;
+	dist_y = fabs(d_x) <= fabs(d_y) ? d_y : 0;
+	if (box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 9 &&
+		box->bag.Message == NULL)
+		box->bag.Message = renderText("Press 'E' to end the level", 
+			"ttf/mainfont.ttf", color, 22, (*box).rend);
+	else if (box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] != 34
+		&& box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] != 9)
+		box->bag.Message = NULL;
+	if (box->keys[SDL_SCANCODE_E] == 1 &&
+		box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 9)
+		end_level(box);
 }
 
 void		door_open_message(t_box *box, double x, double y, double d_x, double d_y)
@@ -67,8 +91,10 @@ void		door_open_message(t_box *box, double x, double y, double d_x, double d_y)
 		box->bag.Message == NULL)
 		box->bag.Message = renderText("Press 'E' to open the doors", 
 			"ttf/mainfont.ttf", color, 22, (*box).rend);
-	else if (box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] != 34)
+	else if (box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] != 34
+		&& box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] != 9)
 		box->bag.Message = NULL;
+	graal_message(box, x, y, d_x, d_y);
 }
 
 void		check_doors(t_box *box, double x, double y, double d_x, double d_y)
@@ -76,7 +102,7 @@ void		check_doors(t_box *box, double x, double y, double d_x, double d_y)
 	double	dist_x;
 	double	dist_y;
 
-	healt_pickup(box, x, y);
+	health_pickup(box, x, y, d_x, d_y);
 	SDL_Color color = {216, 30, 42, 0};
 	dist_x = fabs(d_x) > fabs(d_y) ? d_x : 0;
 	dist_y = fabs(d_x) <= fabs(d_y) ? d_y : 0;
@@ -114,6 +140,7 @@ int			paint_this(t_box *box)
 	door_open_message(box, cam_pos_x, cam_pos_y, cam_d_x, cam_d_y);
 	check_doors(box, cam_pos_x, cam_pos_y, cam_d_x, cam_d_y);
 	some_pthreads(box);
+	
 	takeSprite(box, cam_pos_x, cam_pos_y, cam_d_x, cam_d_y);
 	just_travel_s(box, cam_pos_x, cam_pos_y, cam_d_x, cam_d_y);
 	some_rotation(box);

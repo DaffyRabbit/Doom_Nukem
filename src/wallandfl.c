@@ -91,7 +91,7 @@ void		print_walls(t_box *box)
 	box->paramtext.x = (int)(box->block.btouch * 64);
 	box->paramtext.x = 64 - box->paramtext.x - 1;
 	box->btpos = box->block.bt;
-	while (box->btpos < box->block.bb - 1)
+	while ((box->btpos <= box->block.bb + 1) && (box->btpos < WIND_H))
 	{
 		box->paramtext.y = box->btpos - WIND_H / 2 + 
 			(box->block.bh / 2) * (-box->go.lop + 1) - box->ogo.lop;
@@ -100,6 +100,7 @@ void		print_walls(t_box *box)
 		add_txtrs(box, box->paramtext.x, box->paramtext.y);
 		box->btpos++;
 	}
+	box->btpos = box->btpos - 2;
 	box->sprites.ZBuffer[box->atpos] = box->block.bd;
 	up_and_down(box);
 }

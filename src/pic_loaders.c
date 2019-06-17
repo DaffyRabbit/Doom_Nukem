@@ -39,16 +39,16 @@ SDL_Surface		*ft_check_png(t_box *box, char *text)
 	SDL_Surface *png;
 
 	if ((tmp = IMG_Load(text)) == NULL)
- {
- 	ft_putendl("Error HUD file\n");
- 	all_destroy(box);		
-	exit(1);
- }
- else
- {
- 	png = tmp;
- }
- return(png);
+ 	{
+ 		ft_putendl("Error HUD file\n");
+ 		all_destroy(box);		
+		exit(1);
+ 	}
+ 	else
+ 	{
+ 		png = tmp;
+ 	}
+ 	return(png);
 }
 
 SDL_Texture		*menu_png(char *text, t_box *box)
@@ -68,6 +68,8 @@ SDL_Texture		*menu_png(char *text, t_box *box)
 		surf = SDL_ConvertSurfaceFormat(tmp, SDL_GetWindowPixelFormat(box->wind), 0);
 		txtr = SDL_CreateTextureFromSurface(box->rend, surf);
 	}
+	SDL_FreeSurface(tmp);
+	SDL_FreeSurface(surf);
 	return(txtr);
 }
 
@@ -88,6 +90,7 @@ void				load_menu_txtrs(t_box *box)
 void				load_wall_textures(t_box *box)
 {
 	box->texture = menu_png("txtrs/game_over.png", box);
+	box->texture2 = menu_png("txtrs/mission_passed.png", box);
 	box->txtrs[0] = load_texture("txtrs/rock.bmp", box);
 	box->txtrs[1] = load_texture("txtrs/mine.bmp", box);
 	box->txtrs[2] = load_texture("txtrs/brick.bmp", box);
@@ -111,5 +114,7 @@ void				load_wall_textures(t_box *box)
 	box->sprites.tex_sprite[7] = IMG_Load("txtrs/dog3.png");
 	box->sprites.tex_sprite[8] = IMG_Load("txtrs/dog4.png");
 	box->sprites.tex_sprite[9] = IMG_Load("txtrs/health.png");
+	box->sprites.tex_sprite[10] = IMG_Load("txtrs/key_in_bug.png");
+	box->sprites.tex_sprite[11] = IMG_Load("txtrs/end_level.png");
 	ft_load_hud_tex(box);
 }

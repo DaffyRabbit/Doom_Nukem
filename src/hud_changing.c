@@ -66,6 +66,7 @@ int		ft_rad(t_box *box)
 		ft_check_png(box, box->hud.numb[box->hud.rad[i].n]);
 		box->hud.rad[i].rad_texture =
 		SDL_CreateTextureFromSurface(box->rend, box->hud.rad[i].rad);
+		SDL_FreeSurface(box->hud.rad[i].rad);
 		i--;
 	}
 	return (0);
@@ -87,6 +88,7 @@ int		ft_heals(t_box *box)
 		ft_check_png(box, box->hud.numb[box->hud.heals[i].n]);
 		box->hud.heals[i].heals_texture =
 		SDL_CreateTextureFromSurface(box->rend, box->hud.heals[i].heals);
+		SDL_FreeSurface(box->hud.heals[i].heals);
 		i--;
 	}
 	return (0);
@@ -94,7 +96,7 @@ int		ft_heals(t_box *box)
 
 int		ft_all_bars(t_box *box)
 {
-	ft_heals(box);
 	ft_rad(box);
+	ft_heals(box);
 	return (0);
 }
