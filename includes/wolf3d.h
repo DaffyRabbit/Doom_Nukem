@@ -26,14 +26,13 @@
 # include <dirent.h>
 
 ////////Leaks
-#define LEAK system("leaks wolf3d | grep 'Process' ")
+//#define LEAK system("leaks doom-nukem | grep 'Process' ")
 
 
 # define WIND_W		1280
 # define WIND_H		720
 # define KEY_CODE	265
 # define INT_MAX	2147483647
-# define LEAK system("leaks wolf3d | grep 'Process' ")
 
 typedef struct 		s_maps
 {
@@ -257,6 +256,14 @@ typedef struct 		s_music
 	
 }					t_music;
 
+typedef struct 		s_arg
+{
+	int				z;
+	int				c;
+	int				mnb;
+	
+}					t_arg;
+
 typedef struct		s_box
 {
 	t_sprite 		sprites;
@@ -315,8 +322,13 @@ typedef struct		s_box
 	int				sky;
 	int				dead;
 	int				fly_mode;
+	int				mousex;
+	int				mousey;
 }					t_box;
 
+void				door_open_message(t_box *box, double x, double y);
+void				lost_key(t_box *box);
+void				check_doors(t_box *box, double x, double y);
 void				end_level(t_box *box);
 int					hooks(t_box *box);
 SDL_Surface			*load_texture(char *path, t_box *wolf);
@@ -340,9 +352,9 @@ void				lets_start_game(t_box *box);
 void				load_wall_textures(t_box *box);
 int					key_push(t_box *box);
 int					paint_this(t_box *box);
-void				just_travel_s(t_box *box, double x, double y, double d_x, double d_y);
-void				just_travel_w(t_box *box, double x, double y, double d_x, double d_y);
-void				go_and_west(t_box *box, double x, double y, double p_x, double p_y);
+void				just_travel_s(t_box *box, double x, double y, double a);
+void				just_travel_w(t_box *box, double x, double y, double a);
+void				go_left(t_box *box, double x, double y, double a);
 void				some_rotation(t_box *box);
 void				ttsky_and_sit(t_box *box);
 void				this_is_castingray(t_box *box);
@@ -372,19 +384,21 @@ void				ft_r_bars_face(t_box *box);
 void				ft_start_anim(t_box *box);
 void				ft_knife_sh(t_box *box);
 void				ft_lets_music(t_box *box);
-void				ApplyTexture(int x, int y, t_box *box);
-void 				if_b_or_n(t_box *box, int x, int y, int *z, int *c);
-void				show_map_name(t_box *box, int c, int z);
-void				ifc_map_name(t_box *box, int c, int z);
-void				ifp_map_name(t_box *box, int c, int z);
-void				ifcnp_map_name(t_box *box, int c, int z);
-void 				load_maps(t_maps *m_l);
-int		ft_weapon(t_box *box);
+void				apply_texture(int x, int y, t_box *box);
+void 				if_b_or_n(t_box *box, t_arg *arg);
+void				show_map_name(t_box *box, t_arg *arg, int ch);
+void				ifc_map_name(t_box *box, t_arg *arg);
+void				ifp_map_name(t_box *box, t_arg *arg);
+void				ifcnp_map_name(t_box *box, t_arg *arg);
+void 				load_maps(t_maps *m_l, int i);
+int					ft_weapon(t_box *box);
+void				map_color(t_box *box, t_arg *arg);
+void				chose_map(t_box *box, t_arg *arg, int f);
 ///
 /* sprite */
 void 				ft_my_swap1(t_box *box, int i, int j);
 void 				ft_my_swap2(t_box *box, int i, int j);
-void 				combSort(t_box *box, int amount);
+void 				comb_sort(t_box *box, int amount);
 Uint32				get_pixel(t_box *box, SDL_Surface *surface, int x, int y);
 void 				sort_sprits(t_box *box);
 void        		add_sprite(t_box *box, int n, int x, int y);
@@ -392,16 +406,25 @@ void				draw_sprites(t_box *box);
 void    			draw_sprites2(t_box *box);
 void    			draw_sprites3(t_box *box);
 void    			draw_sprites4(t_box *box);
+double				set_intens(t_box *box);
+double				intens_calc(t_box *box, int y, int a);
+double				mirror_effect(t_box *box, int a, double intens);
+void				add_txtrs2(t_box *box, int y, int a);
+void				sky_dome(t_box *box);
 /* !sprite */
 
 /////////////////////////////
 void	fly_mode_on(t_box *box);
 ////////////////////////////
-int 	takeSprite(t_box *box, double x, double y, double d_x, double d_y);
-SDL_Texture* renderText(char *message, char *fontFile, SDL_Color color, int fontSize,
+int 	take_sprite(t_box *box, double x, double y);
+SDL_Texture* renderText_red(char *message, char *fontFile, int fontSize,
 					SDL_Renderer *renderer);
-void ApplySurface(int x, int y, int w, int h, SDL_Texture *tex, SDL_Renderer *rend);
-void		healt_pickup(t_box *box, double x, double y, double d_x, double d_y);
-void 	take4sprite(t_box *box, double x, double y, double d_x, double d_y);
+SDL_Texture* renderText_blue(char *message, char *fontFile, int fontSize,
+					SDL_Renderer *renderer);
+void apply_surface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend);
+SDL_Texture* renderText_purp(char *message, char *fontFile, int fontSize,
+					SDL_Renderer *renderer);
+void		healt_pickup(t_box *box, double x, double y);
+void 		take4sprite(t_box *box, double x, double y);
 
 #endif

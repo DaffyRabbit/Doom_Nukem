@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arykov <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aperesad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/30 13:46:28 by arykov            #+#    #+#             */
-/*   Updated: 2018/11/30 13:53:01 by arykov           ###   ########.fr       */
+/*   Created: 2019/06/17 20:28:35 by aperesad          #+#    #+#             */
+/*   Updated: 2019/06/17 20:28:37 by aperesad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,11 @@ int		ft_check_all(t_box *box)
 	i = 0;
 	if (check_wrong(box) < 0)
 	{
-		printf("check_wrong\n");
 		close(box->map_fd);
 		return (-1);
 	}
 	if (small_map(box) == -9)
-	{
-		printf("small_map\n");
 		return (-1);
-	}
 	close(box->map_fd);
 	box->all_map = (int **)malloc(sizeof(int *) * box->mapy + 1);
 	while (box->mapy >= i)
@@ -43,7 +39,6 @@ int		ft_check_all(t_box *box)
 	open_map(box);
 	if (check_map(box) < 0)
 	{
-		printf("check_map\n");
 		close(box->map_fd);
 		return (-1);
 	}
@@ -71,25 +66,15 @@ int		check_c(char *str)
 	while (str[i] != '\0')
 	{
 		if (!(str[i] >= '0' && str[i] <= '9'))
-		{
-			printf("check_c1\n");
-			return(-1);
-		}
-		if (i > 4)
-		{
-		printf("check_c2\n");
 			return (-1);
-		}
+		if (i > 4)
+			return (-1);
 		i++;
 	}
 	if (str[0] == '0' && i > 1)
-	{
-	printf("check_c3\n");
 		return (-1);
-	}
 	return (0);
 }
-
 
 int		check_line(t_box *box)
 {
@@ -105,10 +90,7 @@ int		check_line(t_box *box)
 		while (w_s[cx])
 		{
 			if ((box->error = check_c(w_s[cx])) < 0)
-			{
-			printf("check_c\n");	
 				return (-1);
-			}
 			free(w_s[cx]);
 			cx++;
 		}

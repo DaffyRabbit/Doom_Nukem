@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperesad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/10 14:28:55 by aperesad          #+#    #+#             */
-/*   Updated: 2019/05/10 14:28:58 by aperesad         ###   ########.fr       */
+/*   Created: 2019/06/19 15:46:30 by aperesad          #+#    #+#             */
+/*   Updated: 2019/06/19 15:46:31 by aperesad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-SDL_Surface		*load_texture(char *path, t_box *wolf)
+SDL_Surface			*load_texture(char *path, t_box *wolf)
 {
 	SDL_Surface		*tmp;
 	SDL_Surface		*image;
@@ -20,7 +20,6 @@ SDL_Surface		*load_texture(char *path, t_box *wolf)
 	tmp = SDL_LoadBMP(path);
 	if (tmp == NULL)
 	{
-		printf("%s\n", path);
 		ft_putendl("Error while loading a texture file\n");
 		all_destroy(wolf);
 		exit(1);
@@ -33,44 +32,45 @@ SDL_Surface		*load_texture(char *path, t_box *wolf)
 	return (image);
 }
 
-SDL_Surface		*ft_check_png(t_box *box, char *text)
+SDL_Surface			*ft_check_png(t_box *box, char *text)
 {
-	SDL_Surface *tmp;
-	SDL_Surface *png;
+	SDL_Surface		*tmp;
+	SDL_Surface		*png;
 
 	if ((tmp = IMG_Load(text)) == NULL)
- 	{
- 		ft_putendl("Error HUD file\n");
- 		all_destroy(box);		
+	{
+		ft_putendl("Error HUD file\n");
+		all_destroy(box);
 		exit(1);
- 	}
- 	else
- 	{
- 		png = tmp;
- 	}
- 	return(png);
+	}
+	else
+	{
+		png = tmp;
+	}
+	return (png);
 }
 
-SDL_Texture		*menu_png(char *text, t_box *box)
+SDL_Texture			*menu_png(char *text, t_box *box)
 {
-	SDL_Surface *tmp;
-	SDL_Surface *surf;
-	SDL_Texture *txtr;
+	SDL_Surface		*tmp;
+	SDL_Surface		*surf;
+	SDL_Texture		*txtr;
 
-	if ( (tmp = IMG_Load(text)) == NULL)
- 	{
- 		ft_putendl("Error menu file\n");
- 		all_destroy(box);		
-		exit(1);
- 	}
- 	else
+	if ((tmp = IMG_Load(text)) == NULL)
 	{
-		surf = SDL_ConvertSurfaceFormat(tmp, SDL_GetWindowPixelFormat(box->wind), 0);
+		ft_putendl("Error menu file\n");
+		all_destroy(box);
+		exit(1);
+	}
+	else
+	{
+		surf = SDL_ConvertSurfaceFormat(tmp,
+			SDL_GetWindowPixelFormat(box->wind), 0);
 		txtr = SDL_CreateTextureFromSurface(box->rend, surf);
 	}
 	SDL_FreeSurface(tmp);
 	SDL_FreeSurface(surf);
-	return(txtr);
+	return (txtr);
 }
 
 void				load_menu_txtrs(t_box *box)
@@ -87,23 +87,8 @@ void				load_menu_txtrs(t_box *box)
 	box->menu_txtrs[9] = menu_png("txtrs/sys_txerr.png", box);
 }
 
-void				load_wall_textures(t_box *box)
+void				sprites_loader(t_box *box)
 {
-	box->texture = menu_png("txtrs/game_over.png", box);
-	box->texture2 = menu_png("txtrs/mission_passed.png", box);
-	box->txtrs[0] = load_texture("txtrs/rock.bmp", box);
-	box->txtrs[1] = load_texture("txtrs/mine.bmp", box);
-	box->txtrs[2] = load_texture("txtrs/brick.bmp", box);
-	box->txtrs[3] = load_texture("txtrs/brown.bmp", box);
-	box->txtrs[4] = load_texture("txtrs/castle.bmp", box);
-	box->txtrs[5] = load_texture("txtrs/txt1.bmp", box);  ////////////!!!!
-	box->txtrs[6] = load_texture("txtrs/sand.bmp", box);
-	box->txtrs[7] = load_texture("txtrs/bricks.bmp", box);
-	box->txtrs[8] = load_texture("txtrs/Door2.bmp", box);
-	box->txtrs[9] = load_texture("txtrs/Door1.bmp", box);
-	box->txtrs[10] = load_texture("txtrs/night_r.bmp", box);
-	box->txtrs[11] = load_texture("txtrs/fl.bmp", box);
-	box->txtrs[12] = load_texture("txtrs/ceiling_01.bmp", box);
 	box->sprites.tex_sprite[0] = IMG_Load("txtrs/acid_barel.png");
 	box->sprites.tex_sprite[1] = IMG_Load("txtrs/acid.png");
 	box->sprites.tex_sprite[2] = IMG_Load("txtrs/lamp.png");
@@ -116,5 +101,25 @@ void				load_wall_textures(t_box *box)
 	box->sprites.tex_sprite[9] = IMG_Load("txtrs/health.png");
 	box->sprites.tex_sprite[10] = IMG_Load("txtrs/key_in_bug.png");
 	box->sprites.tex_sprite[11] = IMG_Load("txtrs/end_level.png");
+}
+
+void				load_wall_textures(t_box *box)
+{
+	box->texture = menu_png("txtrs/game_over.png", box);
+	box->texture2 = menu_png("txtrs/mission_passed.png", box);
+	box->txtrs[0] = load_texture("txtrs/rock.bmp", box);
+	box->txtrs[1] = load_texture("txtrs/mine.bmp", box);
+	box->txtrs[2] = load_texture("txtrs/brick.bmp", box);
+	box->txtrs[3] = load_texture("txtrs/brown.bmp", box);
+	box->txtrs[4] = load_texture("txtrs/castle.bmp", box);
+	box->txtrs[5] = load_texture("txtrs/txt1.bmp", box);
+	box->txtrs[6] = load_texture("txtrs/sand.bmp", box);
+	box->txtrs[7] = load_texture("txtrs/bricks.bmp", box);
+	box->txtrs[8] = load_texture("txtrs/Door2.bmp", box);
+	box->txtrs[9] = load_texture("txtrs/Door1.bmp", box);
+	box->txtrs[10] = load_texture("txtrs/night_r.bmp", box);
+	box->txtrs[11] = load_texture("txtrs/fl.bmp", box);
+	box->txtrs[12] = load_texture("txtrs/ceiling_01.bmp", box);
+	sprites_loader(box);
 	ft_load_hud_tex(box);
 }

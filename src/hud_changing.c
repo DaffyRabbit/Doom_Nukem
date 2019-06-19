@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hud_changing.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aperesad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/17 22:05:19 by aperesad          #+#    #+#             */
+/*   Updated: 2019/06/17 22:05:21 by aperesad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf3d.h"
 
 int		ft_check_hp_value(t_box *box)
@@ -43,18 +55,17 @@ int		ft_check_rad_value(t_box *box)
 	return (n);
 }
 
-int		ft_rad(t_box *box)
+int		ft_rad(t_box *box, int i)
 {
 	int n;
-	int i;
 
-	i = 2;
 	box->hud.rad[0].ticks++;
 	if (box->hud.rad[0].ticks == 40)
 	{
 		box->hud.rad_val++;
 		box->hud.rad[0].ticks = 0;
-		box->hud.hp_val = box->hud.hp_val - (box->hud.rad_val/(3 + box->hud.hp_val * 0.1));
+		box->hud.hp_val = box->hud.hp_val - (box->hud.rad_val /
+			(3 + box->hud.hp_val * 0.1));
 	}
 	n = ft_check_rad_value(box);
 	if (n > 2 || n < 0)
@@ -96,7 +107,7 @@ int		ft_heals(t_box *box)
 
 int		ft_all_bars(t_box *box)
 {
-	ft_rad(box);
+	ft_rad(box, 2);
 	ft_heals(box);
 	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hud_painting.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aperesad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/17 22:06:48 by aperesad          #+#    #+#             */
+/*   Updated: 2019/06/17 22:06:51 by aperesad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf3d.h"
 
 void		paint_hud(t_box *box)
@@ -16,9 +28,9 @@ void		paint_hud(t_box *box)
 		i++;
 	}
 	if (box->bag.Message)
-		ApplySurface(450, 250, 0, 0, box->bag.Message, box->rend);
+		apply_surface(450, 250, box->bag.Message, box->rend);
 	if (box->bag.full_message)
-		ApplySurface(25, 552, 0, 0, box->bag.full_message, box->rend);
+		apply_surface(25, 552, box->bag.full_message, box->rend);
 	if (box->hud.time > 100)
 		box->hud.time = 100;
 	if (box->hud.w_start == 0)

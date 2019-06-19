@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bonus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arykov <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aperesad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/30 13:38:05 by arykov            #+#    #+#             */
-/*   Updated: 2018/11/30 13:41:04 by arykov           ###   ########.fr       */
+/*   Created: 2019/06/17 20:28:08 by aperesad          #+#    #+#             */
+/*   Updated: 2019/06/17 20:28:11 by aperesad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,3 @@ void			*thi_is_raycast(void *his_is_sheet)
 	draw_sprites(&box);
 	return (0);
 }
-

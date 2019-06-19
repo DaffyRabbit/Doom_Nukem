@@ -34,11 +34,21 @@ SRC_N			= main.c\
 				  music.c\
 				  dead.c\
 				  sprite.c\
-				  sprite-sort.c\
-				  do-sprite.c\
+				  sprite_sort.c\
+				  do_sprite.c\
 				  error.c\
 				  pic_loaders.c\
-				  menu_map_add.c
+				  menu_map_add.c\
+				  load_maps.c\
+				  health_n_doors_messages.c\
+				  walking.c\
+				  swap_n_add_sprite.c\
+				  floor_n_ceiling.c\
+				  skydome_n_intens.c\
+				  render_text.c\
+				  apply_surface.c\
+				  game_loop.c\
+				  choose_map.c
 
 SRC_P 			= ./src/
 OBJ 			= $(addprefix $(OBJ_P),$(SRC_N:.c=.o))

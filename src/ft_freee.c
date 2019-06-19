@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_freee.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aperesad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/17 22:03:03 by aperesad          #+#    #+#             */
+/*   Updated: 2019/06/17 22:03:05 by aperesad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf3d.h"
 
 void	ft_free_surf(t_box *box)
@@ -7,7 +19,7 @@ void	ft_free_surf(t_box *box)
 	i = 0;
 	SDL_FreeSurface(box->hud.bar.bott_bar);
 	SDL_FreeSurface(box->hud.bar.rad_bar);
-	while(i < 13)
+	while (i < 13)
 	{
 		SDL_FreeSurface(box->txtrs[i]);
 		i++;
@@ -29,14 +41,14 @@ void	ft_freee(t_box *box)
 		i++;
 	}
 	i = 0;
-	while(i < 6)
+	while (i < 6)
 	{
 		SDL_FreeSurface(box->hud.weapon[i].weapon);
 		i++;
 	}
 }
 
-void ft_music_free(t_box *box)
+void	ft_music_free(t_box *box)
 {
 	Mix_HaltMusic();
 	Mix_FreeMusic(box->music.bgm);
@@ -48,4 +60,4 @@ void ft_music_free(t_box *box)
 	Mix_FreeChunk(box->music.walk);
 	Mix_FreeChunk(box->music.jet);
 	Mix_Quit();
-}	
+}
