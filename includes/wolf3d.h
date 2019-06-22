@@ -25,81 +25,76 @@
 # include <stdlib.h>
 # include <dirent.h>
 
-////////Leaks
-//#define LEAK system("leaks doom-nukem | grep 'Process' ")
-
-
 # define WIND_W		1280
 # define WIND_H		720
 # define KEY_CODE	265
 # define INT_MAX	2147483647
 
-typedef struct 		s_maps
+typedef struct		s_maps
 {
-	int 		l_f;
-	int 		max_maps;
-	int 		c_list;
-	char 		**map_path;
-	char 		**map_name;
+	int				l_f;
+	int				max_maps;
+	int				c_list;
+	char			**map_path;
+	char			**map_name;
 }					t_maps;
 
-typedef struct		s_rectItems
+typedef struct		s_rect_items
 {
 	SDL_Rect		rect_items;
-}					t_rectItems;
+}					t_rect_items;
 
 typedef struct		s_bag
 {
 	SDL_Texture		*text_item;
-	t_rectItems		rect[6];
-	int 			items[6];
-	SDL_Texture 	*Message;
-	SDL_Texture 	*full_message;
-	SDL_Rect 		Message_rect;
-	int 			posX;
-	int 			posY;
-	int 			n_items;
+	t_rect_items	rect[6];
+	int				items[6];
+	SDL_Texture		*message;
+	SDL_Texture		*full_message;
+	int				pos_x;
+	int				pos_y;
+	int				n_items;
 	int				time;
 }					t_bag;
 
-typedef struct		s_drawSprite
+typedef struct		s_draw_sprite
 {
-	double 			spriteX;
-	double 			spriteY;
-	double 			invDet;
-	double 			transformX;
-	double 			transformY;
-	Uint32    		color;
-	int 			spriteScreenX;
-	int 			spriteHeight;
-	int 			drawStartY;
-	int 			drawEndY;
-	int 			spriteWidth;
-	int 			drawStartX;
-	int 			drawEndX;
-	int 			i;
-	int 			texX;
-	int 			texY;
-  	int 			d;
-  	int 			y;
-}					t_drawSprite;
+	double			sprite_x;
+	double			sprite_y;
+	double			inv_det;
+	double			transform_x;
+	double			transform_y;
+	Uint32			color;
+	int				sprite_screen_x;
+	int				sprite_height;
+	int				draw_start_y;
+	int				draw_end_y;
+	int				sprite_width;
+	int				draw_start_x;
+	int				draw_end_x;
+	int				i;
+	int				tex_x;
+	int				tex_y;
+	int				d;
+	int				y;
+}					t_draw_sprite;
 
-typedef struct		s_spriteCord
+typedef struct		s_sprite_cord
 {
 	double			x;
 	double			y;
-	int 			n_text;
-	int 			bag;
-}					t_spriteCord;
+	int				n_text;
+	int				bag;
+}					t_sprite_cord;
 
 typedef struct		s_sprite
 {
-	double			ZBuffer[WIND_W];
+	double			zbuffer[WIND_W];
 	SDL_Surface		*tex_sprite[12];
-	t_spriteCord 	spt[20];
-	double			spriteDistance[20];
-	int 			spriteOrder[20];
-	int 			n_sprites;
+	t_sprite_cord	spt[20];
+	double			sprite_distance[20];
+	int				sprite_order[20];
+	int				n_sprites;
 }					t_sprite;
 
 typedef struct		s_listparam
@@ -156,7 +151,7 @@ typedef struct		s_block
 	int				bb;
 }					t_block;
 
-typedef struct		s_mouse 
+typedef struct		s_mouse
 {
 	double			od_x;
 	double			od_y;
@@ -165,7 +160,6 @@ typedef struct		s_mouse
 	double			rot_spd;
 	int				x;
 	int				y;
-	
 }					t_mouse;
 
 typedef	struct		s_face
@@ -200,49 +194,47 @@ typedef struct		s_rad_bar
 	int				ticks;
 }					t_rad_bar;
 
-typedef struct 		s_weapon
+typedef struct		s_weapon
 {
 	SDL_Surface		*weapon;
 	SDL_Texture		*weapon_texture;
 	SDL_Rect		rect_weapon;
 	int				w_weapon;
-	int				h_weapon;	
-	int 			usless;
+	int				h_weapon;
+	int				usless;
 }					t_weapon;
 
-typedef struct 		s_bar
+typedef struct		s_bar
 {
 	SDL_Rect		rect_bott_bar;
- 	SDL_Surface		*bott_bar;
- 	SDL_Texture		*bott_bar_texture;
- 	SDL_Rect		rect_rad_bar;
+	SDL_Surface		*bott_bar;
+	SDL_Texture		*bott_bar_texture;
+	SDL_Rect		rect_rad_bar;
 	SDL_Surface		*rad_bar;
 	SDL_Texture		*rad_bar_texture;
 	int				w_rad_bar;
 	int				h_rad_bar;
-	
 }					t_bar;
 
-typedef struct 		s_hud
+typedef struct		s_hud
 {
-	SDL_Surface		*num[10];
 	t_bar			bar;
- 	t_weapon		weapon[6];
- 	t_face			face[3];
- 	t_h_bar			heals[3];
- 	t_rad_bar		rad[3];
+	t_weapon		weapon[6];
+	t_face			face[3];
+	t_h_bar			heals[3];
+	t_rad_bar		rad[3];
 	char			*numb[10];
-	int				w_start;	
- 	int				hp_val;
- 	int				rad_val;	
+	int				w_start;
+	int				hp_val;
+	int				rad_val;
 	int				hp_i;
 	int				rad_i;
-	int             fire;
+	int				fire;
 	int				time;
 	int				w_time;
 }					t_hud;
 
-typedef struct 		s_music
+typedef struct		s_music
 {
 	Mix_Music	*bgm;
 	Mix_Music	*bgm_menu;
@@ -253,26 +245,24 @@ typedef struct 		s_music
 	Mix_Chunk	*knife;
 	Mix_Chunk	*jet;
 	int			walking;
-	
 }					t_music;
 
-typedef struct 		s_arg
+typedef struct		s_arg
 {
 	int				z;
 	int				c;
 	int				mnb;
-	
 }					t_arg;
 
 typedef struct		s_box
 {
-	t_sprite 		sprites;
+	t_sprite		sprites;
 	int				keys[KEY_CODE];
 	t_hud			hud;
-	t_bag 			bag;
+	t_bag			bag;
 	SDL_Surface		*txtrs[13];
 	SDL_Texture		*menu_txtrs[10];
-	t_drawSprite	dsprite;
+	t_draw_sprite	dsprite;
 	t_music			music;
 	t_tir			tir;
 	t_cam			cam;
@@ -282,7 +272,6 @@ typedef struct		s_box
 	t_goparam		go;
 	t_goparam		ogo;
 	t_intlparam		paramtext;
-	t_pic			*pic;
 	SDL_Window		*wind;
 	SDL_Texture		*texture;
 	SDL_Texture		*texture2;
@@ -297,12 +286,11 @@ typedef struct		s_box
 	double			scene;
 	Uint32			*pixels;
 	int				**all_map;
-	Uint32			sleep;
+	int				sleep;
 	int				blok;
 	int				num_face;
 	int				mirror_effect;
 	int				no_shadow;
-	int				x_t;
 	int				tex_floor_x;
 	int				tex_floor_y;
 	int				ttsky2;
@@ -318,7 +306,6 @@ typedef struct		s_box
 	int				error;
 	int				a;
 	int				btpos;
-	int				face_start;
 	int				sky;
 	int				dead;
 	int				fly_mode;
@@ -364,12 +351,11 @@ void				add_txtrs(t_box *box, int x, int y);
 void				print_walls(t_box *box);
 void				up_and_down(t_box *box);
 int					small_map(t_box *box);
-//// mouse scope && HUD
+
 void				ft_check_walk(t_box *box);
 void				ft_dead(t_box *box);
 void				ft_init_music(t_box *box);
 int					mouse_control(int x, int y, t_box *box);
-int					ft_scope(t_box *box);
 SDL_Surface			*ft_check_png(t_box *box, char *text);
 int					ft_hud(t_box *box);
 int					ft_hud_bar(t_box *box);
@@ -385,46 +371,42 @@ void				ft_start_anim(t_box *box);
 void				ft_knife_sh(t_box *box);
 void				ft_lets_music(t_box *box);
 void				apply_texture(int x, int y, t_box *box);
-void 				if_b_or_n(t_box *box, t_arg *arg);
+void				if_b_or_n(t_box *box, t_arg *arg);
 void				show_map_name(t_box *box, t_arg *arg, int ch);
 void				ifc_map_name(t_box *box, t_arg *arg);
 void				ifp_map_name(t_box *box, t_arg *arg);
 void				ifcnp_map_name(t_box *box, t_arg *arg);
-void 				load_maps(t_maps *m_l, int i);
+void				load_maps(t_maps *m_l, int i);
 int					ft_weapon(t_box *box);
 void				map_color(t_box *box, t_arg *arg);
 void				chose_map(t_box *box, t_arg *arg, int f);
-///
-/* sprite */
-void 				ft_my_swap1(t_box *box, int i, int j);
-void 				ft_my_swap2(t_box *box, int i, int j);
-void 				comb_sort(t_box *box, int amount);
+
+void				ft_my_swap1(t_box *box, int i, int j);
+void				ft_my_swap2(t_box *box, int i, int j);
+void				comb_sort(t_box *box, int amount);
 Uint32				get_pixel(t_box *box, SDL_Surface *surface, int x, int y);
-void 				sort_sprits(t_box *box);
-void        		add_sprite(t_box *box, int n, int x, int y);
+void				sort_sprits(t_box *box);
+void				add_sprite(t_box *box, int n, int x, int y);
 void				draw_sprites(t_box *box);
-void    			draw_sprites2(t_box *box);
-void    			draw_sprites3(t_box *box);
-void    			draw_sprites4(t_box *box);
+void				draw_sprites2(t_box *box);
+void				draw_sprites3(t_box *box);
+void				draw_sprites4(t_box *box);
 double				set_intens(t_box *box);
 double				intens_calc(t_box *box, int y, int a);
 double				mirror_effect(t_box *box, int a, double intens);
 void				add_txtrs2(t_box *box, int y, int a);
 void				sky_dome(t_box *box);
-/* !sprite */
 
-/////////////////////////////
-void	fly_mode_on(t_box *box);
-////////////////////////////
-int 	take_sprite(t_box *box, double x, double y);
-SDL_Texture* renderText_red(char *message, char *fontFile, int fontSize,
-					SDL_Renderer *renderer);
-SDL_Texture* renderText_blue(char *message, char *fontFile, int fontSize,
-					SDL_Renderer *renderer);
-void apply_surface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend);
-SDL_Texture* renderText_purp(char *message, char *fontFile, int fontSize,
-					SDL_Renderer *renderer);
-void		healt_pickup(t_box *box, double x, double y);
-void 		take4sprite(t_box *box, double x, double y);
+int					take_sprite(t_box *box, double x, double y);
+SDL_Texture			*render_text_red(char *message, char *font_file,
+					int font_size, SDL_Renderer *renderer);
+SDL_Texture			*render_text_blue(char *message, char *font_file,
+					int font_size, SDL_Renderer *renderer);
+void				apply_surface(int x, int y, SDL_Texture *tex,
+					SDL_Renderer *rend);
+SDL_Texture			*render_text_purp(char *message, char *font_file,
+					int font_size, SDL_Renderer *renderer);
+void				healt_pickup(t_box *box, double x, double y);
+void				take4sprite(t_box *box, double x, double y);
 
 #endif

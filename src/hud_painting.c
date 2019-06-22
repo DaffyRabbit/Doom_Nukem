@@ -27,8 +27,8 @@ void		paint_hud(t_box *box)
 		}
 		i++;
 	}
-	if (box->bag.Message)
-		apply_surface(450, 250, box->bag.Message, box->rend);
+	if (box->bag.message)
+		apply_surface(450, 250, box->bag.message, box->rend);
 	if (box->bag.full_message)
 		apply_surface(25, 552, box->bag.full_message, box->rend);
 	if (box->hud.time > 100)
@@ -53,16 +53,6 @@ void		ft_load_hud_tex(t_box *box)
 	box->hud.face[0].face = ft_check_png(box, "txtrs/face_left.png");
 	box->hud.face[1].face = ft_check_png(box, "txtrs/face_center.png");
 	box->hud.face[2].face = ft_check_png(box, "txtrs/face_right.png");
-	box->hud.num[0] = ft_check_png(box, "txtrs/zero.png");
-	box->hud.num[1] = ft_check_png(box, "txtrs/one.png");
-	box->hud.num[2] = ft_check_png(box, "txtrs/two.png");
-	box->hud.num[3] = ft_check_png(box, "txtrs/three.png");
-	box->hud.num[4] = ft_check_png(box, "txtrs/four.png");
-	box->hud.num[5] = ft_check_png(box, "txtrs/five.png");
-	box->hud.num[6] = ft_check_png(box, "txtrs/six.png");
-	box->hud.num[7] = ft_check_png(box, "txtrs/seven.png");
-	box->hud.num[8] = ft_check_png(box, "txtrs/eight.png");
-	box->hud.num[9] = ft_check_png(box, "txtrs/nine.png");
 }
 
 void		ft_shooting(int code, t_box *box)

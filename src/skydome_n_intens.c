@@ -53,7 +53,7 @@ double		intens_calc(t_box *box, int y, int a)
 		intens = 0.67;
 	else
 	{
-		if (a == 5)
+		if (a == 12)
 			tmp_y = y - WIND_H - box->ogo.lop;
 		else
 			tmp_y = y - box->ogo.lop;

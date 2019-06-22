@@ -101,7 +101,7 @@ void		print_walls(t_box *box)
 		box->btpos++;
 	}
 	box->btpos = box->btpos - 2;
-	box->sprites.ZBuffer[box->atpos] = box->block.bd;
+	box->sprites.zbuffer[box->atpos] = box->block.bd;
 	up_and_down(box);
 }
 

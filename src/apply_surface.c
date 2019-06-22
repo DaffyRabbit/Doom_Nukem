@@ -12,7 +12,8 @@
 
 #include "wolf3d.h"
 
-void		apply_surface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend)
+void			apply_surface(int x, int y,
+	SDL_Texture *tex, SDL_Renderer *rend)
 {
 	SDL_Rect	pos;
 

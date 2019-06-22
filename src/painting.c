@@ -15,13 +15,13 @@
 void		lost_key(t_box *box)
 {
 	box->bag.n_items--;
-	box->bag.posX = box->bag.posX - 50;
+	box->bag.pos_x = box->bag.pos_x - 50;
 	if (box->bag.n_items == 3)
 	{
-		box->bag.posX = 105;
-		box->bag.posY = box->bag.posY - 50;
+		box->bag.pos_x = 105;
+		box->bag.pos_y = box->bag.pos_y - 50;
 	}
-	box->bag.Message = NULL;
+	box->bag.message = NULL;
 	box->bag.full_message = NULL;
 }
 

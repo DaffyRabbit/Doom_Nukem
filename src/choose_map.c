@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-void			map_color2(t_box *box, t_arg *arg)
+void		map_color2(t_box *box, t_arg *arg)
 {
 	if (arg->mnb == 4)
 	{
@@ -31,7 +31,7 @@ void			map_color2(t_box *box, t_arg *arg)
 	SDL_RenderPresent(box->rend);
 }
 
-void			map_color(t_box *box, t_arg *arg)
+void		map_color(t_box *box, t_arg *arg)
 {
 	box->this_txtr = box->menu_txtrs[0];
 	apply_texture(0, 0, box);
@@ -53,7 +53,7 @@ void			map_color(t_box *box, t_arg *arg)
 	map_color2(box, arg);
 }
 
-void	choose_map2(t_box *box, t_arg *arg, int f)
+void		choose_map2(t_box *box, t_arg *arg, int f)
 {
 	if (box->mousey > 462 && box->mousey < 510)
 	{
@@ -75,7 +75,7 @@ void	choose_map2(t_box *box, t_arg *arg, int f)
 	}
 }
 
-void	chose_map(t_box *box, t_arg *arg, int f)
+void		chose_map(t_box *box, t_arg *arg, int f)
 {
 	if (box->mousex > 935 && box->mousex < 1244)
 	{

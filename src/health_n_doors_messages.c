@@ -56,12 +56,12 @@ void		graal_message(t_box *box, double x, double y)
 	dist_x = fabs(box->cam.d.x) > fabs(box->cam.d.y) ? box->cam.d.x : 0;
 	dist_y = fabs(box->cam.d.x) <= fabs(box->cam.d.y) ? box->cam.d.y : 0;
 	if (box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 9 &&
-		box->bag.Message == NULL)
-		box->bag.Message = renderText_blue("Press 'E' to end the level",
+		box->bag.message == NULL)
+		box->bag.message = render_text_blue("Press 'E' to end the level",
 			"ttf/mainfont.ttf", 22, (*box).rend);
 	else if (box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] != 34
 		&& box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] != 9)
-		box->bag.Message = NULL;
+		box->bag.message = NULL;
 	if (box->keys[SDL_SCANCODE_E] == 1 &&
 		box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 9)
 		end_level(box);
@@ -75,12 +75,12 @@ void		door_open_message(t_box *box, double x, double y)
 	dist_x = fabs(box->cam.d.x) > fabs(box->cam.d.y) ? box->cam.d.x : 0;
 	dist_y = fabs(box->cam.d.x) <= fabs(box->cam.d.y) ? box->cam.d.y : 0;
 	if (box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 34 &&
-		box->bag.Message == NULL)
-		box->bag.Message = renderText_blue("Press 'E' to open the doors",
+		box->bag.message == NULL)
+		box->bag.message = render_text_blue("Press 'E' to open the doors",
 			"ttf/mainfont.ttf", 22, (*box).rend);
 	else if (box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] != 34
 		&& box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] != 9)
-		box->bag.Message = NULL;
+		box->bag.message = NULL;
 	graal_message(box, x, y);
 }
 
@@ -101,12 +101,12 @@ void		check_doors(t_box *box, double x, double y)
 	else if (box->keys[SDL_SCANCODE_E] == 1 && box->bag.n_items <= 0 &&
 		box->all_map[(int)(y + dist_y)][(int)(x + dist_x + 0.15)] == 34)
 	{
-		box->bag.Message = NULL;
-		box->bag.Message = renderText_red("You don't have keys!",
+		box->bag.message = NULL;
+		box->bag.message = render_text_red("You don't have keys!",
 			"ttf/mainfont.ttf", 30, (*box).rend);
 		box->bag.time = 1;
 	}
 	if (box->bag.time == 75)
-		box->bag.Message = NULL;
+		box->bag.message = NULL;
 	box->bag.time = (box->bag.time > 90) ? 0 : (box->bag.time + 1);
 }

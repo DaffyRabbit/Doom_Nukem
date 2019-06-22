@@ -45,8 +45,8 @@ int			main(void)
 	t_box	box;
 
 	box.sprites.n_sprites = 0;
-	box.bag.posX = 5;
-	box.bag.posY = WIND_H - WIND_H / 5 + 5;
+	box.bag.pos_x = 5;
+	box.bag.pos_y = WIND_H - WIND_H / 5 + 5;
 	box.bag.n_items = 0;
 	add_resources(&box);
 	start_game(&box);

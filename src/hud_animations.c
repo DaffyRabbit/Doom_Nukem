@@ -16,20 +16,24 @@ void		ft_r_bars_face(t_box *box)
 {
 	SDL_RenderCopy(box->rend, box->hud.bar.bott_bar_texture,
 		NULL, &box->hud.bar.rect_bott_bar);
+	SDL_DestroyTexture(box->hud.bar.bott_bar_texture);
 	SDL_RenderCopy(box->rend, box->hud.bar.rad_bar_texture,
 		NULL, &box->hud.bar.rect_rad_bar);
+	SDL_DestroyTexture(box->hud.bar.rad_bar_texture);
 	SDL_RenderCopy(box->rend, box->hud.face[box->num_face].face_texture,
 		NULL, &box->hud.face[box->num_face].rect_face);
 	while (box->hud.hp_i <= 2)
 	{
 		SDL_RenderCopy(box->rend, box->hud.heals[box->hud.hp_i].heals_texture,
 			NULL, &box->hud.heals[box->hud.hp_i].rect_heals);
+		SDL_DestroyTexture(box->hud.heals[box->hud.hp_i].heals_texture);
 		box->hud.hp_i++;
 	}
 	while (box->hud.rad_i <= 2)
 	{
 		SDL_RenderCopy(box->rend, box->hud.rad[box->hud.rad_i].rad_texture,
 			NULL, &box->hud.rad[box->hud.rad_i].rect_rad);
+		SDL_DestroyTexture(box->hud.rad[box->hud.rad_i].rad_texture);
 		box->hud.rad_i++;
 	}
 }
@@ -52,6 +56,14 @@ void		ft_start_anim(t_box *box)
 	}
 }
 
+void		ft_knife_els(t_box *box)
+{
+	SDL_RenderCopy(box->rend, box->hud.weapon[3].weapon_texture,
+		NULL, &box->hud.weapon[0].rect_weapon);
+	if (box->hud.time > 30)
+		box->hud.time = 0;
+}
+
 void		ft_knife_sh(t_box *box)
 {
 	if (box->hud.fire == 1)
@@ -72,8 +84,5 @@ void		ft_knife_sh(t_box *box)
 		box->hud.w_time++;
 	}
 	else
-		SDL_RenderCopy(box->rend, box->hud.weapon[3].weapon_texture,
-			NULL, &box->hud.weapon[0].rect_weapon);
-	if (box->hud.time > 30)
-		box->hud.time = 0;
+		ft_knife_els(box);
 }

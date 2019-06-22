@@ -112,7 +112,7 @@ void				show_map_name(t_box *box, t_arg *arg, int ch)
 	{
 		if (arg->z != ch && arg->c != ch)
 		{
-			pic = renderText_blue(box->map_list.map_name[ch +
+			pic = render_text_blue(box->map_list.map_name[ch +
 				box->map_list.c_list - 1], "ttf/mainfont.ttf", 35, box->rend);
 			apply_surface(944, y, pic, box->rend);
 			y += 54;

@@ -24,7 +24,7 @@ void				ifc_map_name(t_box *box, t_arg *arg)
 	{
 		if (arg->z == ch && arg->c != ch)
 		{
-			pic = renderText_red(box->map_list.map_name[ch +
+			pic = render_text_red(box->map_list.map_name[ch +
 				box->map_list.c_list - 1], "ttf/mainfont.ttf", 35, box->rend);
 			apply_surface(944, y, pic, box->rend);
 			y += 54;
@@ -51,7 +51,7 @@ void				ifp_map_name(t_box *box, t_arg *arg)
 	{
 		if (arg->z != ch && arg->c == ch)
 		{
-			pic = renderText_purp(box->map_list.map_name[ch +
+			pic = render_text_purp(box->map_list.map_name[ch +
 				box->map_list.c_list - 1], "ttf/mainfont.ttf", 35, box->rend);
 			apply_surface(944, y, pic, box->rend);
 			y += 54;
@@ -77,7 +77,7 @@ void				ifcnp_map_name(t_box *box, t_arg *arg)
 	{
 		if (arg->z == ch && arg->c == ch)
 		{
-			pic = renderText_red(box->map_list.map_name[ch +
+			pic = render_text_red(box->map_list.map_name[ch +
 				box->map_list.c_list - 1], "ttf/mainfont.ttf", 35, box->rend);
 			apply_surface(944, y, pic, box->rend);
 			y += 54;

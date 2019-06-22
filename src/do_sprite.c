@@ -62,15 +62,15 @@ void		take2sprite(t_box *box, double x, double y)
 {
 	if (box->bag.n_items == 3)
 	{
-		box->bag.posX = 5;
-		box->bag.posY = box->bag.posY + 50;
+		box->bag.pos_x = 5;
+		box->bag.pos_y = box->bag.pos_y + 50;
 	}
 	box->bag.items[box->bag.n_items] = 6;
-	box->bag.rect[box->bag.n_items].rect_items.x = box->bag.posX;
-	box->bag.rect[box->bag.n_items].rect_items.y = box->bag.posY;
+	box->bag.rect[box->bag.n_items].rect_items.x = box->bag.pos_x;
+	box->bag.rect[box->bag.n_items].rect_items.y = box->bag.pos_y;
 	box->bag.rect[box->bag.n_items].rect_items.h = 50;
 	box->bag.rect[box->bag.n_items].rect_items.w = 50;
-	box->bag.posX = box->bag.posX + 50;
+	box->bag.pos_x = box->bag.pos_x + 50;
 	take4sprite(box, x, y);
 	box->bag.n_items++;
 }
@@ -107,7 +107,7 @@ int			take_sprite(t_box *box, double x, double y)
 {
 	if (box->bag.n_items == 6)
 	{
-		box->bag.full_message = renderText_red("Your bag is full!",
+		box->bag.full_message = render_text_red("Your bag is full!",
 			"ttf/mainfont.ttf", 20, (*box).rend);
 		return (0);
 	}

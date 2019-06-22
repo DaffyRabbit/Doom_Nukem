@@ -12,72 +12,86 @@
 
 #include "wolf3d.h"
 
-SDL_Texture* renderText_purp(char *message, char *fontFile, int fontSize,
+SDL_Texture		*render_text_purp(char *message, char *font_file, int font_size,
 					SDL_Renderer *renderer)
 {
-	SDL_Color color = {147, 28, 190, 0};
+	TTF_Font	*font;
+	SDL_Surface	*surf;
+	SDL_Texture	*texture;
+	SDL_Color	color;
 
-	TTF_Font *font = TTF_OpenFont(fontFile, fontSize);
-	if (font == NULL){
-		ft_putendl("error 5\n");
-		return NULL;
-	}	
-	SDL_Surface *surf = TTF_RenderText_Blended(font, message, color);
-	if (surf == NULL){
+	color.r = 147;
+	color.g = 28;
+	color.b = 190;
+	color.a = 0;
+	font = TTF_OpenFont(font_file, font_size);
+	surf = TTF_RenderText_Blended(font, message, color);
+	if (surf == NULL || font == NULL)
+	{
 		TTF_CloseFont(font);
-		ft_putendl("error 6\n");
-		return NULL;
+		ft_putendl("text_render error\n");
+		return (NULL);
 	}
-	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);
+	texture = SDL_CreateTextureFromSurface(renderer, surf);
 	if (texture == NULL)
 		ft_putendl("error 7\n");
 	SDL_FreeSurface(surf);
 	TTF_CloseFont(font);
-	return texture;
+	return (texture);
 }
 
-SDL_Texture* renderText_red(char *message, char *fontFile, int fontSize,
+SDL_Texture		*render_text_red(char *message, char *font_file, int font_size,
 					SDL_Renderer *renderer)
 {
-	SDL_Color color = {216, 30, 42, 0};
-	TTF_Font *font = TTF_OpenFont(fontFile, fontSize);
-	if (font == NULL){
-		ft_putendl("error 5\n");
-		return NULL;
-	}	
-	SDL_Surface *surf = TTF_RenderText_Blended(font, message, color);
-	if (surf == NULL){
+	TTF_Font	*font;
+	SDL_Surface	*surf;
+	SDL_Texture	*texture;
+	SDL_Color	color;
+
+	color.r = 216;
+	color.g = 30;
+	color.b = 42;
+	color.a = 0;
+	font = TTF_OpenFont(font_file, font_size);
+	surf = TTF_RenderText_Blended(font, message, color);
+	if (surf == NULL || font == NULL)
+	{
 		TTF_CloseFont(font);
 		ft_putendl("error 6\n");
-		return NULL;
+		return (NULL);
 	}
-	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);
+	texture = SDL_CreateTextureFromSurface(renderer, surf);
 	if (texture == NULL)
 		ft_putendl("error 7\n");
 	SDL_FreeSurface(surf);
 	TTF_CloseFont(font);
-	return texture;
+	return (texture);
 }
 
-SDL_Texture* renderText_blue(char *message, char *fontFile, int fontSize,
+SDL_Texture		*render_text_blue(char *message, char *font_file, int font_size,
 					SDL_Renderer *renderer)
 {
-	SDL_Color color = {51, 51, 255, 0};
-	TTF_Font *font = TTF_OpenFont(fontFile, fontSize);
-	if (font == NULL){
-		ft_putendl("error 5\n");
-		return NULL;
-	}	
-	SDL_Surface *surf = TTF_RenderText_Blended(font, message, color);
-	if (surf == NULL){
+	TTF_Font	*font;
+	SDL_Surface	*surf;
+	SDL_Texture	*texture;
+	SDL_Color	color;
+
+	color.r = 51;
+	color.g = 51;
+	color.b = 255;
+	color.a = 0;
+	font = TTF_OpenFont(font_file, font_size);
+	surf = TTF_RenderText_Blended(font, message, color);
+	if (surf == NULL || font == NULL)
+	{
 		TTF_CloseFont(font);
 		ft_putendl("error 6\n");
-		return NULL;
+		return (NULL);
 	}
-	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);
+	texture = SDL_CreateTextureFromSurface(renderer, surf);
 	if (texture == NULL)
 		ft_putendl("error 7\n");
 	SDL_FreeSurface(surf);
 	TTF_CloseFont(font);
-	return texture;
+	return (texture);
 }

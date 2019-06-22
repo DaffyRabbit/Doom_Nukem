@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-void		lets_begin(t_box *box)
+void			lets_begin(t_box *box)
 {
 	ft_hud_param(box);
 	close(box->map_fd);
@@ -27,7 +27,7 @@ void		lets_begin(t_box *box)
 	lets_start_game(box);
 }
 
-void		press_start(t_box *box, t_arg *arg)
+void			press_start(t_box *box, t_arg *arg)
 {
 	if ((box->mousex > 527 && box->mousex < 727) &&
 		(box->mousey > 447 && box->mousey < 525) && arg->z != -1)
@@ -47,7 +47,7 @@ void		press_start(t_box *box, t_arg *arg)
 	if_b_or_n(box, arg);
 }
 
-void		click_to_map(t_box *box, t_arg *arg)
+void			click_to_map(t_box *box, t_arg *arg)
 {
 	if ((box->mousex > 945 && box->mousex < 1075) &&
 		(box->mousey > 640 && box->mousey < 680))
@@ -69,7 +69,7 @@ void		click_to_map(t_box *box, t_arg *arg)
 	chose_map(box, arg, 0);
 }
 
-void				start_game(t_box *box)
+void			start_game(t_box *box)
 {
 	t_arg		arg;
 	SDL_Event	event;
@@ -97,4 +97,3 @@ void				start_game(t_box *box)
 		map_color(box, &arg);
 	}
 }
-

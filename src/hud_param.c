@@ -91,7 +91,7 @@ void	ft_hud_param(t_box *box)
 	}
 	box->num_face = 0;
 	box->blok = 0;
-	box->sleep = SDL_GetTicks();
+	box->sleep = 0;
 	box->hud.face[0].face_start = 0;
 	box->hud.fire = 0;
 	box->hud.rad_val = 0;

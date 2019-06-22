@@ -16,18 +16,18 @@ void		ft_my_swap1(t_box *box, int i, int j)
 {
 	double	temp;
 
-	temp = box->sprites.spriteDistance[i];
-	box->sprites.spriteDistance[i] = box->sprites.spriteDistance[j];
-	box->sprites.spriteDistance[j] = temp;
+	temp = box->sprites.sprite_distance[i];
+	box->sprites.sprite_distance[i] = box->sprites.sprite_distance[j];
+	box->sprites.sprite_distance[j] = temp;
 }
 
 void		ft_my_swap2(t_box *box, int i, int j)
 {
 	int	temp;
 
-	temp = box->sprites.spriteOrder[i];
-	box->sprites.spriteOrder[i] = box->sprites.spriteOrder[j];
-	box->sprites.spriteOrder[j] = temp;
+	temp = box->sprites.sprite_order[i];
+	box->sprites.sprite_order[i] = box->sprites.sprite_order[j];
+	box->sprites.sprite_order[j] = temp;
 }
 
 void		add_sprite(t_box *box, int n, int x, int y)

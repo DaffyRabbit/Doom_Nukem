@@ -23,8 +23,8 @@ void		comb_sort(t_box *box, int amount)
 		j = 0;
 		while (j < amount - i - 1)
 		{
-			if (box->sprites.spriteDistance[j] <
-				box->sprites.spriteDistance[j + 1])
+			if (box->sprites.sprite_distance[j] <
+				box->sprites.sprite_distance[j + 1])
 			{
 				ft_my_swap1(box, j, j + 1);
 				ft_my_swap2(box, j, j + 1);
@@ -39,9 +39,9 @@ double		set_sprite_intens(t_box *box)
 {
 	double	intens;
 
-	intens = (box->sprites.spriteDistance[box->dsprite.i] < 27) ?
-		(1 / box->sprites.spriteDistance[box->dsprite.i] * box->light_power) :
-		(0.5 / box->sprites.spriteDistance[box->dsprite.i] * box->light_power);
+	intens = (box->sprites.sprite_distance[box->dsprite.i] < 27) ?
+		(1 / box->sprites.sprite_distance[box->dsprite.i] * box->light_power) :
+		(0.5 / box->sprites.sprite_distance[box->dsprite.i] * box->light_power);
 	if (intens > 0.8)
 		intens = 0.8;
 	return (intens);
@@ -57,9 +57,9 @@ Uint32		get_pixel(t_box *box, SDL_Surface *surface, int x, int y)
 
 	color = 0;
 	if (box->no_shadow == 1 || box->mirror_effect == 1 ||
-		box->sprites.spt[box->sprites.spriteOrder[box->dsprite.i]].n_text == 2)
+		box->sprites.spt[box->sprites.sprite_order[box->dsprite.i]].n_text == 2)
 		intens = (box->no_shadow == 1) ? 0.68 : 0.8;
-	else if (box->sprites.spriteDistance[box->dsprite.i] >= 0)
+	else if (box->sprites.sprite_distance[box->dsprite.i] >= 0)
 		intens = set_sprite_intens(box);
 	if ((x >= 0 && x <= 64) && (y >= 0 && y <= 64))
 	{
@@ -82,8 +82,8 @@ void		sort_sprits(t_box *box)
 	i = 0;
 	while (i < box->sprites.n_sprites)
 	{
-		box->sprites.spriteOrder[i] = i;
-		box->sprites.spriteDistance[i] = ((box->cam.position.x -
+		box->sprites.sprite_order[i] = i;
+		box->sprites.sprite_distance[i] = ((box->cam.position.x -
 		box->sprites.spt[i].x) * (box->cam.position.x -
 		box->sprites.spt[i].x) + (box->cam.position.y - box->sprites.spt[i].y) *
 		(box->cam.position.y - box->sprites.spt[i].y));

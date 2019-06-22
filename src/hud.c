@@ -14,8 +14,10 @@
 
 int		ft_face_start(t_box *box)
 {
-	box->hud.face[box->num_face].face_texture =
-	SDL_CreateTextureFromSurface(box->rend, box->hud.face[box->num_face].face);
+	if (!box->hud.face[box->num_face].face_texture)
+		box->hud.face[box->num_face].face_texture =
+		SDL_CreateTextureFromSurface(box->rend,
+			box->hud.face[box->num_face].face);
 	if (box->num_face == 2)
 	{
 		box->blok = 1;
@@ -36,11 +38,12 @@ int		ft_face_start(t_box *box)
 
 int		ft_face(t_box *box)
 {
-	if (box->sleep < SDL_GetTicks() - 1.0 * 900)
+	if (box->sleep == 45)
 	{
 		ft_face_start(box);
-		box->sleep = SDL_GetTicks();
+		box->sleep = 0;
 	}
+	box->sleep++;
 	return (0);
 }
 
@@ -60,8 +63,9 @@ int		ft_weapon(t_box *box)
 	i = 0;
 	while (i < 6)
 	{
-		box->hud.weapon[i].weapon_texture =
-		SDL_CreateTextureFromSurface(box->rend, box->hud.weapon[i].weapon);
+		if (!box->hud.weapon[i].weapon_texture)
+			box->hud.weapon[i].weapon_texture =
+			SDL_CreateTextureFromSurface(box->rend, box->hud.weapon[i].weapon);
 		i++;
 	}
 	return (0);

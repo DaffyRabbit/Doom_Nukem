@@ -48,7 +48,8 @@ SRC_N			= main.c\
 				  render_text.c\
 				  apply_surface.c\
 				  game_loop.c\
-				  choose_map.c
+				  choose_map.c\
+				  pic_structure.c
 
 SRC_P 			= ./src/
 OBJ 			= $(addprefix $(OBJ_P),$(SRC_N:.c=.o))
