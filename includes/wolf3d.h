@@ -81,7 +81,7 @@ typedef struct		s_block
 typedef struct		s_texture
 {
 	int 				code;
-	void				*pixels;
+	Uint32				*pixels;
 	int w;
 	int h;
 	int pitch;
@@ -114,6 +114,7 @@ typedef struct		s_box
 	int				**all_map;
 	SDL_Event		event;
 	SDL_Window		*wind;
+	// на скільки я зрозумів він не потрібен >WARNINGS<
 	SDL_Surface		*surf;
 	int				error;
 	double			scene;

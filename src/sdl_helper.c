@@ -32,16 +32,25 @@ SDL_Texture* LoadImage(char *file, t_box *box, t_texture **new_txtr)
 	SDL_Surface *loadedImage = NULL;
 	SDL_Texture *texture = NULL;
 	loadedImage = IMG_Load(file);
-	Uint32 format = SDL_GetWindowPixelFormat( box->wind );
-    SDL_PixelFormat* mappingFormat = SDL_AllocFormat( format );
 	// SDL_Color color = { 88, 214, 141, 0 };
 	// SDL_Color transparent = { 255, 255, 255, 255 };
-	Uint32 color = SDL_MapRGB( mappingFormat, 0xFF, 0x00, 0x00 );
+
 	// >WARNINGS< якогось біса не працюе прозорість;
-	Uint32 transparent = SDL_MapRGBA( mappingFormat, 0xFF, 0xFF, 0xFF, 0x00 );
+//	Uint32 transparent = SDL_MapRGBA( mappingFormat, 0xFF, 0xFF, 0xFF, 0x00 );
+//			printf("%S\n", L"ТЫ ПИДОР");
+	printf("KEK\n");
 	if (loadedImage != NULL)
 	{
-		SDL_Surface* formattedSurface = SDL_ConvertSurfaceFormat( loadedImage, SDL_GetWindowPixelFormat( box->wind ), NULL );
+
+		int kek = SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(loadedImage->format, 0xFF, 0x00, 0x00));
+		SDL_Surface* formattedSurface = SDL_ConvertSurfaceFormat( loadedImage, SDL_PIXELFORMAT_RGBA8888, 0);
+		texture = SDL_CreateTextureFromSurface(box->renderer, formattedSurface);
+		SDL_FreeSurface(formattedSurface);
+		SDL_FreeSurface(loadedImage);
+
+		printf("KEK2: %d\n", kek);
+
+		/*
 		texture = SDL_CreateTexture( box->renderer, SDL_GetWindowPixelFormat( box->wind ), SDL_TEXTUREACCESS_STREAMING, formattedSurface->w, formattedSurface->h );
 		SDL_LockTexture( texture, NULL, &(**new_txtr).pixels, &(**new_txtr).pitch );
 		ft_memcpy((**new_txtr).pixels, formattedSurface->pixels, formattedSurface->pitch * loadedImage->h);
@@ -61,6 +70,7 @@ SDL_Texture* LoadImage(char *file, t_box *box, t_texture **new_txtr)
 		(**new_txtr).pixels = (void *)pixel;
 		printf("Load w = %d h = %d\n", loadedImage->w, loadedImage->h);
 		SDL_UnlockTexture( texture );
+		*/
 	}
 	else
 		printf("error %s\n", file);
