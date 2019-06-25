@@ -8,6 +8,6 @@ void ft_bb(t_gen *gen)
 		SDL_WarpMouseInWindow(gen->win, WIN_W / 2, WIN_H / 2);
 	}
 	SDL_Quit();
-	//system("leaks generator");
+	system("leaks generator");
 	exit(0);
 }

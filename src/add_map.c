@@ -3,7 +3,7 @@
 void	generation_map(t_gen *gen, char *x, char *y)
 {
 	int i;
-	int fd;
+	char *path;
 	int mx;
 	int my;
 
@@ -30,18 +30,24 @@ void	generation_map(t_gen *gen, char *x, char *y)
 		ft_putendl("Param\"Y\" too big(max 200)");
 		my = 200;
 	}
-	fd = open(ft_strjoin(ft_strjoin("maps/map", ft_itoa(i)), ".map"), O_RDONLY);
+	path = ft_strjoin(ft_strjoin("maps/map", ft_itoa(i)), ".map");
+	gen->allmap->fd = open(path, O_RDONLY);
 	// fd = open("maps/map0.map", O_RDONLY);
-	while (fd != -1)
+	while (gen->allmap->fd != -1)
 	{
 		i++;
-		fd = open(ft_strjoin(ft_strjoin("maps/map", ft_itoa(i)), ".map"), O_RDONLY);
+		free(path);
+		path = ft_strjoin(ft_strjoin("maps/map", ft_itoa(i)), ".map");
+		gen->allmap->fd = open(path, O_RDONLY);
 	}
-	close(fd);
-	gen->allmap->map_name = ft_strjoin(ft_strjoin("maps/map", ft_itoa(i)), ".map");
-	fd = open(gen->allmap->map_name, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
-	close(fd);
-	ft_putendl(ft_strjoin("Created new map with name ", gen->allmap->map_name));
+	close(gen->allmap->fd);
+	gen->allmap->map_name = ft_strdup(path);
+	free(path);
+	gen->allmap->fd = open(gen->allmap->map_name, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
+	close(gen->allmap->fd);
+	path = ft_strjoin("Created new map with name ", gen->allmap->map_name);
+	ft_putendl(path);
+	free(path);
 	gen->allmap->x = mx;
 	gen->allmap->y = my;
 	i = 0;

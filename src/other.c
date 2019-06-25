@@ -39,16 +39,16 @@ int	ts(t_el_text *text)
 
 t_uid		*get_new_uid(t_gen *gen)
 {
-	t_uid	*element;
+	t_uid	*srcs;
 
-	if (!(element = maloc_alt(sizeof(t_uid))))
-		exit(0);
-	element->id = wery_i_f(gen);
-	element->uix = 0;
-	element->uiy = 0;
-	element->uiw = 100;
-	element->uih = 100;
-	return (element);
+	if (!(srcs = maloc_alt(sizeof(t_uid))))
+		ft_bb(gen);
+	srcs->id = wery_i_f(gen);
+	srcs->uix = 0;
+	srcs->uiy = 0;
+	srcs->uiw = 100;
+	srcs->uih = 100;
+	return (srcs);
 }
 
 int		r_a_i(int r, int g, int b, int a)
@@ -175,12 +175,12 @@ void			end_gen_rend(t_gen *gen,
 
 void	*maloc_alt(size_t size)
 {
-	void	*element;
+	void	*srcs;
 
-	if (!(element = malloc(size)))
+	if (!(srcs = malloc(size)))
 		return (NULL);
-	ft_bzero(element, size);
-	return (element);
+	ft_bzero(srcs, size);
+	return (srcs);
 }
 
 void			key_inp_par(t_gen *gen)
