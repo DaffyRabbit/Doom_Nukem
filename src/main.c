@@ -1,5 +1,23 @@
 #include "gen.h"
 
+int this_map_or_not(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i] != '\0')
+	{
+		i++;
+	}
+	i--;
+	if (str[i--] == 'p')
+		if (str[i--] == 'a')
+			if (str[i--] == 'm')
+				if (str[i--] == '.')
+					return (0);
+	return (-1);
+}
+
 int main(int argc, char **argv)
 {
 	int i;
@@ -38,11 +56,16 @@ int main(int argc, char **argv)
 	m.allmap = (t_map_box *)malloc(sizeof(t_map_box));
 	if (argc == 2)
 	{
+		if (this_map_or_not(argv[1]) != 0)
+		{
+			ft_putendl("Wrong param!");
+			ft_bb(&m);
+		}
 		m.allmap->map_name = ft_strdup(argv[1]);
 		m.allmap->fd = open(m.allmap->map_name, O_RDONLY);
 		if (m.allmap->fd < 0)
 		{
-			ft_putendl("Wrong param or map not found!");
+			ft_putendl("Map not found!");
 			ft_bb(&m);
 		}
 	}

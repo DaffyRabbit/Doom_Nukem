@@ -230,7 +230,7 @@ void 	load_generus_pls(t_gen *gen)
 	red->selected_block = NULL;
 	red->r = new_sdlrect(red->x_gen, red->y_gen, red->w_gen, red->h_gen);
 	red->this_el_par = SDL_CreateRGBSurfaceWithFormat(0, red->w_gen, red->h_gen, 32, gen->surface->format->format);
-	red->qua.cam_scale = red->r.h / gen->allmap->x * 0.9;
+	red->qua.cam_scale = red->r.h / gen->allmap->y * 0.9;
 	red->qua.def_x = red->r.w / 2 - gen->allmap->x * red->qua.cam_scale / 2;
 	red->qua.def_y = red->r.h / 2 - gen->allmap->y * red->qua.cam_scale / 2;
 	red->qua.pos_x = red->r.x;

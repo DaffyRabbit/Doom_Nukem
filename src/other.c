@@ -192,8 +192,8 @@ void			key_inp_par(t_gen *gen)
 	select = e->selected_block;
 	if (select && gen->generus.hand_tool == tool_block && select >= 0)
 	{
-		if (e->x_focus >= 0 && e->y_focus >= 0 && e->x_focus < gen->allmap->y
-			&& e->y_focus < gen->allmap->x)
+		if (e->x_focus >= 0 && e->y_focus >= 0 && e->x_focus < gen->allmap->x
+			&& e->y_focus < gen->allmap->y)
 		{
 			if (select->tool_index != repeat_tool)
 				{

@@ -32,19 +32,20 @@ void	generation_map(t_gen *gen, char *x, char *y)
 	}
 	path = ft_strjoin(ft_strjoin("maps/map", ft_itoa(i)), ".map");
 	gen->allmap->fd = open(path, O_RDONLY);
-	// fd = open("maps/map0.map", O_RDONLY);
 	while (gen->allmap->fd != -1)
 	{
 		i++;
+		if (i > 250)
+		{
+			ft_putendl("You created max maps already!");
+			ft_bb(gen);
+		}
 		free(path);
 		path = ft_strjoin(ft_strjoin("maps/map", ft_itoa(i)), ".map");
 		gen->allmap->fd = open(path, O_RDONLY);
-	}
-	close(gen->allmap->fd);
+	};
 	gen->allmap->map_name = ft_strdup(path);
 	free(path);
-	gen->allmap->fd = open(gen->allmap->map_name, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
-	close(gen->allmap->fd);
 	path = ft_strjoin("Created new map with name ", gen->allmap->map_name);
 	ft_putendl(path);
 	free(path);
@@ -81,6 +82,11 @@ int write_this (t_gen *gen, char *path)
 	int fd;
 	
 	y = 0;
+	if (gen->allmap->fd < 0)
+	{
+		gen->allmap->fd = open(gen->allmap->map_name, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
+		close(gen->allmap->fd);
+	}
 	fd = open(path, O_WRONLY | O_CREAT | O_TRUNC | O_NOFOLLOW);
 	while (gen->allmap->y > y)
 	{
