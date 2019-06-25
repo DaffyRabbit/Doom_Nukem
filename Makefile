@@ -13,7 +13,16 @@ SRC_N	=		main.c\
 				add_map.c\
 				other.c\
 				alt_join.c\
-				bb.c
+				bb.c\
+				second_onerow_funct.c\
+				malloc_alt.c\
+				onerow_funct.c\
+				get_info.c\
+				bucket.c\
+				paint.c\
+				text_param.c\
+				ttf_param.c\
+				load_param.c
 
 SRC_P 			= ./src/
 OBJ 			= $(addprefix $(OBJ_P),$(SRC_N:.c=.o))

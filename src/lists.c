@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lists.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aperesad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/25 20:04:59 by aperesad          #+#    #+#             */
+/*   Updated: 2019/06/25 20:05:00 by aperesad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gen.h"
 
 t_list	*ft_lstgetfirst(t_list *lst)
@@ -13,7 +25,7 @@ void	free_alt(void *ptr)
 	ptr = NULL;
 }
 
-void	ft_lstdel_alt(t_list *lst, int free_content)
+void		ft_lstdel_alt(t_list *lst, int free_content)
 {
 	t_list	*element;
 	t_list	*next;
@@ -30,7 +42,6 @@ void	ft_lstdel_alt(t_list *lst, int free_content)
 		element = next;
 	}
 }
-
 
 void	ft_lstdelone_alt(t_list *el)
 {
@@ -89,9 +100,9 @@ void	lbox_add(t_lbox *container, void *content)
 	}
 	else
 	{
-		container->next = ft_lstadd_alt(container->next, ft_lstnew_alt(content));
+		container->next = ft_lstadd_alt(container->next,
+			ft_lstnew_alt(content));
 	}
-	
 }
 
 void	lbox_remove(t_lbox *l, t_list *element)

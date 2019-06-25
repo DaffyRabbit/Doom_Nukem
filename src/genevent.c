@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   genevent.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aperesad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/25 19:50:09 by aperesad          #+#    #+#             */
+/*   Updated: 2019/06/25 19:50:11 by aperesad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gen.h"
 
-void		i_need_tx(t_gen *gen, SDL_Surface *s, char *st, SDL_Rect poscols)
+void					i_need_tx(t_gen *gen,
+	SDL_Surface *s, char *st, SDL_Rect poscols)
 {
-	SDL_Surface *su;
+	SDL_Surface	*su;
 	TTF_Font	*f;
 	int			w;
 	int			h;
@@ -23,13 +36,13 @@ void		i_need_tx(t_gen *gen, SDL_Surface *s, char *st, SDL_Rect poscols)
 		free(st);
 }
 
-void	load_new_ev(t_gen *gen)
+void					load_new_ev(t_gen *gen)
 {
 	if ((gen->events = lbox_new()) == NULL)
 		ft_bb(gen);
 }
 
-void	del_ev(t_gen *gen, SDL_Event sdl_event)
+void					del_ev(t_gen *gen, SDL_Event sdl_event)
 {
 	t_list				*list;
 	t_registered_event	*event;

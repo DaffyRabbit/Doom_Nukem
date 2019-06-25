@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_events.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aperesad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/25 20:02:06 by aperesad          #+#    #+#             */
+/*   Updated: 2019/06/25 20:02:07 by aperesad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gen.h"
 
-void	some_usful_ft(t_gen *gen, t_el_key *b, SDL_MouseButtonEvent ev)
+void					some_usful_ft(t_gen *gen, t_el_key *b,
+	SDL_MouseButtonEvent ev)
 {
 	(void)b;
 	if (ev.button == SDL_BUTTON_LEFT)
@@ -9,10 +22,11 @@ void	some_usful_ft(t_gen *gen, t_el_key *b, SDL_MouseButtonEvent ev)
 	}
 }
 
-void	add_to_surf(t_gen *gen, SDL_Event event, SDL_MouseButtonEvent ms)
+void					add_to_surf(t_gen *gen, SDL_Event event,
+	SDL_MouseButtonEvent ms)
 {
 	t_ren_params		*qr;
-	SDL_Rect				rc;
+	SDL_Rect			rc;
 
 	qr = &gen->generus.more_qua;
 	(void)event;
@@ -37,7 +51,7 @@ void	add_to_surf(t_gen *gen, SDL_Event event, SDL_MouseButtonEvent ms)
 	}
 }
 
-int		scan_m_surf(t_gen *gen, SDL_Event event)
+int							scan_m_surf(t_gen *gen, SDL_Event event)
 {
 	SDL_MouseButtonEvent	ms;
 
@@ -46,10 +60,10 @@ int		scan_m_surf(t_gen *gen, SDL_Event event)
 	return (1);
 }
 
-int		scan_mb_surf(t_gen *gen, SDL_Event event)
+int							scan_mb_surf(t_gen *gen, SDL_Event event)
 {
 	SDL_MouseButtonEvent	ms;
-	t_ren_params		*qr;
+	t_ren_params			*qr;
 	SDL_Rect				rc;
 
 	ms = event.button;
@@ -66,25 +80,28 @@ int		scan_mb_surf(t_gen *gen, SDL_Event event)
 	return (1);
 }
 
-int		scan_mw_surf(t_gen *gen, SDL_Event event)
+int							scan_mw_surf(t_gen *gen, SDL_Event event)
 {
-	SDL_MouseWheelEvent	wheel;
-	t_ren_params	*qr;
-	SDL_Rect			rc;
+	SDL_MouseWheelEvent		wheel;
+	t_ren_params			*qr;
+	SDL_Rect				rc;
 
 	wheel = event.wheel;
 	qr = &gen->generus.more_qua;
-	rc = new_sdlrect(qr->pos_x + qr->h_s->pos.x, qr->pos_y + qr->h_s->pos.y, qr->h_s->pos.w, qr->h_s->pos.h);
+	rc = new_sdlrect(qr->pos_x + qr->h_s->pos.x, qr->pos_y + qr->h_s->pos.y,
+		qr->h_s->pos.w, qr->h_s->pos.h);
 	if (where_m(gen->m_x, gen->m_y, rc))
 	{
 		af_up_bucket(gen, qr->h_s, wheel.y > 0 ? 1 : -1, 1);
 	}
-	rc = new_sdlrect(qr->pos_x + qr->ge_s->pos.x, qr->pos_y + qr->ge_s->pos.y, qr->ge_s->pos.w, qr->ge_s->pos.h);
+	rc = new_sdlrect(qr->pos_x + qr->ge_s->pos.x, qr->pos_y + qr->ge_s->pos.y,
+		qr->ge_s->pos.w, qr->ge_s->pos.h);
 	if (where_m(gen->m_x, gen->m_y, rc))
 	{
 		af_up_bucket(gen, qr->ge_s, wheel.y > 0 ? 1 : -1, 1);
 	}
-	rc = new_sdlrect(qr->pos_x + qr->ge_h->pos.x, qr->pos_y + qr->ge_h->pos.y, qr->ge_h->pos.w, qr->ge_h->pos.h);
+	rc = new_sdlrect(qr->pos_x + qr->ge_h->pos.x, qr->pos_y + qr->ge_h->pos.y,
+		qr->ge_h->pos.w, qr->ge_h->pos.h);
 	if (where_m(gen->m_x, gen->m_y, rc))
 	{
 		af_up_bucket(gen, qr->ge_h, wheel.y > 0 ? 1 : -1, 1);
@@ -92,7 +109,7 @@ int		scan_mw_surf(t_gen *gen, SDL_Event event)
 	return (1);
 }
 
-int		push_keys(t_gen *gen, SDL_Event sdl_event)
+int							push_keys(t_gen *gen, SDL_Event sdl_event)
 {
 	t_list					*tmp;
 	t_el_key				*tmp_button;
@@ -116,7 +133,7 @@ int		push_keys(t_gen *gen, SDL_Event sdl_event)
 	return (1);
 }
 
-int		m_param_1(t_gen *gen, SDL_Event sdl_event)
+int							m_param_1(t_gen *gen, SDL_Event sdl_event)
 {
 	SDL_MouseMotionEvent	motion;
 	int						m_x;
@@ -132,7 +149,7 @@ int		m_param_1(t_gen *gen, SDL_Event sdl_event)
 	return (1);
 }
 
-int		m_param_2(t_gen *gen, SDL_Event sdl_event)
+int							m_param_2(t_gen *gen, SDL_Event sdl_event)
 {
 	SDL_MouseButtonEvent	mouse;
 	t_generator				*e;
@@ -154,9 +171,9 @@ int		m_param_2(t_gen *gen, SDL_Event sdl_event)
 	return (0);
 }
 
-int		gen_scale_map(t_gen *gen, SDL_Event sdl_event)
+int							gen_scale_map(t_gen *gen, SDL_Event sdl_event)
 {
-	SDL_MouseWheelEvent	wheel;
+	SDL_MouseWheelEvent		wheel;
 
 	wheel = sdl_event.wheel;
 	if (where_m(gen->m_x, gen->m_y, gen->generus.r))
@@ -166,37 +183,15 @@ int		gen_scale_map(t_gen *gen, SDL_Event sdl_event)
 	return (1);
 }
 
-int		this_is_end(t_gen *gen, SDL_Event sdl_event)
+int							this_is_end(t_gen *gen, SDL_Event sdl_event)
 {
 	(void)sdl_event;
 	ft_bb(gen);
 	return (0);
 }
 
-int		params_keys(t_gen *gen, SDL_Event sdl_event)
+void						param_keys2(t_gen *gen, SDL_Event sdl_event)
 {
-	if (sdl_event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-		ft_bb(gen);
-	if (sdl_event.key.keysym.scancode == SDL_SCANCODE_LEFT)
-	{
-		gen->eve_id -= gen->eve_id_scale;
-		if (gen->eve_id < 0)
-			gen->eve_id = 0;
-	}
-	if (sdl_event.key.keysym.scancode == SDL_SCANCODE_RIGHT)
-	{
-		gen->eve_id += gen->eve_id_scale;
-		if(gen->generus.selected_block->tool_c != wall_tool)
-		{
-			if (gen->eve_id > 8)
-				gen->eve_id = 8;
-		}
-		else
-		{
-			if (gen->eve_id > 7)
-				gen->eve_id = 7;
-		}
-	}
 	if (sdl_event.key.keysym.scancode == SDL_SCANCODE_UP)
 	{
 		gen->eve_id_scale++;
@@ -213,5 +208,32 @@ int		params_keys(t_gen *gen, SDL_Event sdl_event)
 	{
 		print_map(gen);
 	}
+}
+
+int							params_keys(t_gen *gen, SDL_Event sdl_event)
+{
+	if (sdl_event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+		ft_bb(gen);
+	if (sdl_event.key.keysym.scancode == SDL_SCANCODE_LEFT)
+	{
+		gen->eve_id -= gen->eve_id_scale;
+		if (gen->eve_id < 0)
+			gen->eve_id = 0;
+	}
+	if (sdl_event.key.keysym.scancode == SDL_SCANCODE_RIGHT)
+	{
+		gen->eve_id += gen->eve_id_scale;
+		if (gen->generus.selected_block->tool_c != wall_tool)
+		{
+			if (gen->eve_id > 8)
+				gen->eve_id = 8;
+		}
+		else
+		{
+			if (gen->eve_id > 7)
+				gen->eve_id = 7;
+		}
+	}
+	param_keys2(gen, sdl_event);
 	return (0);
 }

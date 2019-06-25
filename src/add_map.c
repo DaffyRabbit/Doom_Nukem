@@ -46,7 +46,7 @@ void	generation_map(t_gen *gen, char *x, char *y)
 	};
 	gen->allmap->map_name = ft_strdup(path);
 	free(path);
-	path = ft_strjoin("Created new map with name ", gen->allmap->map_name);
+	path = ft_strjoin("Creating new map with name ", gen->allmap->map_name);
 	ft_putendl(path);
 	free(path);
 	gen->allmap->x = mx;

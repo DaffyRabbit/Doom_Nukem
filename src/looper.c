@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   looper.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aperesad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/25 20:06:10 by aperesad          #+#    #+#             */
+/*   Updated: 2019/06/25 20:06:23 by aperesad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gen.h"
 
 void		show_k_for_me(t_gen *gen, SDL_Surface *surface,
@@ -66,9 +78,11 @@ void	this_generus_2(t_gen *gen)
 	t_generator	*red;
 
 	red = &gen->generus;
-	paint_r_2(red->this_el_par, new_sdlrect(0, 0, red->r.w, red->r.h), 0xFF336699, 1);
+	paint_r_2(red->this_el_par, new_sdlrect(0, 0,
+		red->r.w, red->r.h), 0xFF336699, 1);
 	key_ch_par(gen);
-	paint_r_2(red->this_el_par, new_sdlrect(0, 0, red->r.w, red->r.h), 0xFF000000, 0);
+	paint_r_2(red->this_el_par, new_sdlrect(0, 0,
+		red->r.w, red->r.h), 0xFF000000, 0);
 	SDL_BlitSurface(red->this_el_par, NULL, gen->generus.surf_gen, &red->r);
 	if (red->selected_block)
 	{
@@ -77,14 +91,18 @@ void	this_generus_2(t_gen *gen)
 		gen->generus.current_tool->text = ft_strjoin("Tool type : ",
 		gen->selected_block);
 		tx_pre(gen, gen->generus.current_tool, 1, 0);
-		if (red->selected_block->tool_index != repeat_tool && red->selected_block->tool_index != startpoint_tool && red->selected_block->tool_index != door_tool)
+		if (red->selected_block->tool_index != repeat_tool &&
+			red->selected_block->tool_index != startpoint_tool &&
+			red->selected_block->tool_index != door_tool)
 		{
 			gen_show_this_for_me(gen, red);
 		}
 	}
-	paint_r_2(red->gen_s, new_sdlrect(0, 0, red->gen_r.w, red->gen_r.h), 0xFF005582, 1);
+	paint_r_2(red->gen_s, new_sdlrect(0, 0, red->gen_r.w, red->gen_r.h),
+		0xFF005582, 1);
 	update_all_tools(gen);
-	paint_r_2(red->gen_s, new_sdlrect(0, 0, red->gen_r.w, red->gen_r.h), 0xFF333333, 0);
+	paint_r_2(red->gen_s, new_sdlrect(0, 0, red->gen_r.w, red->gen_r.h),
+		0xFF333333, 0);
 	SDL_BlitSurface(red->gen_s, NULL, gen->generus.surf_gen, &red->gen_r);
 	SDL_BlitSurface(red->more_surf, NULL, gen->generus.surf_gen, &red->more_r);
 }
@@ -106,8 +124,10 @@ void	this_generus(t_gen *gen)
 	this_generus_2(gen);
 	show_k_for_me(gen, red->surf_gen, red->save);
 	re_text(gen, red->surf_gen, red->current_tool);
-	paint_r(red->surf_gen, new_sdlrect(WIN_W - 710, 0, 3, 80), red->base_color, 1);
-	paint_r(red->surf_gen, new_sdlrect(WIN_W - 300, 0, 3, 80), red->base_color, 1);
+	paint_r(red->surf_gen, new_sdlrect(WIN_W - 710, 0, 3, 80),
+		red->base_color, 1);
+	paint_r(red->surf_gen, new_sdlrect(WIN_W - 300, 0, 3, 80),
+		red->base_color, 1);
 	gen->tmp_color = new_rgb_mask(218, 248, 227, 255);
 }
 

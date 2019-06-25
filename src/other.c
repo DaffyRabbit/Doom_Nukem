@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   other.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aperesad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/25 19:15:21 by aperesad          #+#    #+#             */
+/*   Updated: 2019/06/25 19:15:22 by aperesad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gen.h"
 
-t_tool_t	*tool_t(t_gen *gen, int bt)
+t_tool_t			*tool_t(t_gen *gen, int bt)
 {
-	t_list			*tmp;
+	t_list		*tmp;
 	t_tool_t	*tmpbt;
 
 	tmp = gen->toll_code->prev;
@@ -16,128 +28,7 @@ t_tool_t	*tool_t(t_gen *gen, int bt)
 	return (NULL);
 }
 
-void	gen_show_this_for_me(t_gen *gen, t_generator *red)
-{
-	i_need_tx(gen, red->surf_gen, ft_strjoin_alt("Object ID: ", ft_itoa(gen->eve_id), 0), new_sdlrect(WIN_W - 680, 25, 18, 0));
-}
-
-int		wery_i_f(t_gen *gen)
-{
-	return (gen->ui_ids++);
-}
-
-void	how_b_look_like(t_gen *gen, int tool)
-{
-	gen->generus.tool_block->background_color = tool == tool_block ?
-		gen->generus.select_color : gen->generus.base_color;
-}
-
-int	ts(t_el_text *text)
-{
-	return (TTF_SizeUTF8(text->font, text->text, &text->weighu, &text->heighu));
-}
-
-t_uid		*get_new_uid(t_gen *gen)
-{
-	t_uid	*srcs;
-
-	if (!(srcs = maloc_alt(sizeof(t_uid))))
-		ft_bb(gen);
-	srcs->id = wery_i_f(gen);
-	srcs->uix = 0;
-	srcs->uiy = 0;
-	srcs->uiw = 100;
-	srcs->uih = 100;
-	return (srcs);
-}
-
-int		r_a_i(int r, int g, int b, int a)
-{
-	return ((a & 0xff) << 24 | (r & 0xff) << 16 | (g & 0xff) << 8 | (b & 0xff));
-}
-
-int		where_b(t_el_key *button, int x, int y)
-{
-	if (x >= button->real_x && x <= (button->real_x + button->rect.w))
-		if (y >= button->real_y && y <= (button->real_y + button->rect.h))
-			return (1);
-	return (0);
-}
-
-void	updait_b(t_el_key *but, int x, int y)
-{
-	but->real_x += x;
-	but->real_y += y;
-}
-
-void	last_up_tool(t_gen *gen, t_list *tmp, int x, int y)
-{
-	t_tool_t	*tmp_bt;
-
-	tmp_bt = (t_tool_t *)tmp->content;
-	paint_r_2(gen->generus.gen_s, new_sdlrect(x, y, 170, 70),
-		tmp_bt->tool_c, 1);
-	gen->tmp_color = new_rgb_mask(0, 0, 0, 255);
-	i_need_tx(gen, gen->generus.gen_s,
-		tmp_bt->tool_id, new_sdlrect(x + 10, y + 22, 20, 0));
-	if (lcm() && where_m(gen->m_x, gen->m_y,
-			new_sdlrect(gen->generus.gen_r.x
-				+ x, gen->generus.gen_r.y + y, 170, 70)))
-		take_tool_t(gen, tmp_bt);
-}
-
-void		repeat_tool_t(t_gen *gen, t_tool_t *type, t_strc_type *blk)
-{
-	gen->generus.selected_block = type;
-	gen->generus.foc.bonus_param = blk->tool_t;
-	something_new(gen);
-}
-
-void		take_tool_t(t_gen *gen, t_tool_t *type)
-{
-	gen->generus.selected_block = type;
-	if (gen->generus.selected_block->tool_index != repeat_tool)
-		gen->eve_id = 0;
-	gen->generus.foc.bonus_param = type->tool_index;
-	something_new(gen);
-}
-
-void		something_new(t_gen *gen)
-{
-	t_generator *e;
-
-	e = &gen->generus;
-}
-
-void		for_one_time(t_strc_type *dest, t_strc_type *src, int free2)
-{
-	dest->tool_t = src->tool_t;
-	if (free2)
-		free(src);
-}
-
-void		reset_tt(t_strc_type *dest)
-{
-	dest->tool_t = wall_tool;
-}
-
-void	gen_update_surf(t_gen *gen)
-{
-	t_generator	*e;
-
-	e = &gen->generus;
-	if (e->selected_block)
-	{
-		gen->selected_block = ft_strdup(e->selected_block->tool_id);
-		free(gen->generus.current_tool->text);
-		gen->generus.current_tool->text = ft_strjoin_alt("Tool type : ", gen->selected_block, 0);
-		tx_pre(gen, gen->generus.current_tool, 1, 0);
-		if (e->selected_block->tool_index != repeat_tool)
-			gen_show_this_for_me(gen, e);
-	}
-}
-
-void	chek_gen_surf(t_gen *gen, t_ren_params *qr,
+void				chek_gen_surf(t_gen *gen, t_ren_params *qr,
 	SDL_MouseWheelEvent wheel, SDL_Rect rc)
 {
 	rc = new_sdlrect(qr->pos_x + qr->ge_s->pos.x, qr->pos_y
@@ -154,7 +45,7 @@ void	chek_gen_surf(t_gen *gen, t_ren_params *qr,
 	}
 }
 
-void			end_gen_rend(t_gen *gen,
+void				end_gen_rend(t_gen *gen,
 	int x, SDL_Rect r, t_ren_params *q)
 {
 	int y;
@@ -173,20 +64,10 @@ void			end_gen_rend(t_gen *gen,
 	}
 }
 
-void	*maloc_alt(size_t size)
-{
-	void	*srcs;
-
-	if (!(srcs = malloc(size)))
-		return (NULL);
-	ft_bzero(srcs, size);
-	return (srcs);
-}
-
-void			key_inp_par(t_gen *gen)
+void				key_inp_par(t_gen *gen)
 {
 	t_generator		*e;
-	t_tool_t	*select;
+	t_tool_t		*select;
 
 	e = &gen->generus;
 	select = e->selected_block;
@@ -196,25 +77,27 @@ void			key_inp_par(t_gen *gen)
 			&& e->y_focus < gen->allmap->y)
 		{
 			if (select->tool_index != repeat_tool)
-				{
-					gen->allmap->map[e->x_focus][e->y_focus] = e->selected_block->tool_index;
-					gen->allmap->event_id[e->x_focus][e->y_focus] = gen->eve_id;
-				};
+			{
+				gen->allmap->map[e->x_focus][e->y_focus] =
+				e->selected_block->tool_index;
+				gen->allmap->event_id[e->x_focus][e->y_focus] = gen->eve_id;
+			}
 			if (select->tool_index == repeat_tool)
-				{
-					take_tool_t(gen, tool_t(gen, gen->allmap->map[e->x_focus][e->y_focus]));
-					gen->eve_id = gen->allmap->event_id[e->x_focus][e->y_focus];
-				}
+			{
+				take_tool_t(gen, tool_t(gen,
+					gen->allmap->map[e->x_focus][e->y_focus]));
+				gen->eve_id = gen->allmap->event_id[e->x_focus][e->y_focus];
+			}
 		}
 	}
 }
 
-void			key_ch_par(t_gen *gen)
+void				key_ch_par(t_gen *gen)
 {
 	t_ren_params	*q;
-	int					x;
-	int					y;
-	SDL_Rect			r;
+	int				x;
+	int				y;
+	SDL_Rect		r;
 
 	q = &gen->generus.qua;
 	y = 0;
