@@ -82,6 +82,7 @@ int write_this (t_gen *gen, char *path)
 	int fd;
 	
 	y = 0;
+	gen->allmap->fd = open(gen->allmap->map_name, O_RDONLY);
 	if (gen->allmap->fd < 0)
 	{
 		gen->allmap->fd = open(gen->allmap->map_name, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
