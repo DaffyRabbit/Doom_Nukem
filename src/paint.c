@@ -26,7 +26,7 @@ SDL_Rect		new_sdlrect(int x, int y, int width, int height)
 void			paint_r(SDL_Surface *s, SDL_Rect rect, SDL_Color color,
 	int fill_rect)
 {
-	SDL_Rect 	rc;
+	SDL_Rect	rc;
 
 	if (fill_rect)
 		SDL_FillRect(s, &rect, r_a_i(color.r, color.g, color.b, color.a));
@@ -46,7 +46,7 @@ void			paint_r(SDL_Surface *s, SDL_Rect rect, SDL_Color color,
 void			paint_r_2(SDL_Surface *s, SDL_Rect rect, Uint32 color,
 	int fill_rect)
 {
-	SDL_Rect 	rc;
+	SDL_Rect	rc;
 
 	if (fill_rect)
 		SDL_FillRect(s, &rect, color);

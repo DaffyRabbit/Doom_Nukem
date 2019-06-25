@@ -22,7 +22,12 @@ SRC_N	=		main.c\
 				paint.c\
 				text_param.c\
 				ttf_param.c\
-				load_param.c
+				load_param.c\
+				lbox_operations.c\
+				scan.c\
+				this_generus.c\
+				list_operations.c\
+				key_params.c
 
 SRC_P 			= ./src/
 OBJ 			= $(addprefix $(OBJ_P),$(SRC_N:.c=.o))

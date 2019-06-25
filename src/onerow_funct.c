@@ -14,8 +14,14 @@
 
 void				gen_show_this_for_me(t_gen *gen, t_generator *red)
 {
-	i_need_tx(gen, red->surf_gen, ft_strjoin_alt("Object ID: ",
-	ft_itoa(gen->eve_id), 0), new_sdlrect(WIN_W - 680, 25, 18, 0));
+	char	*res;
+	char	*str;
+
+	res = ft_itoa(gen->eve_id);
+	str = ft_strjoin_alt("Object ID: ", res, 0);
+	i_need_tx(gen, red->surf_gen, str, new_sdlrect(WIN_W - 680, 25, 18, 0));
+	free(str);
+	free(res);
 }
 
 int					wery_i_f(t_gen *gen)

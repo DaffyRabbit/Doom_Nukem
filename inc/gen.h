@@ -201,6 +201,8 @@ typedef struct		s_generator
 
 struct				s_gen
 {
+	int				mx;
+	int				my;
 	t_map_box 		*allmap;
 	int				eve_id;
 	int 			eve_id_scale;
@@ -249,7 +251,8 @@ enum	e_tools
 };
 
 int main(int argc, char **argv);
-void	print_map(t_gen *gen);
+void	ft_lstdelone_alt(t_list *el);
+void	print_map(t_gen *gen, int y);
 int		chek_num(char *str, int x, int y, t_gen *gen);
 void	add_map2(t_gen *gen);
 void	add_map(t_gen *gen);

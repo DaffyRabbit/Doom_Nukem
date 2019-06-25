@@ -1,56 +1,77 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add_map.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rhusak <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/25 20:54:14 by rhusak            #+#    #+#             */
+/*   Updated: 2019/06/25 20:54:16 by rhusak           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gen.h"
 
-void	generation_map(t_gen *gen, char *x, char *y)
+char *ft_create_path(int i)
 {
-	int i;
-	char *path;
-	int mx;
-	int my;
+	char *f;
+	char *s;
+	char *t;
 
-	mx = ft_atoi(x);
-	my = ft_atoi(y);
-	i = 0;
-	if (mx < 5)
+	f = ft_itoa(i);
+	s = ft_strjoin("maps/map", f);
+	t = ft_strjoin(s, ".map");
+	free(f);
+	free(s);
+	return (t);
+}
+
+void		mx_my_param(t_gen *gen, char *x, char *y)
+{
+	gen->mx = ft_atoi(x);
+	gen->my = ft_atoi(y);
+
+	if (gen->mx < 5)
 	{
 		ft_putendl("Param\"X\" too small(min 5)");
-		mx = 5;
+		gen->mx = 5;
 	}
-	if (mx > 200)
+	if (gen->mx > 200)
 	{
 		ft_putendl("Param\"X\" too big(max 200)");
-		mx = 200;
+		gen->mx = 200;
 	}
-	if (my < 5)
+	if (gen->my < 5)
 	{
 		ft_putendl("Param\"Y\" too small(min 5)");
-		my = 5;
+		gen->my = 5;
 	}
-	if (my > 200)
+	if (gen->my > 200)
 	{
 		ft_putendl("Param\"Y\" too big(max 200)");
-		my = 200;
+		gen->my = 200;
 	}
-	path = ft_strjoin(ft_strjoin("maps/map", ft_itoa(i)), ".map");
-	gen->allmap->fd = open(path, O_RDONLY);
-	while (gen->allmap->fd != -1)
+}
+
+int			allmap_loop(t_gen *gen, int i, char **path)
+{
+	close(gen->allmap->fd);
+	i++;
+	free(*path);
+	if (i > 250)
 	{
-		i++;
-		if (i > 250)
-		{
-			ft_putendl("You created max maps already!");
-			ft_bb(gen);
-		}
-		free(path);
-		path = ft_strjoin(ft_strjoin("maps/map", ft_itoa(i)), ".map");
-		gen->allmap->fd = open(path, O_RDONLY);
-	};
-	gen->allmap->map_name = ft_strdup(path);
-	free(path);
-	path = ft_strjoin("Creating new map with name ", gen->allmap->map_name);
-	ft_putendl(path);
-	free(path);
-	gen->allmap->x = mx;
-	gen->allmap->y = my;
+		ft_putendl("You created max maps already!");
+		ft_bb(gen);
+	}
+	*path = ft_create_path(i);
+	gen->allmap->fd = open(*path, O_RDONLY);
+	return (i);
+}
+
+void	map_malloc(t_gen *gen)
+{
+	int	i;
+
 	i = 0;
 	gen->allmap->map = (int **)malloc(sizeof(int *) * gen->allmap->x + 1);
 	gen->allmap->event_id = (int **)malloc(sizeof(int *) * gen->allmap->x + 1);
@@ -60,26 +81,65 @@ void	generation_map(t_gen *gen, char *x, char *y)
 		gen->allmap->event_id[i] = (int *)malloc(sizeof(int) * gen->allmap->y + 1);
 		i++;
 	}
-	my = 0;
-	while (gen->allmap->y >= my)
+	gen->my = 0;
+	while (gen->allmap->y >= gen->my)
 	{
-		mx = 0;
-		while (gen->allmap->x >= mx)
+		gen->mx = 0;
+		while (gen->allmap->x >= gen->mx)
 		{
-			gen->allmap->map[mx][my] = 1;
-			gen->allmap->event_id[mx][my] = 0;
-			mx++;
+			gen->allmap->map[gen->mx][gen->my] = 1;
+			gen->allmap->event_id[gen->mx][gen->my] = 0;
+			gen->mx++;
 		}
-		my++;
+		gen->my++;
 	}
 }
 
-int write_this (t_gen *gen, char *path)
+void		generation_map(t_gen *gen, char *x, char *y)
 {
-	int res;
-	int x;
-	int y;
-	int fd;
+	int		i;
+	char	*path;
+
+	i = 0;
+	mx_my_param(gen, x, y);
+	path = ft_create_path(i);
+	gen->allmap->fd = open(path, O_RDONLY);
+	while (gen->allmap->fd != -1)
+	{
+		i = allmap_loop(gen, i, &path);
+	}
+	gen->allmap->map_name = ft_strdup(path);
+	free(path);
+	path = ft_strjoin("Created new map with name ", gen->allmap->map_name);
+	ft_putendl(path);
+	free(path);
+	gen->allmap->x = gen->mx;
+	gen->allmap->y = gen->my;
+	map_malloc(gen);
+}
+
+void		write_loop(t_gen *gen, int x, int y, int fd)
+{
+	int		res;
+	char	*hyu;
+
+	if (gen->allmap->map[x][y] == 999)
+		res = 999;
+	if (gen->allmap->map[x][y] == 1 || gen->allmap->map[x][y] == 25)
+		res = gen->allmap->map[x][y] + gen->allmap->event_id[x][y];
+	if (gen->allmap->map[x][y] == 34)
+		res = 34;
+	hyu = ft_itoa(res);
+	ft_putstr_fd(hyu, fd);
+	ft_putchar_fd(' ', fd);
+	free(hyu);
+}
+
+int			write_this (t_gen *gen, char *path)
+{
+	int		x;
+	int		y;
+	int		fd;
 	
 	y = 0;
 	gen->allmap->fd = open(gen->allmap->map_name, O_RDONLY);
@@ -94,14 +154,7 @@ int write_this (t_gen *gen, char *path)
 		x = 0;
 		while (gen->allmap->x > x)
 		{
-			if (gen->allmap->map[x][y] == 999)
-				res = 999;
-			if (gen->allmap->map[x][y] == 1 || gen->allmap->map[x][y] == 25)
-				res = gen->allmap->map[x][y] + gen->allmap->event_id[x][y];
-			if (gen->allmap->map[x][y] == 34)
-				res = 34;
-			ft_putstr_fd(ft_itoa(res), fd);
-			ft_putchar_fd(' ', fd);
+			write_loop(gen, x, y, fd);
 			x++;
 		}
 		ft_putchar_fd('\n', fd);
@@ -112,21 +165,22 @@ int write_this (t_gen *gen, char *path)
 
 void	save_this(t_gen *gen, t_el_key *b, SDL_MouseButtonEvent ev)
 {
+	char *str;
 
 	(void)ev;
 	b->is_disabled = 1;
-	ft_putendl(ft_strjoin("Saving file in ", gen->allmap->map_name));
+	str = ft_strjoin("Saving file in ", gen->allmap->map_name);
+	ft_putendl(str);
+	free(str);
 	write_this(gen, gen->allmap->map_name);
 	b->is_disabled = 0;
 }
 
-void	print_map(t_gen *gen)
+void	print_map(t_gen *gen, int y)
 {
 	int res;
 	int x;
-	int y;
 
-	y = 0;
 	while (gen->allmap->y > y)
 	{
 		x = 0;
@@ -150,10 +204,48 @@ void	print_map(t_gen *gen)
 	ft_putchar('\n');
 }
 
+int		chek_num_check(t_gen *gen, int res, int x, int y)
+{
+	if (res >= 0 && res <= 9)
+	{
+		gen->allmap->map[x][y] = 1;
+		if (res != 0)
+			gen->allmap->event_id[x][y] = res - 1;
+		else
+			gen->allmap->event_id[x][y] = res;
+		return (-1);
+	}
+	if (res == 999)
+	{
+		gen->allmap->map[x][y] = 999;
+		gen->allmap->event_id[x][y] = 0;
+		return (-1);
+	}
+	return (0);
+}
+
+int		chek_num_sec_check(t_gen *gen, int res, int x, int y)
+{
+	if (res >= 25 && res <= 32)
+	{
+		gen->allmap->map[x][y] = 25;
+		gen->allmap->event_id[x][y] = res - 25;
+		return (-1);
+	}
+	if (res == 34)
+	{
+		gen->allmap->map[x][y] = 34;
+		gen->allmap->event_id[x][y] = 34;
+		return (-1);
+	}
+	return (0);
+}
+
 int		chek_num(char *str, int x, int y, t_gen *gen)
 {
 	int i;
 	int res;
+	int	a;
 
 	i = 1;
 	res = 0;
@@ -168,33 +260,10 @@ int		chek_num(char *str, int x, int y, t_gen *gen)
 		res += str[i] - 48;
 		i++;
 	}
-	if (res >= 0 && res <= 9)
-	{
-		gen->allmap->map[x][y] = 1;
-		if (res != 0)
-			gen->allmap->event_id[x][y] = res - 1;
-		else
-			gen->allmap->event_id[x][y] = res;
+	if ((a = chek_num_check(gen, res, x, y)) == -1)
 		return (0);
-	}
-	if (res == 999)
-	{
-		gen->allmap->map[x][y] = 999;
-		gen->allmap->event_id[x][y] = 0;
+	if ((a = chek_num_sec_check(gen, res, x, y)) == -1)
 		return (0);
-	}
-	if (res >= 25 && res <= 32)
-	{
-		gen->allmap->map[x][y] = 25;
-		gen->allmap->event_id[x][y] = res - 25;
-		return (0);
-	}
-	if (res == 34)
-	{
-		gen->allmap->map[x][y] = 34;
-		gen->allmap->event_id[x][y] = 34;
-		return (0);
-	}
 	return (-1);
 }
 
@@ -235,7 +304,7 @@ void	add_map2(t_gen *gen)
 		j++;
 	}
 	close(gen->allmap->fd);
-	print_map(gen);
+	print_map(gen, 0);
 }
 
 void	add_map(t_gen *gen)
@@ -279,6 +348,7 @@ void	add_map(t_gen *gen)
 			free(str_map);
 		}
 	}
+	system("leaks generator");
 	if (gen->allmap->y < 5 || gen->allmap->y > 200 || gen->allmap->x < 5 || gen->allmap->x > 200)
 	{
 		ft_putendl("Map too big/small!!!");
