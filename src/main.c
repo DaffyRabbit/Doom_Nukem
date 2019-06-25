@@ -35,6 +35,17 @@ int main(int argc, char **argv)
 			}
 		}
 	}
+	m.allmap = (t_map_box *)malloc(sizeof(t_map_box));
+	if (argc == 2)
+	{
+		m.allmap->map_name = ft_strdup(argv[1]);
+		m.allmap->fd = open(m.allmap->map_name, O_RDONLY);
+		if (m.allmap->fd < 0)
+		{
+			ft_putendl("Wrong param or map not found!");
+			ft_bb(&m);
+		}
+	}
 	init_all(&m);
 	load_some_code(&m);
 	m.selected_block = ft_strdup("none");
@@ -44,16 +55,12 @@ int main(int argc, char **argv)
 	load_ttf(&m);
 	m.surface = SDL_GetWindowSurface(m.win);
 	m.s_pixels = m.surface->pixels;
-	m.allmap = (t_map_box *)malloc(sizeof(t_map_box));
 	m.allmap->y = 0;
 	m.allmap->x = 0;
 	m.eve_id = 0;
 	m.eve_id_scale = 1;
 	if (argc == 2)
-	{
-		m.allmap->map_name = ft_strdup(argv[1]);
 		add_map(&m);
-	}
 	else
 		generation_map(&m, argv[1], argv[2]);
 	load_generus_pls(&m);

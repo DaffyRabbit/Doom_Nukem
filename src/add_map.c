@@ -51,12 +51,12 @@ void	generation_map(t_gen *gen, char *x, char *y)
 	gen->allmap->x = mx;
 	gen->allmap->y = my;
 	i = 0;
-	gen->allmap->map = (int **)malloc(sizeof(int *) * gen->allmap->y + 1);
-	gen->allmap->event_id = (int **)malloc(sizeof(int *) * gen->allmap->y + 1);
-	while (gen->allmap->y >= i)
+	gen->allmap->map = (int **)malloc(sizeof(int *) * gen->allmap->x + 1);
+	gen->allmap->event_id = (int **)malloc(sizeof(int *) * gen->allmap->x + 1);
+	while (gen->allmap->x >= i)
 	{
-		gen->allmap->map[i] = (int *)malloc(sizeof(int) * gen->allmap->x + 1);
-		gen->allmap->event_id[i] = (int *)malloc(sizeof(int) * gen->allmap->x + 1);
+		gen->allmap->map[i] = (int *)malloc(sizeof(int) * gen->allmap->y + 1);
+		gen->allmap->event_id[i] = (int *)malloc(sizeof(int) * gen->allmap->y + 1);
 		i++;
 	}
 	my = 0;
@@ -198,15 +198,15 @@ void	add_map2(t_gen *gen)
 	char *line;
 	char **str_map;
 
-	j = 0;
 	i = 0;
+	j = 0;
 	gen->allmap->fd = open(gen->allmap->map_name, O_RDONLY);
-	gen->allmap->map = (int **)malloc(sizeof(int *) * gen->allmap->y + 1);
-	gen->allmap->event_id = (int **)malloc(sizeof(int *) * gen->allmap->y + 1);
-	while (gen->allmap->y >= i)
+	gen->allmap->map = (int **)malloc(sizeof(int *) * gen->allmap->x + 1);
+	gen->allmap->event_id = (int **)malloc(sizeof(int *) * gen->allmap->x + 1);
+	while (gen->allmap->x >= i)
 	{
-		gen->allmap->map[i] = (int *)malloc(sizeof(int) * gen->allmap->x + 1);
-		gen->allmap->event_id[i] = (int *)malloc(sizeof(int) * gen->allmap->x + 1);
+		gen->allmap->map[i] = (int *)malloc(sizeof(int) * gen->allmap->y + 1);
+		gen->allmap->event_id[i] = (int *)malloc(sizeof(int) * gen->allmap->y + 1);
 		i++;
 	}
 	while (get_next_line(gen->allmap->fd, &line) > 0)
@@ -239,9 +239,6 @@ void	add_map(t_gen *gen)
 	char *line;
 
 	i = 0;
-	gen->allmap->fd = open(gen->allmap->map_name, O_RDONLY);
-	if (gen->allmap->fd < 0)
-		ft_bb(gen);
 	if (get_next_line(gen->allmap->fd, &line) > 0)
 	{
 		gen->allmap->y = 1;
