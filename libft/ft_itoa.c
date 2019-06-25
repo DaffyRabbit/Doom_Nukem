@@ -12,47 +12,31 @@
 
 #include "libft.h"
 
-static unsigned int		ft_size(int n)
+char	*ft_itoa(int n)
 {
-	int size;
+	char	*str;
+	char	*tmp;
+	long	a;
 
-	size = 0;
-	if (n < 0)
-		size = 1;
-	while (n / 10)
-	{
-		size++;
-		n = n / 10;
-	}
-	return ((unsigned int)size);
-}
-
-char					*ft_itoa(int n)
-{
-	char			*str;
-	unsigned int	size;
-	long			number;
-
-	number = n;
-	size = ft_size(n);
-	str = ft_strnew(size + 1);
-	if (!str)
+	if (!(str = ft_strnew(0)))
 		return (NULL);
-	if (number == 0)
+	if (!(tmp = ft_strnew(1)))
+		return (NULL);
+	a = (long)n;
+	a = a < 0 ? -a : a;
+	if (a == 0)
+		str = ft_strdup("0");
+	while (a > 0)
 	{
-		str[0] = 48;
-		return (str);
+		tmp[0] = (char)(a % 10) + 48;
+		if (!(str = ft_strjoin(tmp, str)))
+			return (NULL);
+		a = a / 10;
 	}
-	if (number < 0)
+	if (n < 0)
 	{
-		str[0] = '-';
-		number = -number;
-	}
-	while ((number % 10) > 0 || (number / 10 != 0))
-	{
-		str[size--] = '0' + (number % 10);
-		number = number / 10;
+		if (!(str = ft_strjoin((char*)"-", str)))
+			return (NULL);
 	}
 	return (str);
 }
-
