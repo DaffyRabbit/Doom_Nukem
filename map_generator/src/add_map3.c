@@ -84,8 +84,8 @@ void	print_map(t_gen *gen, int y, int x, int res)
 		{
 			if (gen->allmap->map[x][y] == 999)
 				res = 999;
-			if (gen->allmap->map[x][y] == 1)
-				res = gen->allmap->map[x][y] + gen->allmap->event_id[x][y] - 1;
+			if (gen->allmap->map[x][y] == 2 || gen->allmap->map[x][y] == 0)
+				res = gen->allmap->map[x][y] + gen->allmap->event_id[x][y];
 			if (gen->allmap->map[x][y] == 25)
 				res = gen->allmap->map[x][y] + gen->allmap->event_id[x][y];
 			if (gen->allmap->map[x][y] == 34)
