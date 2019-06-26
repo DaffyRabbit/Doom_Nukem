@@ -114,7 +114,8 @@ typedef struct			s_font
 
 enum					e_toll_code
 {
-	event_tool = 1,
+	air_tool = 0,
+	event_tool = 2,
 	wall_tool = 25,
 	door_tool = 34,
 	startpoint_tool = 999,
@@ -307,7 +308,7 @@ void					load_ev(t_gen *gen);
 SDL_Rect				new_sdlrect(int x, int y, int width, int height);
 void					paint_r(SDL_Surface *s, SDL_Rect rect, SDL_Color color,
 																int fill_rect);
-void					paint_r_2(SDL_Surface *s, SDL_Rect rect, Uint32 color,
+void					paint_r_2(t_gen *gen, SDL_Surface *s, SDL_Rect rect, Uint32 color,
 						int fill_rect);
 SDL_Color				new_rgb_mask(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 t_el_text				*add_tx(t_gen *gen,

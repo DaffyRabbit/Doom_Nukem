@@ -19,7 +19,9 @@ void	write_loop(t_gen *gen, int x, int y, int fd)
 
 	if (gen->allmap->map[x][y] == 999)
 		res = 999;
-	if (gen->allmap->map[x][y] == 1 || gen->allmap->map[x][y] == 25)
+	if (gen->allmap->map[x][y] == 0)
+		res = 0;
+	if (gen->allmap->map[x][y] == 2 || gen->allmap->map[x][y] == 25)
 		res = gen->allmap->map[x][y] + gen->allmap->event_id[x][y];
 	if (gen->allmap->map[x][y] == 34)
 		res = 34;
@@ -102,13 +104,16 @@ void	print_map(t_gen *gen, int y, int x, int res)
 
 int		chek_num_check(t_gen *gen, int res, int x, int y)
 {
-	if (res >= 0 && res <= 9)
+	if (res >= 0 && res <= 1)
 	{
-		gen->allmap->map[x][y] = 1;
-		if (res != 0)
-			gen->allmap->event_id[x][y] = res - 1;
-		else
-			gen->allmap->event_id[x][y] = res;
+		gen->allmap->map[x][y] = 0;
+		gen->allmap->event_id[x][y] = 0;
+		return (-1);
+	}
+	if (res >= 2 && res <= 9)
+	{
+		gen->allmap->map[x][y] = 2;
+		gen->allmap->event_id[x][y] = res;
 		return (-1);
 	}
 	if (res == 999)

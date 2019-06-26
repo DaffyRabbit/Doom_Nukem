@@ -43,7 +43,8 @@ void	load_some_code(t_gen *gen)
 	gen->toll_code = lbox_new();
 	lbox_add(gen->toll_code, new_tool_t(gen, "Copy Settings", 0xFF47593c,
 		repeat_tool));
-	lbox_add(gen->toll_code, new_tool_t(gen, "Event", 0xFFe5e5e5, event_tool));
+	lbox_add(gen->toll_code, new_tool_t(gen, "Event", 0xFFff9005, event_tool));
+	lbox_add(gen->toll_code, new_tool_t(gen, "Air", 0xFFe5e5e5, air_tool));
 	lbox_add(gen->toll_code, new_tool_t(gen, "Wall", 0xFF4c4c4c, wall_tool));
 	lbox_add(gen->toll_code, new_tool_t(gen, "Spawn Point", 0xFFa31010,
 		startpoint_tool));

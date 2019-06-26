@@ -87,7 +87,7 @@ void	map_malloc(t_gen *gen)
 		gen->mx = 0;
 		while (gen->allmap->x >= gen->mx)
 		{
-			gen->allmap->map[gen->mx][gen->my] = 1;
+			gen->allmap->map[gen->mx][gen->my] = 0;
 			gen->allmap->event_id[gen->mx][gen->my] = 0;
 			gen->mx++;
 		}

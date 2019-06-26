@@ -14,10 +14,10 @@
 
 void	key_init(t_gen *gen, t_generator *red)
 {
-	paint_r_2(red->gen_s, new_sdlrect(0, 0, red->gen_r.w, red->gen_r.h),
+	paint_r_2(gen, red->gen_s, new_sdlrect(0, 0, red->gen_r.w, red->gen_r.h),
 		0xFF005582, 1);
 	update_all_tools(gen);
-	paint_r_2(red->gen_s, new_sdlrect(0, 0, red->gen_r.w, red->gen_r.h),
+	paint_r_2(gen, red->gen_s, new_sdlrect(0, 0, red->gen_r.w, red->gen_r.h),
 		0xFF333333, 0);
 	SDL_BlitSurface(red->gen_s, NULL, gen->generus.surf_gen, &red->gen_r);
 	SDL_BlitSurface(red->more_surf, NULL, gen->generus.surf_gen, &red->more_r);
@@ -28,10 +28,10 @@ void	this_generus_2(t_gen *gen)
 	t_generator	*red;
 
 	red = &gen->generus;
-	paint_r_2(red->this_el_par, new_sdlrect(0, 0,
+	paint_r_2(gen, red->this_el_par, new_sdlrect(0, 0,
 		red->r.w, red->r.h), 0xFF336699, 1);
 	key_ch_par(gen);
-	paint_r_2(red->this_el_par, new_sdlrect(0, 0,
+	paint_r_2(gen, red->this_el_par, new_sdlrect(0, 0,
 		red->r.w, red->r.h), 0xFF000000, 0);
 	SDL_BlitSurface(red->this_el_par, NULL, gen->generus.surf_gen, &red->r);
 	if (red->selected_block)
@@ -44,10 +44,9 @@ void	this_generus_2(t_gen *gen)
 		tx_pre(gen, gen->generus.current_tool, 1, 0);
 		if (red->selected_block->tool_index != repeat_tool &&
 			red->selected_block->tool_index != startpoint_tool &&
-			red->selected_block->tool_index != door_tool)
-		{
+			red->selected_block->tool_index != door_tool &&
+			red->selected_block->tool_index != air_tool)
 			gen_show_this_for_me(gen, red);
-		}
 	}
 	key_init(gen, red);
 }
@@ -65,7 +64,7 @@ void	this_generus(t_gen *gen)
 		gen->generus.c_focus = 1;
 	else
 		gen->generus.c_focus = -1;
-	paint_r_2(red->surf_gen, new_sdlrect(0, 0, WIN_W, 80), 0xFF005582, 1);
+	paint_r_2(gen, red->surf_gen, new_sdlrect(0, 0, WIN_W, 80), 0xFF005582, 1);
 	this_generus_2(gen);
 	show_k_for_me(gen, red->surf_gen, red->save);
 	re_text(gen, red->surf_gen, red->current_tool);

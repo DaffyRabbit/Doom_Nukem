@@ -66,7 +66,7 @@ void			load_generus_pls_third(t_gen *gen, t_generator *red)
 	red->more_qua.param1 = gen_help(gen, new_sdlrect(256, 50, 29, 29), 0);
 	red->more_qua.param2 = gen_help(gen, new_sdlrect(256, 90, 29, 29), 0);
 	take_new_tool(gen, tool_block);
-	paint_r_2(red->surf_gen, new_sdlrect(0, 0, WIN_W, WIN_H), 0xFF00C2C7, 1);
+	paint_r_2(gen, red->surf_gen, new_sdlrect(0, 0, WIN_W, WIN_H), 0xFF00C2C7, 1);
 }
 
 void			load_generus_pls_sec(t_gen *gen, t_generator *red)

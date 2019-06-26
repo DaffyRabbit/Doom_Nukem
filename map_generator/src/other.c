@@ -59,7 +59,7 @@ void				end_gen_rend(t_gen *gen,
 		gen->generus.y_focus = y;
 		r = new_sdlrect(q->def_x + x * q->cam_scale, q->def_y
 		+ y * q->cam_scale, q->cam_scale, q->cam_scale);
-		paint_r_2(gen->generus.this_el_par, r, gen->generus.selected_block ?
+		paint_r_2(gen, gen->generus.this_el_par, r, gen->generus.selected_block ?
 			gen->generus.selected_block->tool_c : 0xFFFF0000, 0);
 	}
 }
@@ -108,7 +108,7 @@ void				key_ch_par(t_gen *gen)
 		{
 			r = new_sdlrect(q->def_x + x * q->cam_scale, q->def_y +
 				y * q->cam_scale, q->cam_scale, q->cam_scale);
-			paint_r_2(gen->generus.this_el_par, r, tool_t(gen,
+			paint_r_2(gen, gen->generus.this_el_par, r, tool_t(gen,
 					gen->allmap->map[x][y])->tool_c, 1);
 			x++;
 		}

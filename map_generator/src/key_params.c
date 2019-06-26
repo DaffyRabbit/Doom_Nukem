@@ -45,16 +45,8 @@ int							params_keys(t_gen *gen, SDL_Event sdl_event)
 	if (sdl_event.key.keysym.scancode == SDL_SCANCODE_RIGHT)
 	{
 		gen->eve_id += gen->eve_id_scale;
-		if (gen->generus.selected_block->tool_c != wall_tool)
-		{
-			if (gen->eve_id > 8)
-				gen->eve_id = 8;
-		}
-		else
-		{
-			if (gen->eve_id > 7)
-				gen->eve_id = 7;
-		}
+		if (gen->eve_id > 7)
+			gen->eve_id = 7;
 	}
 	param_keys2(gen, sdl_event);
 	return (0);

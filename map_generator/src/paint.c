@@ -43,17 +43,19 @@ void			paint_r(SDL_Surface *s, SDL_Rect rect, SDL_Color color,
 	}
 }
 
-void			paint_r_2(SDL_Surface *s, SDL_Rect rect, Uint32 color,
+void			paint_r_2(t_gen *gen, SDL_Surface *s, SDL_Rect rect, Uint32 color,
 	int fill_rect)
 {
 	SDL_Rect	rc;
 
+	gen->mx = gen->mx;
 	if (fill_rect)
 		SDL_FillRect(s, &rect, color);
 	else
 	{
 		rc = new_sdlrect(rect.x, rect.y, rect.w, 1);
 		SDL_FillRect(s, &rc, color);
+		//i_need_tx(gen, s, "NUM", rc);
 		rc = new_sdlrect(rect.x, rect.y + rect.h - 1, rect.w, 1);
 		SDL_FillRect(s, &rc, color);
 		rc = new_sdlrect(rect.x, rect.y, 1, rect.h);

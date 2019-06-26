@@ -31,7 +31,7 @@ void				last_up_tool(t_gen *gen, t_list *tmp, int x, int y)
 	t_tool_t		*tmp_bt;
 
 	tmp_bt = (t_tool_t *)tmp->content;
-	paint_r_2(gen->generus.gen_s, new_sdlrect(x, y, 170, 70),
+	paint_r_2(gen, gen->generus.gen_s, new_sdlrect(x, y, 170, 70),
 		tmp_bt->tool_c, 1);
 	gen->tmp_color = new_rgb_mask(0, 0, 0, 255);
 	i_need_tx(gen, gen->generus.gen_s,
