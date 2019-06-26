@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "doomnukem.h"
 
 void		dog_sprite_side(t_box *box)
 {

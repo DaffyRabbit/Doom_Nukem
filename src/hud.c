@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "doomnukem.h"
 
 int		ft_face_start(t_box *box)
 {

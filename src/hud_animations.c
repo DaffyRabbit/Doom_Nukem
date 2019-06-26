@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "doomnukem.h"
 
 void		ft_r_bars_face(t_box *box)
 {

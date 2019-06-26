@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "doomnukem.h"
 
 int		open_map(t_box *box)
 {
@@ -18,14 +18,11 @@ int		open_map(t_box *box)
 	return (box->map_fd);
 }
 
-int		ft_check_all(t_box *box)
+int		ft_check_all(t_box *box, int i)
 {
-	int	i;
-
-	i = 0;
 	if (check_wrong(box) < 0)
 	{
-		close(box->map_fd);
+		fail_check_wrong(box);
 		return (-1);
 	}
 	if (small_map(box) == -9)
@@ -39,9 +36,11 @@ int		ft_check_all(t_box *box)
 	open_map(box);
 	if (check_map(box) < 0)
 	{
-		close(box->map_fd);
+		fail_check_wrong(box);
 		return (-1);
 	}
+	if ((i = doors_validation(box, 1)) == -1)
+		return (-2);
 	close(box->map_fd);
 	return (0);
 }
@@ -51,9 +50,15 @@ int		check_wrong(t_box *box)
 	char	*line;
 
 	if (open_map(box) == -1)
+	{
+		ft_putendl("map cannot be open");
 		return (box->error = -2);
+	}
 	if (get_next_line(box->map_fd, &line) == 0)
+	{
+		ft_putendl("cannot read from the file");
 		return (box->error = -3);
+	}
 	free(line);
 	return (check_line(box));
 }
@@ -66,13 +71,22 @@ int		check_c(char *str)
 	while (str[i] != '\0')
 	{
 		if (!(str[i] >= '0' && str[i] <= '9'))
+		{
+			ft_putendl("please, use only digits and spaces!");
 			return (-1);
+		}
 		if (i > 4)
+		{
+			ft_putendl("please, use numbers between 0 and 1000");
 			return (-1);
+		}
 		i++;
 	}
 	if (str[0] == '0' && i > 1)
+	{
+		ft_putendl("Zero before the number");
 		return (-1);
+	}
 	return (0);
 }
 

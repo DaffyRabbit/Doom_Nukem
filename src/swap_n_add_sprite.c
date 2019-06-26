@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "doomnukem.h"
 
 void		ft_my_swap1(t_box *box, int i, int j)
 {

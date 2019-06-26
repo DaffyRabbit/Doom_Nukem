@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "doomnukem.h"
 
 void				ifc_map_name(t_box *box, t_arg *arg)
 {
@@ -26,7 +26,7 @@ void				ifc_map_name(t_box *box, t_arg *arg)
 		{
 			pic = render_text_red(box->map_list.map_name[ch +
 				box->map_list.c_list - 1], "ttf/mainfont.ttf", 35, box->rend);
-			apply_surface(944, y, pic, box->rend);
+			apply_menu_surface(944, y, pic, box->rend);
 			y += 54;
 			box->start = ch + box->map_list.c_list - 1;
 			ch++;
@@ -53,7 +53,7 @@ void				ifp_map_name(t_box *box, t_arg *arg)
 		{
 			pic = render_text_purp(box->map_list.map_name[ch +
 				box->map_list.c_list - 1], "ttf/mainfont.ttf", 35, box->rend);
-			apply_surface(944, y, pic, box->rend);
+			apply_menu_surface(944, y, pic, box->rend);
 			y += 54;
 			ch++;
 		}
@@ -79,7 +79,7 @@ void				ifcnp_map_name(t_box *box, t_arg *arg)
 		{
 			pic = render_text_red(box->map_list.map_name[ch +
 				box->map_list.c_list - 1], "ttf/mainfont.ttf", 35, box->rend);
-			apply_surface(944, y, pic, box->rend);
+			apply_menu_surface(944, y, pic, box->rend);
 			y += 54;
 			box->start = ch + box->map_list.c_list - 1;
 			ch++;

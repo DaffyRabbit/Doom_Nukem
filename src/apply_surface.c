@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "doomnukem.h"
 
 void			apply_surface(int x, int y,
 	SDL_Texture *tex, SDL_Renderer *rend)
@@ -21,6 +21,18 @@ void			apply_surface(int x, int y,
 	pos.y = y;
 	SDL_QueryTexture(tex, NULL, NULL, &pos.w, &pos.h);
 	SDL_RenderCopy(rend, tex, NULL, &pos);
+}
+
+void			apply_menu_surface(int x, int y,
+	SDL_Texture *tex, SDL_Renderer *rend)
+{
+	SDL_Rect	pos;
+
+	pos.x = x;
+	pos.y = y;
+	SDL_QueryTexture(tex, NULL, NULL, &pos.w, &pos.h);
+	SDL_RenderCopy(rend, tex, NULL, &pos);
+	SDL_DestroyTexture(tex);
 }
 
 void			apply_texture(int x, int y, t_box *box)

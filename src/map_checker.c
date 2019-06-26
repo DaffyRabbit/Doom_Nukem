@@ -10,7 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "doomnukem.h"
+
+int			doors_validation(t_box *box, int i)
+{
+	int		j;
+
+	while (i < box->mapy)
+	{
+		j = 1;
+		while (j < box->mapx)
+		{
+			if (box->all_map[i][j] == 34)
+			{
+				if (box->all_map[i - 1][j] == 34 || box->all_map[i + 1][j] ==
+					34 || box->all_map[i - 1][j] == 34 || box->all_map[i]
+					[j + 1] == 34 || box->all_map[i][j - 1] == 34)
+					return (-1);
+				if (box->all_map[i - 1][j] < 25 || box->all_map[i + 1][j] < 25)
+				{
+					if (box->all_map[i][j - 1] < 25 ||
+						box->all_map[i][j + 1] < 25)
+						return (-1);
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
 
 int			check_map(t_box *box)
 {
@@ -57,32 +86,45 @@ int			add_to_map(char *str)
 		if (str[i] != '\0')
 			res *= 10;
 	}
+	if ((res > 9 && res < 25) || (res > 34 && res != 999) ||
+		res == 1 || res == 33)
+		res = 0;
 	return (res);
 }
 
-int			check_map_par(t_box *box, char *str, int i, int n)
+int			start_point(t_box *box, int i, int n)
 {
-	int		block;
+	box->cam.position.x = i + 0.5;
+	box->cam.position.y = box->uselessy + 0.5;
+	box->all_map[box->uselessy][i] = 0;
+	n *= 2;
+	return (n);
+}
 
-	block = add_to_map(str);
-	if ((box->uselessy == 0 || box->uselessy == box->mapy) &&
-		(block == 0 || block == 999))
-		return (-1);
-	if ((block == 0 || block == 999) && (i == 0 || i == box->mapx))
-		return (-1);
-	if (block == 999)
+int			check_map_par(t_box *b, char *str, int i, int n)
+{
+	int		a;
+
+	a = add_to_map(str);
+	if ((b->uselessy == 0 || b->uselessy == b->mapy) && (a < 25 || a > 32))
+		a = 25;
+	if ((a < 25 || a > 32) && (i == 0 || i == b->mapx))
+		a = 25;
+	if (a == 999)
 	{
-		box->cam.position.x = i + 0.5;
-		box->cam.position.y = box->uselessy + 0.5;
-		box->all_map[box->uselessy][i] = 0;
-		n *= 2;
+		n = start_point(b, i, n);
 		return (n);
 	}
-	if (block == 4)
-		box->all_map[box->uselessy][i] = 0;
+	if (a == 4)
+		b->all_map[b->uselessy][i] = 0;
 	else
-		box->all_map[box->uselessy][i] = block;
-	if (block >= 2 && block <= 9)
-		add_sprite(box, block, i, box->uselessy);
+		b->all_map[b->uselessy][i] = a;
+	if (a >= 2 && a <= 9)
+	{
+		b->sprites_amount++;
+		add_sprite(b, a, i, b->uselessy);
+	}
+	if (b->sprites_amount > 59)
+		return (-1);
 	return (n);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "doomnukem.h"
 
 void		add_resources(t_box *box)
 {
@@ -38,6 +38,7 @@ void		add_resources(t_box *box)
 	box->mirror_effect = 0;
 	box->light_power = 1.0;
 	box->no_shadow = 0;
+	box->sprites_amount = 0;
 }
 
 int			main(void)

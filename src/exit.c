@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "doomnukem.h"
 
 void	all_destroy(t_box *box)
 {
@@ -29,5 +29,7 @@ int		small_map(t_box *box)
 {
 	if (box->mapx >= 5 && box->mapy >= 5)
 		return (0);
+	else
+		ft_putendl("Error! Map should have at least 5 rows and 5 columns");
 	return (box->error = -9);
 }

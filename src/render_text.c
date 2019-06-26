@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "doomnukem.h"
 
 SDL_Texture		*render_text_purp(char *message, char *font_file, int font_size,
 					SDL_Renderer *renderer)

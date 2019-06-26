@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "doomnukem.h"
 
 void			lets_begin(t_box *box)
 {
@@ -27,14 +27,29 @@ void			lets_begin(t_box *box)
 	lets_start_game(box);
 }
 
+void			ft_supp(t_box *box)
+{
+	ft_putendl("please, launch ./generator to create a new map");
+	all_destroy(box);
+}
+
 void			press_start(t_box *box, t_arg *arg)
 {
+	int			i;
+
+	i = 0;
+	if (arg->mnb == 4)
+		ft_supp(box);
 	if ((box->mousex > 527 && box->mousex < 727) &&
 		(box->mousey > 447 && box->mousey < 525) && arg->z != -1)
 	{
-		if ((ft_check_all(box)) == -1)
+		if ((i = ft_check_all(box, 0)) < 0)
 		{
-			close(box->map_fd);
+			if (i == -2)
+				ft_putendl("two doors in a row / doors in the end "
+					"of the wall");
+			if (box->map_fd)
+				close(box->map_fd);
 			all_destroy(box);
 		}
 		else

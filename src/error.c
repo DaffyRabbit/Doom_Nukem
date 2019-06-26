@@ -10,7 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "doomnukem.h"
+
+void	fail_check_wrong(t_box *box)
+{
+	close(box->map_fd);
+	if (box->error == -6)
+		ft_putendl("map isn't rectangle!");
+	if (box->error == -7)
+		ft_putendl("too many sprites");
+	if (box->error == -8)
+		ft_putendl("more than one start point");
+}
 
 void	fatal_error2(int er, t_box *box)
 {

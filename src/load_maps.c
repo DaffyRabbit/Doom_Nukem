@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "doomnukem.h"
 
 int					ft_chek_dfile(char *str, char *f)
 {
@@ -114,7 +114,7 @@ void				show_map_name(t_box *box, t_arg *arg, int ch)
 		{
 			pic = render_text_blue(box->map_list.map_name[ch +
 				box->map_list.c_list - 1], "ttf/mainfont.ttf", 35, box->rend);
-			apply_surface(944, y, pic, box->rend);
+			apply_menu_surface(944, y, pic, box->rend);
 			y += 54;
 			ch++;
 		}
